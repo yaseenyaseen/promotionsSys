@@ -329,4 +329,16 @@ class HamshController extends Controller
         return redirect()->route('hamshs.forms.sciplanindex')
             ->with('success','Form of Scientific plan is deleted successfully');
     }
+
+    public function testgithub function (Form $form_id)
+    {
+        //
+        $form = Form::find($form_id)[0];
+
+        $form->delete();
+
+        return redirect()->route('hamshs.forms.sciplanindex')
+            ->with('success','Form of Scientific plan is deleted successfully');
+    }
+
 }
