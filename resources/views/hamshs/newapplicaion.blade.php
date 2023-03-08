@@ -48,10 +48,10 @@
                     <div>
                         <select name="sci_title">
                             <option value="">Select options</option>
-                            <option value="مدرس مساعد">مدرس مساعد</option>
-                            <option value="مدرس">مدرس</option>
-                            <option value="استاذ مساعد">استاذ مساعد</option>
-                            <option value="استاذ">استاذ</option>
+                            <option value="1">مدرس مساعد</option>
+                            <option value="2">مدرس</option>
+                            <option value="3">استاذ مساعد</option>
+                            <option value="4">استاذ</option>
                         </select>
                     </div>
                 </label>

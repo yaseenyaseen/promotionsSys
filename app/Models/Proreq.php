@@ -16,7 +16,7 @@ class Proreq extends Model
         'selectData_id',
         'completed',
     ];
-    public function hamash(){
+    public function hamsh(){
         return $this->belongsTo(Hamsh::class);
     }
     public function selectData(){

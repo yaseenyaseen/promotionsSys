@@ -5,32 +5,33 @@
             <div class="pull-left">
                 <h2>طباعة قائمة الهوامش ومراحل سير معاملة الترقية حسب تسلسل المرجعيات </h2>
             </div>
-            <div class="pull-right">
+           {{-- <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
-            </div>
+            </div>--}}
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Title:</strong>
-                {{ $hamsh->title }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Description:</strong>
-                {{ $hamsh->description }}
+                <strong>مقدم الطلب :</strong>
+                {{ $hamsh->Applicant_hamsh }}
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>مقدم الطلب :</strong>
-                {{ $hamsh->Sci_plan_Applicant }}
+                <strong>هامش رئيس القسم :</strong>
+                {{ $hamsh->Sci_Dep_hamsh }}
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>هامش مسؤول خطة بحثية كلية :</strong>
+                {{ $hamsh->official_hamsh }}
+            </div>
+        </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>شؤون علمية كلية:</strong>
@@ -61,7 +62,5 @@
                 {{ $hamsh->Sci_plan_presidency_Academic_Promotions_Affairs }}
             </div>
         </div>
-
-
     </div>
 @endsection

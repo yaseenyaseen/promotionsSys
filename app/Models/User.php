@@ -8,8 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Hash;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -19,6 +20,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+
         'name',
         'email',
         'college_id',
@@ -44,11 +46,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function college(){
+   /* public function college(){
         return $this->belongsTo(College::class);
+    }*/
+
+    /*public function proreq(){
+        return $this->hasMany(Proreq::class);
+    }*/
+    /*public function Degree(){
+        return $this->hasMany(Degree::class);
+    }*/
+    public function degree(){
+        return $this->belongsTo(Degree::class);
+    }
+    public function positionsHeldBy(){
+        return $this->belongsTo(PositionsHeldBy::class);
     }
 
-    public function proreq(){
-        return $this->hasMany(Proreq::class);
-    }
 }

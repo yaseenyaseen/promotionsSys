@@ -6,7 +6,7 @@
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h2>متطلبات الترقية- الخطة البحثية </h2>
-
+<h4> This page has information similar to sciplan.blade.php </h4>
                 <div class="dropdown show">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

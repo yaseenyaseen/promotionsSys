@@ -1,8 +1,9 @@
 <x-guest-layout>
+    <h1>Register</h1>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <img src="{{asset('img/logo.png')}}" class="'w-14 h-14 rounded">
+                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
 
@@ -25,13 +26,6 @@
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
-                <!-- Collage Address -->
-
-                <div class="mt-4">
-                    <x-label for="collage Enter college_ID" :value="__('Collage')" />
-
-                    <x-input id="college_id" class="block mt-1 w-full" type="text" name="college_id" :value="old('college_id')" required />
-                </div>
 
             <!-- Password -->
             <div class="mt-4">
