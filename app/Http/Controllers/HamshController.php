@@ -278,7 +278,10 @@ class HamshController extends Controller
                         //->latest()
                         ->get();
                     dd($reqs);*/
-
+//todo to optimise the following code:
+// merege two variable names into one variable name
+// "$promotion_reqsForHeadDepartment_Coll" and "$promotion_reqsForCollage
+// then in "SciPlanListForAdmins.blade.php" view make one loop only.
                 $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
                     ->select('s.*', 'a.*')
                     ->join('promotion_reqs as a',
@@ -375,8 +378,12 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
     }
     public function createsciplanForm()
     {
-        //
-        return view('hamshs.forms.createform');
+        //todo: find papers of the user.and compact it
+        $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
+            ->latest('created_at')->first();
+        //$papers = Paper::where('promotionReqs_id', $PromotionReqUser->id)->get();
+        return $this->returnViewCreateForm($PromotionReqUser->id, null);
+        /*        return view('hamshs.forms.createform');*/
 
     }
 
@@ -468,7 +475,6 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
 
         //below code is the new coding for the storf method.
         $request->validate([]);
-       // SciPlan::create($request->all());
         Paper::create($request->all());
         $HForm_id = Paper::latest('created_at')->value('id');//HFrorm means the hamsh form.
 
@@ -476,34 +482,19 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
 
         $reqsos = PromotionReq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
         $proreq_id = $reqsos->id;
-        /*  $Hamsh = Hamsh::create($request->all());//
-          $Hamsh_id = Hamsh::latest('created_at')->value('id');
-          $Hamsh = Hamsh::find($Hamsh_id);*/
+
         $HForm->promotionReqs_id = $proreq_id;
-        //$HForm->Applicant_createdAt = Carbon::now();// Q/ whene I should save this value, is it at the begiiing of filling out the paper tbale or on th last recored.
 
-        //$HForm->Applicant_Id = Auth::user()->id;
         $HForm->save();
-        return redirect()->route('hamshs.forms.sciplanindex', Auth::user()->id)
+        return redirect()->route('createpapersdata')
             ->with('success', 'Hamsh created successfully.');
-        //        //below code is the old coding for the storf method.
+        //todo: consider the below code of edit form: //
+        //        // $hamsh = Hamsh::find($Ham_id)[0];
+        //        $hamsh = $Ham_id;
+        //        // $Hams = SciPlan::where('user_id', $user_id)->get();//HFrorm means the hamsh form.
+        //
+        //        return view('hamshs.forms.editHamshsciplan', compact('hamsh'));
 
-        // this form for sci_plans
-     /*   $request->validate([
-        ]);*/
-
-        /*Form::create($request->all());// delete this line @committed at 14 Feb 2023
-               SciPlan::create($request->all());
-               $Form_id = SciPlan::latest('created_at')->value('id');
-               $Form = SciPlan::find($Form_id);*/
-
-        /*      $reqsos = proreq::where('user_id',Auth::user()->id)-> latest('created_at')->first();// Q/ last promotion request only*/
-       /* $reqsos = PromotionReq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
-        $proreq_id = $reqsos->id;
-        $Form->promotionReqs_id = $proreq_id;
-        $Form->save();
-        return redirect()->route('hamshs.forms.sciplanindex')
-            ->with('success', 'Form created successfully.');*/
     }
 
     public function storefH(Request $request)
@@ -617,15 +608,48 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
      * @param \App\Models\Hamsh $hamsh
      * @return \Illuminate\Http\Response
      */
-    public function edit2(Form $form_id)
+    /*public function edit2(Form $form_id)
     {
         $form = Form::find($form_id)[0];
         //
         return view('hamshs.forms.edit', compact('form'));
 
+    }*/
+   /* public function edit2(Paper $selected_paperId)
+    {
+
+        $spaper = Paper::find($selected_paperId)[0];
+        //
+        return view('hamshs.forms.createform', compact('spaper'));
+
+    }*/
+
+    public function editPaper(Request $request) {
+        $selectedOptionId = $request->input('selected_option');
+        $selectedPaper = Paper::find($selectedOptionId);
+        //todo: how to delete following lines to find papers and make this
+        // method call (the method of call createform blade in this controller)
+        // method
+        $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
+            ->latest('created_at')->first();
+        //$papers = Paper::where('promotionReqs_id', $PromotionReqUser->id)->get();
+        return $this->returnViewCreateForm($PromotionReqUser->id, $selectedPaper);
+//        return view('hamshs.forms.createform', ['option' => $selectedOption],
+//        compact('papers'));
     }
 
+
     public function editHamshsciplan(SciPlan $Ham_id)
+    {
+        //
+        // $hamsh = Hamsh::find($Ham_id)[0];
+        $hamsh = $Ham_id;
+        // $Hams = SciPlan::where('user_id', $user_id)->get();//HFrorm means the hamsh form.
+
+        return view('hamshs.forms.editHamshsciplan', compact('hamsh'));
+    }
+
+    public function fillOutPaper(User $user_id)
     {
         //
         // $hamsh = Hamsh::find($Ham_id)[0];
@@ -649,7 +673,7 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
      * @param \App\Models\Hamsh $hamsh
      * @return \Illuminate\Http\Response
      */
-    public function update2(Request $request, Form $form_id)
+   /* public function update2(Request $request, Form $form_id)
     {
         $form = Form::find($form_id)[0];
         //
@@ -662,7 +686,44 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
 
         return redirect()->route('hamshs.forms.sciplanindex')
             ->with('success', 'The Scientific plan Form is updated successfully');
+    }*/
+    public function updatePaper(Request $request) {
+        $optionId = $request->input('option_id');
+        $option = Paper::find($optionId);
+       // $option->paper_title = $request->input('paper_title');
+       // $option->publish_date = $request->input('publish_date'); it does not work with date as with below singuleAuther.
+        //$option->singleAuther = $request->input('singleAuther');
+        $option->update($request->all());
+
+        $option->singleAuther = $request->has('singleAuther');
+        $option->Ispubished = $request->has('Ispubished');
+        $option->takenFromStdut_thesis = $request->has('takenFromStdut_thesis');
+        $option->exact_specialization = $request->has('exact_specialization');
+        $option->general_specialization = $request->has('general_specialization');
+        $option->Is_paper_fromApplTheses = $request->has('Is_paper_fromApplTheses');
+        $option->Is_paperRelated_CoAuther = $request->has('Is_paperRelated_CoAuther');
+        $option->Is_paper_AppSuperlTheses = $request->has('Is_paper_AppSuperlTheses');
+        $option->Is_paperRelated_CoAuther_Sup = $request->has('Is_paperRelated_CoAuther_Sup');
+        $option->Is_paper_CoSuperTheses = $request->has('Is_paper_CoSuperTheses');
+        $option->Is_paperRelated_CoSuper = $request->has('Is_paperRelated_CoSuper');
+        $option->Is_paper_CoTheses = $request->has('Is_paper_CoTheses');
+        $option->Is_paperRelated_CoTheses = $request->has('Is_paperRelated_CoTheses');
+        $option->Is_paper_OldProm = $request->has('Is_paper_OldProm');
+        $option->Is_paperRelated_CoAuther_OldProm = $request->has('Is_paperRelated_CoAuther_OldProm');
+        $option->Is_paper_From_Others = $request->has('Is_paper_From_Others');
+        $option->Is_paperRelated_CoAuther_From_Others = $request->has('Is_paperRelated_CoAuther_From_Others');
+        $option->sabbaticalLeave = $request->has('sabbaticalLeave');
+        $option->supportedPaper = $request->has('supportedPaper');
+        $option->Is_suppPaper_In_SciPlan = $request->has('Is_suppPaper_In_SciPlan');
+
+
+        $option->save();
+
+         return redirect()->route('NewApplicationBoard')
+             ->with('success', 'The Scientific plan Form is updated successfully');
+/*        return redirect()->back()->with('success', 'Option updated successfully');*/
     }
+
 
     public function updateHamshsciplan(Request $request, SciPlan $hamsh_id)
     {
@@ -737,5 +798,16 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
 
         return redirect()->route('hamshs.forms.sciplanindex')
             ->with('success', 'Form of Scientific plan is deleted successfully');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function returnViewCreateForm($id, $selectedPaper=null)
+    {
+        $papers = Paper::where('promotionReqs_id', $id)->get();
+        return view('hamshs.forms.createform',
+            compact('papers', 'selectedPaper')) // how the option hold a selected paper? as in method definition = null
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 }

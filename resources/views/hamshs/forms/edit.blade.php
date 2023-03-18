@@ -22,9 +22,8 @@
             </ul>
         </div>
     @endif
+
     <form method="post" action="{{ route('site-update', $form->id) }}">
-
-
         @csrf
 
                 <div class="row">

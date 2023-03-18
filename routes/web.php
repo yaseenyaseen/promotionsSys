@@ -69,14 +69,14 @@ Route::get('/hamshs/forms/sciplan/{user_id}', [HamshController::class, 'sciplani
 Route::get('/sciplan/createform', [HamshController::class, 'createsciplanForm'])->name('createpapersdata');
 
 Route::get('/sciplan/forms/createHamsh', [HamshController::class, 'createsciplanHamsh'])->name('createsciplanHamsh');
-Route::post('/hamshs/forms/sciplan', [HamshController::class, 'storef'])->name('hamshs.forms.storef');
-Route::get('/hamshs/forms/editHsci/{form_id}', [HamshController::class, 'edit2'])->name('hamshs.forms.editHsci');// this route for edit form in forms folder for sciplan
+Route::post('/hamshs/forms/sciplan/', [HamshController::class, 'storef'])->name('hamshs.forms.storef');
+/*Route::get('/hamshs/forms/editHsci/{selected_paperId}', [HamshController::class, 'edit2'])->name('hamshs.forms.editHsci');// this route for edit form in forms folder for sciplan*/
 
 Route::delete('/hamshs/forms/deleteFsci/{form_id}', [HamshController::class, 'destroy2'])->name('hamshs.forms.deleteFsci');// this route for delete form in forms folder for sciplan
 
 Route::post('/hamshs/forms/sciplanH', [HamshController::class, 'storefH'])->name('hamshs.forms.storefH'); //f for form, H for hamesh
 
-Route::get('/hamshs/edit2/{form_id}', [HamshController::class, 'edit2'])->name('hamshs.forms.edit');
+/*Route::get('/hamshs/edit2/{form_id}', [HamshController::class, 'edit2'])->name('hamshs.forms.edit');*/
 Route::post('/hamshs/update2/{form_id}', [HamshController::class, 'update2'])->name('site-update');
 //Route::post('hamshs/update/{form_id}', 'HamshController@update')->name('site-update');
 Route::get('/hamshs/show2/{form_id}', [HamshController::class, 'show2'])->name('hamshs.forms.show');
@@ -103,3 +103,7 @@ Route::get('/hamshs/forms/PromReq_submissionForm/createRequestApplyingHamsh', [H
 
 Route::post('/hamshs/forms/PromReq_submissionForm/store', [HamshController::class, 'storeReqApplyingHamsh'])->name('storeReqApplyingHamsh');
 Route::get('/hamshs/forms/PromReq_submissionForm/index/{user_id}', [HamshController::class, 'requestApplyingindex'])->name('requestApplyingindex');
+
+/*Route::get('/hamshs/forms/edit/{user_id}', [HamshController::class, 'storef'])->name('fillOutPaper');*/
+Route::post('hamshs/forms/createform/edit', [HamshController::class, 'editPaper'])->name('editPaper');
+Route::post('hamshs/forms/createform/update', [HamshController::class, 'updatePaper'])->name('updatePaper');
