@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AcademicReputation;
 use App\Models\Form;
 use App\Models\Hamsh;
 use App\Models\Paper;
+use App\Models\PositionsHeldBy;
 use App\Models\proreq;
 use App\Models\RequestApplying;
 use App\Models\SciPlan;
@@ -282,7 +284,7 @@ class HamshController extends Controller
 // merege two variable names into one variable name
 // "$promotion_reqsForHeadDepartment_Coll" and "$promotion_reqsForCollage
 // then in "SciPlanListForAdmins.blade.php" view make one loop only.
-                $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
+                /*$promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
                     ->select('s.*', 'a.*')
                     ->join('promotion_reqs as a',
                         's.id', '=', 'a.user_id')
@@ -292,13 +294,13 @@ class HamshController extends Controller
                     })
                     ->whereNull('a1.user_id')
                     ->where('department_id', Auth::user()->department_id)
-                    ->get();
+                    ->get();*/
                 return view('hamshs.forms.administrators.SciPlanListForAdmins',
-                    compact('promotion_reqsForHeadDepartment_Coll'))
+                )
                     ->with('i', (request()->input('page', 1) - 1) * 5);
 
             } elseif ($a->contains('Coll_ResearchPlan_Officer')) {
-                $promotion_reqsForCollage = DB::table('users as s')
+                /*$promotion_reqsForCollage = DB::table('users as s')
                     ->select('s.*', 'a.*')
                     ->join('promotion_reqs as a',
                         's.id', '=', 'a.user_id')
@@ -308,9 +310,9 @@ class HamshController extends Controller
                     })
                     ->whereNull('a1.user_id')
                     ->where('college_id', Auth::user()->college_id)
-                    ->get();
+                    ->get();*/
                 return view('hamshs.forms.administrators.SciPlanListForAdmins',
-                    compact('promotion_reqsForCollage'))
+                )
                     ->with('i', (request()->input('page', 1) - 1) * 5);
             }
         }
@@ -325,28 +327,103 @@ class HamshController extends Controller
 
     public function requestApplyingindex(User $user_id)
     {
-      /*  public function sciplanindex(User $user_id)
-    {*/
         $user = User::find($user_id)[1];
         $PromotionReqUser = PromotionReq::where('user_id', $user->id)
             ->latest('created_at')->first();
-      /*  $SciPlan = SciPlan::where('promotionReqs_id', $PromotionReqUser->id)
-            ->get()->first();*/
-$request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->id)->get()->first();
+        $request_applying = RequestApplying::where('promotionReqs_id', $PromotionReqUser->id)->get()->first();
         $papers = Paper::where('promotionReqs_id', $PromotionReqUser->id)->get();
         return view('hamshs.forms.PromReq_submissionForm.requestApplying',
-            compact( 'request_applying','papers'))
+            compact('request_applying', 'papers'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
 
-    /*}*/
-        //following code is old version of this method
-       /* $reqs = proreq::where('user_id', Auth::user()->id)->get();
-        $reqsos = proreq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
-        $reqcolls = College::where('id', Auth::user()->college_id)->get();// Q/ last promotion request only
-        $Hams = Hamsh::all();
-        $Forms = Form::all();
-        return view('hamshs.PromReq_submissionForm.sciplan', compact('reqs', 'reqsos', 'Hams', 'Forms', 'reqcolls'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);*/
+    public function AcademicReputationindex(User $user_id)
+    {
+        $user = User::find($user_id)[1];
+        $PromotionReqUser = PromotionReq::where('user_id', $user->id)
+            ->latest('created_at')->first();
+        $AcademicReputation = AcademicReputation::where('promotionReqs_id', $PromotionReqUser->id)
+            ->get()->first();
+        return view('hamshs.forms.AcademicReputation.AcademicReputation',
+            compact('AcademicReputation'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function positionsDegreesindex(User $user_id)
+    {
+        $user = User::find($user_id)[1];
+        /*$PromotionReqUser = PromotionReq::where('user_id', $user->id)
+            ->latest('created_at')->first();*/
+        $PositionsHeldBy = PositionsHeldBy::where('user_id', $user->id)
+            ->get();
+        return view('hamshs.forms.positionsDegrees.positionsDegrees',
+            compact('PositionsHeldBy')
+        )
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function RequestApplyinglistindex()
+    {
+
+        /* @role('HeadDepartment_Coll')
+         *
+         *
+         * @endrole
+         */
+        $a = Auth::user()->getRoleNames();
+        if (count($a) > 0) {
+            if ($a->contains('HeadDepartment_Coll')) {
+                $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
+                    ->select('s.*', 'a.*')
+                    ->join('promotion_reqs as a',
+                        's.id', '=', 'a.user_id')
+                    ->leftJoin('promotion_reqs as a1', function ($join) {
+                        $join->on('a.user_id', '=', 'a1.user_id')
+                            ->whereRaw(DB::raw('a.created_at < a1.created_at'));
+                    })
+                    ->whereNull('a1.user_id')
+                    ->where('department_id', Auth::user()->department_id)
+                    ->get();
+                return view('hamshs.forms.administrators.RequestApplyingListForAdmins',
+                    compact('promotion_reqsForHeadDepartment_Coll'))
+                    ->with('i', (request()->input('page', 1) - 1) * 5);
+
+            } elseif ($a->contains('Dean')) {
+                $promotion_reqsForCollage = DB::table('users as s')
+                    ->select('s.*', 'a.*')
+                    ->join('promotion_reqs as a',
+                        's.id', '=', 'a.user_id')
+                    ->leftJoin('promotion_reqs as a1', function ($join) {
+                        $join->on('a.user_id', '=', 'a1.user_id')
+                            ->whereRaw(DB::raw('a.created_at < a1.created_at'));
+                    })
+                    ->whereNull('a1.user_id')
+                    ->where('college_id', Auth::user()->college_id)
+                    ->get();
+                return view('hamshs.forms.administrators.RequestApplyingListForAdmins',
+                    compact('promotion_reqsForCollage'))
+                    ->with('i', (request()->input('page', 1) - 1) * 5);
+            } elseif ($a->contains('Computer_Center_Officer')) {
+                $promotion_reqsForUni = DB::table('users as s')
+                    ->select('s.*', 'a.*')
+                    ->join('promotion_reqs as a',
+                        's.id', '=', 'a.user_id')
+                    ->leftJoin('promotion_reqs as a1', function ($join) {
+                        $join->on('a.user_id', '=', 'a1.user_id')
+                            ->whereRaw(DB::raw('a.created_at < a1.created_at'));
+                    })
+                    ->whereNull('a1.user_id');
+
+                $promotion_reqsForUniHasacademic_reput = $promotion_reqsForUni
+                    ->join('academic_reputations as ar',
+                        'a.id', 'ar.promotionReqs_id')->get();
+                //$promotion_reqsForUni = $promotion_reqsForUni->get();
+
+                return view('hamshs.forms.administrators.AcademicReputationlistindex',
+                    compact('promotion_reqsForUniHasacademic_reput'))
+                    ->with('i', (request()->input('page', 1) - 1) * 5);
+            }
+        }
 
     }
 
@@ -376,6 +453,13 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
         return view('hamshs.forms.PromReq_submissionForm.createRequestApplyingHamsh');
 
     }
+
+    public function createAcademicReputationHamsh()
+    {
+        //
+        return view('hamshs.forms.AcademicReputation.createAcademicReputationHamsh');
+    }
+
     public function createsciplanForm()
     {
         //todo: find papers of the user.and compact it
@@ -385,6 +469,12 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
         return $this->returnViewCreateForm($PromotionReqUser->id, null);
         /*        return view('hamshs.forms.createform');*/
 
+    }
+
+    public function createpositionsDegrees()
+    {
+        //
+        return view('hamshs.forms.positionsDegrees.createpositionsDegrees');
     }
 
     /**
@@ -419,12 +509,12 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
         /*        $reqsos = proreq::where('user_id',Auth::user()->id)-> latest('created_at')->first();// Q/ last promotion request only*/
 
 
-       $selectData_id = selectData::latest('created_at')->value('id'); // alaa destroye
+        $selectData_id = selectData::latest('created_at')->value('id'); // alaa destroye
 
         $proreq = PromotionReq::create([
             'user_id' => auth()->user()->id,
-          'promotion' => $selectData_id, // alaa destroye  promotion has promotion id while $selectData table has promotion name
-           // 'promotion' => $sci_title, // promotion has promotion id while $selectData table has promotion name
+            'promotion' => $selectData_id, // alaa destroye  promotion has promotion id while $selectData table has promotion name
+            // 'promotion' => $sci_title, // promotion has promotion id while $selectData table has promotion name
             'status' => 0,
         ]);
         //change the route to NewApplicantionBoard
@@ -525,6 +615,7 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
         return redirect()->route('hamshs.forms.sciplanindex', Auth::user()->id)
             ->with('success', 'Hamsh created successfully.');
     }
+
     public function storeReqApplyingHamsh(Request $request)
     {
         // steps adding table content at 15 Feb 23.
@@ -552,7 +643,40 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
             ->with('success', 'Hamsh created successfully.');
     }
 
+    public function storeAcademicReputationHamsh(Request $request)
+    {
+        $request->validate([]);
+        AcademicReputation::create($request->all());
+        $HForm_id = AcademicReputation::latest('created_at')->value('id');//HFrorm means the hamsh form of RequestApplying.
+        $HForm = AcademicReputation::find($HForm_id);
 
+        $reqsos = PromotionReq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
+        $proreq_id = $reqsos->id;
+
+        $HForm->promotionReqs_id = $proreq_id;
+        $HForm->Applicant_createdAt = now();// change now method to updated at value. creanlty, it save created at value.
+
+        $HForm->Applicant_Id = Auth::user()->id;
+        // check below timestamp is it correct? as it seems it is not store the correct time of head department.
+        //$HForm->Sci_Dep_createdAt = Carbon::now();
+
+        $HForm->save();
+        return redirect()->route('AcademicReputationindex', Auth::user()->id)
+            ->with('success', 'Hamsh created successfully.');
+    }
+
+    public function storepositionsDegrees(Request $request)
+    {
+        $request->validate([]);
+        PositionsHeldBy::create($request->all());
+        $HForm_id = PositionsHeldBy::latest('created_at')->value('id');//HFrorm means the hamsh form of PositionsHeldBy.
+        $HForm = PositionsHeldBy::find($HForm_id);
+        $HForm->user_id = Auth::user()->id;
+
+        $HForm->save();
+        return redirect()->route('positionsDegreesindex', Auth::user()->id)
+            ->with('success', ' معلومات الوظيفة الجديدة التي مارسها مقدم الترقية أضيفت بنجاح');
+    }
     /**
      * Display the specified resource.
      *
@@ -564,7 +688,23 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
         //
         $hamsh = $Ham_id;
         return view('hamshs.forms.showHamshsciplan', compact('hamsh'));
+
     }
+
+    public function showHamshrequest_applying(RequestApplying $Ham_id)
+    {
+        //
+        $hamsh = $Ham_id;
+        return view('hamshs.forms.PromReq_submissionForm.showHamshsciplan', compact('hamsh'));
+    }
+
+    public function showHamshAcademicReputation(AcademicReputation $Ham_id)
+    {
+        //
+        $hamsh = $Ham_id;
+        return view('hamshs.forms.AcademicReputation.showHamshAcademicReputation', compact('hamsh'));
+    }
+
 
     public function show2(Form $form_id)
     {
@@ -601,6 +741,18 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
 
         //  return view('admin.user.show', compact('user', 'roles', 'userHasRoles'));
     }
+    public function showPositionsDegrees(PositionsHeldBy $PositionsHeldBy)
+    {
+        //
+      //todo: how to send list of value from view "positionsDegrees" to this method to print the variable $PositionsHeldBy.
+       //dd($PositionsHeldBy);
+
+        $PositionsHeldBy = PositionsHeldBy::where('user_id',  Auth::user()->id)->get();
+        return view('hamshs.forms.positionsDegrees.showpositionsDegrees',
+            compact('PositionsHeldBy')
+        )
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+       }
 
     /**
      * Show the form for editing the specified resource.
@@ -615,16 +767,17 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
         return view('hamshs.forms.edit', compact('form'));
 
     }*/
-   /* public function edit2(Paper $selected_paperId)
+    /* public function edit2(Paper $selected_paperId)
+     {
+
+         $spaper = Paper::find($selected_paperId)[0];
+         //
+         return view('hamshs.forms.createform', compact('spaper'));
+
+     }*/
+
+    public function editPaper(Request $request)
     {
-
-        $spaper = Paper::find($selected_paperId)[0];
-        //
-        return view('hamshs.forms.createform', compact('spaper'));
-
-    }*/
-
-    public function editPaper(Request $request) {
         $selectedOptionId = $request->input('selected_option');
         $selectedPaper = Paper::find($selectedOptionId);
         //todo: how to delete following lines to find papers and make this
@@ -648,6 +801,51 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
 
         return view('hamshs.forms.editHamshsciplan', compact('hamsh'));
     }
+
+    public function editHamshProReq(RequestApplying $Ham_id)
+    {
+        //
+        // $hamsh = Hamsh::find($Ham_id)[0];
+        $hamsh = $Ham_id;
+        // $Hams = SciPlan::where('user_id', $user_id)->get();//HFrorm means the hamsh form.
+
+        return view('hamshs.forms.PromReq_submissionForm.editHamshsciplan', compact('hamsh'));
+    }
+
+    public function editHamshAcademicReputation(AcademicReputation $Ham_id)
+    {
+
+        $hamsh = $Ham_id;
+        return view('hamshs.forms.AcademicReputation.editHamshsAcademicReputation', compact('hamsh'));
+    }
+    public function editpositionsDegrees(Request $request)
+    {
+       // dd( Auth::user()->id);
+        $PositionsHeldBy = PositionsHeldBy::where('user_id', Auth::user()->id)
+            ->get();
+        $selectedposition=null;
+        return view('hamshs.forms.positionsDegrees.editpositionsDegrees',
+            compact('PositionsHeldBy','selectedposition'));
+    }
+    public function editsinglePositionsDegrees(Request $request)
+    {
+        $selectedOptionId = $request->input('selected_option');
+        $selectedposition = PositionsHeldBy::find($selectedOptionId);
+
+     /*   $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
+            ->latest('created_at')->first();*/
+        //$papers = Paper::where('promotionReqs_id', $PromotionReqUser->id)->get();
+        $PositionsHeldBy = PositionsHeldBy::where('user_id', Auth::user()->id)
+            ->get();
+      //  dd($selectedPaper);
+        return view('hamshs.forms.positionsDegrees.editpositionsDegrees', compact('PositionsHeldBy',
+            'selectedposition'));
+
+        //return $this->returnViewCreateForm($PromotionReqUser->id, $selectedPaper);
+//        return view('hamshs.forms.createform', ['option' => $selectedOption],
+//        compact('papers'));
+    }
+
 
     public function fillOutPaper(User $user_id)
     {
@@ -673,28 +871,28 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
      * @param \App\Models\Hamsh $hamsh
      * @return \Illuminate\Http\Response
      */
-   /* public function update2(Request $request, Form $form_id)
+    /* public function update2(Request $request, Form $form_id)
+     {
+         $form = Form::find($form_id)[0];
+         //
+         $request->validate([
+             'title' => 'required',
+             'description' => 'required',
+         ]);
+
+         $form->update($request->all());
+
+         return redirect()->route('hamshs.forms.sciplanindex')
+             ->with('success', 'The Scientific plan Form is updated successfully');
+     }*/
+    public function updatePaper(Request $request)
     {
-        $form = Form::find($form_id)[0];
-        //
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-        ]);
-
-        $form->update($request->all());
-
-        return redirect()->route('hamshs.forms.sciplanindex')
-            ->with('success', 'The Scientific plan Form is updated successfully');
-    }*/
-    public function updatePaper(Request $request) {
         $optionId = $request->input('option_id');
         $option = Paper::find($optionId);
-       // $option->paper_title = $request->input('paper_title');
-       // $option->publish_date = $request->input('publish_date'); it does not work with date as with below singuleAuther.
+        // $option->paper_title = $request->input('paper_title');
+        // $option->publish_date = $request->input('publish_date'); it does not work with date as with below singuleAuther.
         //$option->singleAuther = $request->input('singleAuther');
         $option->update($request->all());
-
         $option->singleAuther = $request->has('singleAuther');
         $option->Ispubished = $request->has('Ispubished');
         $option->takenFromStdut_thesis = $request->has('takenFromStdut_thesis');
@@ -719,9 +917,20 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
 
         $option->save();
 
-         return redirect()->route('NewApplicationBoard')
-             ->with('success', 'The Scientific plan Form is updated successfully');
-/*        return redirect()->back()->with('success', 'Option updated successfully');*/
+        return redirect()->route('NewApplicationBoard')
+            ->with('success', 'The Scientific plan Form is updated successfully');
+        /*        return redirect()->back()->with('success', 'Option updated successfully');*/
+    }
+    public function updatePositionsDegrees(Request $request)
+    {
+        $optionId = $request->input('option_id');
+        $option = PositionsHeldBy::find($optionId);
+
+        $option->update($request->all());
+        $option->save();
+
+        return redirect()->route('positionsDegreesindex', Auth::user()->id)
+            ->with('success', ' تم تعديل معلومات الوظائف التي مارسها مقدم الترقية بنجاح');
     }
 
 
@@ -764,6 +973,65 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
             ->with('success', 'Blog updated successfully');
     }
 
+    public function updateHamshsrequest_applying(Request $request, RequestApplying $hamsh_id)
+    {
+
+        // $hamsh = SciPlan::find($hamsh_id)[0];
+        $hamsh = $hamsh_id;
+
+        $request->validate([
+            // 'Applicant_hamsh' => 'required',
+            // 'description' => 'required',
+        ]);
+        //  $hamsh->Sci_Dep_Id = Auth::user()->id;
+        // $hamsh->Sci_Dep_createdAt = Carbon::now();
+        $hamsh->update($request->all());
+        //$hamsh->official_Id = Auth::user()->id;
+        //$hamsh->official_createdAt = Carbon::now();
+
+        //$hamsh->update($request->all());
+        $request_applying = $hamsh;
+        $PromotionReq = PromotionReq::where('id', $request_applying->promotionReqs_id)->latest('created_at')->first();
+        $user_id = $PromotionReq->user_id;
+        return redirect()->route('requestApplyingindex', compact('user_id'))
+            ->with('success', 'The Head department choose a specific user Scientific plan successfully');
+    }
+
+    public function updateHamshAcademicReputation(Request $request, AcademicReputation $hamsh_id)
+    {
+
+        $hamsh = $hamsh_id;
+        $request->validate([
+        ]);
+        //add updated at column value.
+        $hamsh->update($request->all());
+        $hamsh->Applicant_page = $request->has('Applicant_page');
+        $hamsh->IsAcademic_reputationsDone = $request->has('IsAcademic_reputationsDone');
+
+        $a = Auth::user()->getRoleNames();
+        if (count($a) > 0) {
+            if ($a->contains('Applicant')) {
+                $hamsh->Applicant_createdAt = now();
+
+
+            } elseif ($a->contains('Computer_Center_Officer')) {
+
+                $hamsh->computerCenter_createdAt = now();
+                $hamsh->computerCenter_Id = Auth::user()->id;
+
+
+            }
+
+        }
+
+        $hamsh->save();
+
+        $AcademicReputation = $hamsh;
+        $PromotionReq = PromotionReq::where('id', $AcademicReputation->promotionReqs_id)->latest('created_at')->first();
+        $user_id = $PromotionReq->user_id;
+        return redirect()->route('AcademicReputationindex', compact('user_id'))
+            ->with('success', 'The  specific user AcademicReputation updated successfully');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -803,11 +1071,11 @@ $request_applying= RequestApplying::where('promotionReqs_id',$PromotionReqUser->
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function returnViewCreateForm($id, $selectedPaper=null)
+    public function returnViewCreateForm($id, $selectedPaper = null)
     {
         $papers = Paper::where('promotionReqs_id', $id)->get();
         return view('hamshs.forms.createform',
             compact('papers', 'selectedPaper')) // how the option hold a selected paper? as in method definition = null
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 }

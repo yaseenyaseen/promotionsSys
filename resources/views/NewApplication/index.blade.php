@@ -23,11 +23,26 @@
     <a class="btn btn-secondary"
        href="{{ route('requestApplyingindex',Auth::user()->id) }}"> تقديم طلب</a>
     </div>
-
+    <a class="btn btn-secondary"
+       href="{{ route('AcademicReputationindex',Auth::user()->id) }}"> السمعة الاكاديمية </a>
+    </div>
+    <a class="btn btn-secondary"
+       href="{{ route('positionsDegreesindex',Auth::user()->id) }}">     معلومات عن الوظائف التي مارسها و الشهادة</a>
+    </div>
     @else
         <div class="pull-right">
             <a class="btn btn-secondary" href="{{ route('hamshs.forms.administrators.index') }}"> تأييد خطة بحثية </a></div>
         <div class="pull-right">
+            <br>
+
+            <div class="pull-right">
+                <a class="btn btn-secondary"
+                   href="{{ route('hamshs.forms.administrators.indexrequestApplying') }}"> استمارة تقديم الطلب للترقية العلمية </a></div>
+            <div class="pull-right">
+                <a class="btn btn-secondary"
+                   href="{{ route('adminAcademicReputationindex') }}"> السمعة الاكاديمية </a>
+            </div>
+
         @endrole
     <br>
     <div class="pull-right">

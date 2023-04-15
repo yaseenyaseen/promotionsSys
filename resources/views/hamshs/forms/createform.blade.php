@@ -1,3 +1,4 @@
+
 @extends('blogs.layout')
 
 @section('content')
@@ -6,29 +7,29 @@
             margin-right: 20px
         }
     </style>
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div>
-                <h2>أضافة بيانات جدول البحوث </h2>
+    <div dir="rtl">
+        <div class="row">
+            <div class="col-lg-12 margin-tb">
+                <div>
+                    <h2>أضافة بيانات جدول البحوث </h2>
+                </div>
+                {{-- <div class="pull-right">
+                     <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
+                 </div>--}}
             </div>
-            {{-- <div class="pull-right">
-                 <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
-             </div>--}}
         </div>
-    </div>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Warning!</strong> Please check your input code<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Warning!</strong> Please check your input code<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
-        </div>
-              <form action="{{ route('editPaper') }}" method="POST">
+        <form action="{{ route('editPaper') }}" method="POST">
             @csrf
             <label for="select_option">أختار بحث سابق للتعديل (اذا توفر):</label>
             <select name="selected_option" id="select_option">
@@ -54,414 +55,435 @@
                         <label for="paper_title">عنوان البحث</label>
                         <input type="textarea" class="form-control" name="paper_title"
                                value="{{ $selectedPaper->paper_title}}"></inputtextarea>
-                    </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
-                        <label for="publish_date">تاريخ النشر السابق</label><br>
-                        <input type="date" name="due_date" id="due_date"
-                               value="{{ Carbon\Carbon::parse($selectedPaper->publish_date)->format('Y-m-d') }}">
-                    </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
-                        <label for="publish_date">تاريخ النشر الجديد</label><br>
-                        <input type="date" id="publish_date" name="publish_date">
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
-                            <input type="checkbox" name="singleAuther" value="singleAuther"
-                                {{ $selectedPaper->singleAuther ? 'checked="checked"' : ''}}>
-                            <label class="form-check-label" for="singleAuther">
-                                هل البحث منفرد؟
-                            </label>
-                        </div>
-                    </div>
-
-
-                    <div class="form-check col-sm-12 col-md-6 col-lg-4">
-                        <input type="checkbox" name="Ispubished"
-                               value="Ispubished" {{ $selectedPaper->Ispubished ? 'checked="checked"' : '' }}/>
-                        <label class="form-check-label" for="Ispubished">
-                            هل البحث منشور ؟
-                        </label>
-                    </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-6 py-3">
-                        <div class="form-check ">
-                            <input type="checkbox" name="takenFromStdut_thesis"
-                                   value="takenFromStdut_thesis" {{ $selectedPaper->takenFromStdut_thesis ? 'checked="checked"' : '' }}/>
-                            <label class="form-check-label" for="takenFromStdut_thesis">
-                                هل البحث مستل من اطروحة؟
-                            </label>
-                        </div>
-                    </div>
-                    {{-- todo:ask Hussien to update the select option list to use loop
-                     <select class="js-states browser-default select2" name="shopping_id" required id="shopping_id">
-                           <option value="option_select" disabled selected>Shoppings</option>
-                           @foreach($shoppings as $shopping)
-                               <option value="{{ $shopping->id }}" {{$company->shopping_id == $shopping->id  ? 'selected' : ''}}>{{ $shopping->fantasyname}}</option>
-                           @endforeach
-                       </select>--}}
-
-                    <div class="form-row">
-                        <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                            <label for="publishType">تصنيف جهة النشر </label>
-                            <select class="form-control" name="publishType">
-                                <option value="{{ $selectedPaper->publishType }}"
-                                        selected>{{ $selectedPaper->publishType }}</option>
-
-                                <option value="1">مجلات ذات معامل تأثير</option>
-                                <option value="2">مجلات عالمية مطبوعة</option>
-                                <option value="3">مجلات عربية وعراقية</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                            <div class="form-check">
-                                <input type="checkbox" name="exact_specialization" value="exact_specialization"
-                                    {{ $selectedPaper->exact_specialization ? 'checked="checked"' : '' }}/>
-                                <label class="form-check-label" for="exact_specialization">
-                                    هل البحث ب الاختصاص الدقيق ؟
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                            <div class="form-check">
-                                <input type="checkbox" name="general_specialization" value="general_specialization"
-                                    {{ $selectedPaper->general_specialization ? 'checked="checked"' : '' }}/>
-                                <label class="form-check-label" for="general_specialization">
-                                    هل البحث ب الاختصاص العام ؟
-                                </label>
-                            </div>
-                        </div>
-                        {{--   todo: following columns should be filledout from controller.
-               $table->integer('headCommitee_ID')->nullable();
-                  $table->timestamp('headCommitee_createdat')->nullable();--}}
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="plagiarised_Details">تفاصيل الاستلال</label>
-                            <input type="textarea" class="form-control" name="plagiarised_Details"
-                                   value="{{ $selectedPaper->plagiarised_Details }}"></inputtextarea>
-                        </div>
 
                         <div class="form-group col-sm-12 col-md-6 col-lg-6">
-                            <div class="form-check">
-                                <input type="checkbox" name="Is_paper_fromApplTheses"
-                                       value="Is_paper_fromApplTheses"
-                                    {{ $selectedPaper->Is_paper_fromApplTheses ? 'checked="checked"' : '' }}/>
-                                <label class="form-check-label" for="Is_paper_fromApplTheses">
-                                    هل البحث مستل من رسالة أو اطروحة طالب الترقية ؟
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="plagiarised_resource">مصدر الاستلال</label>
-                            <input type="textarea" class="form-control" name="plagiarised_resource"
-                                   value="{{ $selectedPaper->plagiarised_resource }}"></textarea>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <div class="form-check">
-                                <input type="checkbox" name="Is_paperRelated_CoAuther" value="Is_paperRelated_CoAuther"
-                                    {{ $selectedPaper->Is_paperRelated_CoAuther ? 'checked="checked"' : '' }}/>
-                                <label class="form-check-label" for="Is_paperRelated_CoAuther">
-                                    هل للبحث علاقة مع بحوث اخرى للباحثين المشتركين ؟
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <div class="form-check">
-                                <input type="checkbox" name="Is_paper_AppSuperlTheses" value="Is_paper_AppSuperlTheses"
-                                    {{ $selectedPaper->Is_paper_AppSuperlTheses ? 'checked="checked"' : '' }}/>
-                                <label class="form-check-label" for="Is_paper_AppSuperlTheses">
-                                    هل البحث مستل من رسالة أو اطروحة اشرف عليها طالب الترقية؟
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-6 col-lg-12">
-                            <label for="Ratio_paper_AppSuperlTheses">النسبة المئوية البحث مستل من رسالة أو اطروحة اشرف
-                                عليها
-                                طالب
-                                الترقية:</label>
-                            <input type="number" name="Ratio_paper_AppSuperlTheses" id="Ratio_paper_AppSuperlTheses"
-                                   value="{{ $selectedPaper->Ratio_paper_AppSuperlTheses}}"
-                                   min="0">
-                        </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="plagiarised_resource_Sup">مصدر الاستلال من البحث مستل من رسالة أو اطروحة اشرف
-                                عليها
-                                طالب
-                                الترقية</label>
-                            <input type="textarea" class="form-control" name="plagiarised_resource_Sup"
-                                   value="{{ $selectedPaper->plagiarised_resource_Sup }}"></textarea>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <div class="form-check">
-                                <input type="checkbox" name="Is_paperRelated_CoAuther_Sup"
-                                       value="Is_paperRelated_CoAuther_Sup"
-                                    {{ $selectedPaper->Is_paperRelated_CoAuther_Sup ? 'checked="checked"' : '' }}/>
-                                <label class="form-check-label" for="Is_paperRelated_CoAuther_Sup">
-                                    هل للبحث علاقة مع بحوث آخرى للباحثين المشاركين للبحث مستل من رسالة أو اطروحة اشرف
-                                    عليها
-                                    طالب
-                                    الترقية؟
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <div class="form-check">
-                                <input type="checkbox" name="Is_paper_CoSuperTheses" value="Is_paper_CoSuperTheses"
-                                    {{ $selectedPaper->Is_paper_CoSuperTheses ? 'checked="checked"' : '' }}/>
-                                <label class="form-check-label" for="Is_paper_CoSuperTheses">
-                                    هل البحث مستل من رسالة أو اطروحة اشرف عليها احد الباحثين المشاركين؟
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="Ratio_paper_CoSuperTheses">النسبة المئوية البحث مستل من رسالة أو اطروحة اشرف
-                                عليها
-                                احد
-                                الباحثين
-                                المشاركين:</label>
-                            <input type="number" name="Ratio_paper_CoSuperTheses" id="Ratio_paper_CoSuperTheses"
-                                   value="{{$selectedPaper->Ratio_paper_CoSuperTheses}}" min="0">
-                        </div>
-                        {{--           add collection of fields--}}
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="plagiarised_resource_CoSuper">مصدر الاستلال من البحث مستل من رسالة أو اطروحة
-                                اشرف
-                                عليها احد
-                                الباحثين المشاركين</label>
-
-                            <input type="textarea" class="form-control" name="plagiarised_resource_CoSuper"
-                                   value="{{ $selectedPaper->plagiarised_resource_CoSuper }}"></textarea>
-
+                            <label for="publish_date">تاريخ النشر </label><br>
+                            <input type="date" name="publish_date" id="publish_date"
+                                   value="{{date('Y-m-d',trim(strtotime($selectedPaper->publish_date)))}}">
                         </div>
 
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <div class="form-check">
-                                <input type="checkbox" name="Is_paperRelated_CoSuper" value="Is_paperRelated_CoSuper"
-                                    {{ $selectedPaper->Is_paperRelated_CoSuper ? 'checked="checked"' : '' }}/>
-                                <label class="form-check-label" for="Is_paperRelated_CoSuper">
-                                    هل للبحث علاقة مع بحوث آخرى للباحثين المشاركين للبحث مستل من رسالة أو اطروحة اشرف
-                                    عليها
-                                    احد
-                                    الباحثين المشاركين؟
+                        <div class="form-row">
+                            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                                <input type="checkbox" name="singleAuther" value="singleAuther"
+                                    {{ $selectedPaper->singleAuther ? 'checked="checked"' : ''}}>
+                                <label class="form-check-label" for="singleAuther">
+                                    هل البحث منفرد؟
                                 </label>
                             </div>
                         </div>
 
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <div class="form-check">
-                                <input type="checkbox" name="Is_paper_CoTheses" value="Is_paper_CoTheses"
-                                    {{ $selectedPaper->Is_paper_CoTheses ? 'checked="checked"' : '' }}/>
-                                <label class="form-check-label" for="Is_paper_CoTheses">
-                                    هل البحث مستل من رسالة أو اطروحة انجزها احد الباحثين المشاركين؟
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-6">
-                            <label for="Ratio_paper_CoTheses">
-                                النسبة المئوية البحث مستل من رسالة أو اطروحة انجزها احد الباحثين المشاركين:
-                            </label>
-                            <input type="number" name="Ratio_paper_CoTheses" id="Ratio_paper_CoTheses"
-                                   value="{{$selectedPaper->Ratio_paper_CoTheses}}" min="0">
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="plagiarised_resource_CoTheses">
-                                مصدر الاستلال من البحث مستل من رسالة أو اطروحة انجزها احد الباحثين المشاركين
-                            </label>
-                            <input type="textarea" class="form-control" name="plagiarised_resource_CoTheses"
-                                   value="{{ $selectedPaper->plagiarised_resource_CoTheses }}"></textarea>
-                        </div>
-                        {{--
-                        begining of the last group of editable fields:
-                        --}}
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <input type="checkbox" name="Is_paperRelated_CoTheses" value="Is_paperRelated_CoTheses"
-                                {{ $selectedPaper->Is_paperRelated_CoTheses ? 'checked="checked"' : '' }}/>
-                            <label class="form-check-label" for="Is_paperRelated_CoTheses">
-                                هل للبحث علاقة مع بحوث آخرى للباحثين المشاركين للبحث مستل من رسالة أو اطروحة انجزها احد
-                                الباحثين
-                                المشاركين؟
-                            </label>
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <input type="checkbox" name="Is_paper_OldProm" value="Is_paper_OldProm"
-                                {{ $selectedPaper->Is_paper_OldProm ? 'checked="checked"' : '' }}/>
-                            <label class="form-check-label" for="Is_paper_OldProm">
-                                هل البحث مستل من بحث تم استخدامه في ترقية سابقة ؟
-                            </label>
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="Ratio_paper_OldProm">
-                                النسبة المئوية للبحث مستل من بحث تم استخدامه في ترقية سابقة :
-                            </label>
-                            <input type="number" name="Ratio_paper_OldProm" id="Ratio_paper_OldProm"
-                                   value="{{$selectedPaper->Ratio_paper_OldProm}}" min="0">
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="plagiarised_resource_OldProm">
-                                مصدر الاستلال للبحث مستل من بحث تم استخدامه في ترقية سابقة :
-                            </label>
-                            <input type="textarea" class="form-control" name="plagiarised_resource_OldProm"
-                                   value="{{$selectedPaper->plagiarised_resource_OldProm}}"></inputtextarea>
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <input type="checkbox" name="Is_paperRelated_CoAuther_OldProm"
-                                   value="Is_paperRelated_CoAuther_OldProm"
-                                {{ $selectedPaper->Is_paperRelated_CoAuther_OldProm ? 'checked="checked"' : '' }}/>
-                            <label class="form-check-label" for="Is_paperRelated_CoAuther_OldProm">
-                                هل للبحث علاقة مع بحوث آخرى للباحثين المشاركين للبحث مستل من بحث تم استخدامه في ترقية
-                                سابقة
-                                ؟
-                            </label>
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <input type="checkbox" name="Is_paper_From_Others" value="Is_paper_From_Others"
-                                {{ $selectedPaper->Is_paper_From_Others ? 'checked="checked"' : '' }}/>
-                            <label class="form-check-label" for="Is_paper_From_Others">
-                                هل البحث مستل من بحوث آخرى او من شبكة الانترنت؟
-                            </label>
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-6 col-lg-12">
-                            <label for="Ratio_paper_From_Others">
-                                النسبة المئوية للبحث مستل من بحوث آخرى او من شبكة الانترنت:
-                            </label>
-                            <input type="number" name="Ratio_paper_From_Others" id="Ratio_paper_From_Others"
-                                   value="{{$selectedPaper->Ratio_paper_From_Others}}" min="0">
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="plagiarised_resFrom_Others">
-                                مصدر الاستلال للبحث مستل من بحوث آخرى او من شبكة الانترنت :
-                            </label>
-                            <input type="textarea" class="form-control" name="plagiarised_resFrom_Others"
-                                   value="{{$selectedPaper->plagiarised_resFrom_Others}}"></inputtextarea>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <input type="checkbox" name="Is_paperRelated_CoAuther_From_Others"
-                                   value="Is_paperRelated_CoAuther_From_Others"
-                                {{ $selectedPaper->Is_paperRelated_CoAuther_From_Others ? 'checked="checked"' : '' }}/>
-                            <label class="form-check-label" for="Is_paperRelated_CoAuther_From_Others">
-                                هل للبحث علاقة مع بحوث آخرى للباحثين المشاركين للبحث مستل من بحوث آخرى او من شبكة
-                                الانترنت ؟
-                            </label>
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <div class="form-check">
-                                <input type="checkbox" name="sabbaticalLeave" value="sabbaticalLeave"
-                                    {{ $selectedPaper->sabbaticalLeave ? 'checked="checked"' : '' }}/>
-                                <label class="form-check-label" for="sabbaticalLeave">
-                                    هل البحث ضمن التفرغ العلمي ؟
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-6 col-lg-6">
-                            <label for="journalName">
-                                اسم المجلة:
-                            </label>
-                            <input type="textarea" class="form-control" name="journalName"
-                                   value="{{$selectedPaper->journalName}}"></inputtextarea>
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                            <label for="journalIssueNa">
-                                عدد المجلة:
-                            </label>
-                            <input type="number" name="journalIssueNa" id="journalIssueNa"
-                                   value="{{$selectedPaper->journalIssueNa}}" min="0">
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-6 col-lg-6">
-                            <label for="journalvolume">
-                                مجلد المجلة:
-                            </label>
-                            <input type="number" name="journalvolume" id="journalvolume"
-                                   value="{{$selectedPaper->journalvolume}}" min="0">
-                        </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="totalPoints">
-                                مجموع النقاط:
-                            </label>
-                            <input type="number" name="totalPoints" id="totalPoints"
-                                   value="{{$selectedPaper->totalPoints}}" min="0">
-                        </div>
-                        <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                            <label for="TableTypeAorB">جدول الاول او الثاني: </label>
-                            <select class="form-control" name="TableTypeAorB">
-                                <option value="{{ $selectedPaper->TableTypeAorB }}"
-                                        selected>{{ $selectedPaper->TableTypeAorB }}</option>
-                                <option value="1">البحث ضمن الجدول الاول</option>
-                                <option value="2">البحث ضمن الجدول الثاني</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="ExpertEssessment1">
-                                تقييم خبير1:
-                            </label>
-                            <input type="textarea" class="form-control" name="ExpertEssessment1"
-                                   value="{{$selectedPaper->ExpertEssessment1}}"></inputtextarea>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="ExpertEssessment2">
-                                تقييم خبير2:
-                            </label>
-                            <input type="textarea" class="form-control" name="ExpertEssessment2"
-                                   VALUE="{{$selectedPaper->ExpertEssessment2}}"></inputtextarea>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="ExpertEssessment3">
-                                تقييم خبير3:
-                            </label>
-                            <input type="textarea" class="form-control" name="ExpertEssessment3"
-                                   value="{{$selectedPaper->ExpertEssessment3}}">
-                            </inputtextarea>
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="TotalExpertEsses">
-                                مجمل التقويم للخبراء للبحث الواحد:
-                            </label>
-                            <input type="textarea" class="form-control" name="TotalExpertEsses"
-                                   value="{{$selectedPaper->TotalExpertEsses}}"></inputtextarea>
-                        </div>
-
-                        <div class="form-check col-sm-12 col-md-12 col-lg-12">
-                            <input type="checkbox" name="supportedPaper" value="supportedPaper"
-                                {{ $selectedPaper->supportedPaper ? 'checked="checked"' : '' }}/>
-                            <label class="form-check-label" for="supportedPaper">
-                                هل يعتبر بحث التعزيزي ؟
-                            </label>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-6 col-lg-6">
-                            <label for="suppPaper_dateof_application">تأريخ السابق تقديم البحث التعزيزي</label><br>
-                            <input type="date" id="suppPaper_dateof_application" name="suppPaper_dateof_application"
-                                   value="{{ Carbon\Carbon::parse($selectedPaper->suppPaper_dateof_application)->format('Y-m-d') }}">
-
-                        </div>
-                        <div class="form-group col-sm-12 col-md-6 col-lg-6">
-                            <label for="suppPaper_dateof_application">تأريخ الجديد تقديم البحث التعزيزي</label><br>
-                            <input type="date" id="suppPaper_dateof_application" name="suppPaper_dateof_application"
-                        </div>
 
                         <div class="form-check col-sm-12 col-md-6 col-lg-4">
-                            <input type="checkbox" name="Is_suppPaper_In_SciPlan" value="Is_suppPaper_In_SciPlan"
-                                {{ $selectedPaper->Is_suppPaper_In_SciPlan ? 'checked="checked"' : '' }}/>
-                            <label class="form-check-label" for="Is_suppPaper_In_SciPlan">
-                                هل البحوث المقدمة للترقية ضمن الخطة البحثية للقسم ؟
+                            <input type="checkbox" name="Ispubished"
+                                   value="Ispubished" {{ $selectedPaper->Ispubished ? 'checked="checked"' : '' }}/>
+                            <label class="form-check-label" for="Ispubished">
+                                هل البحث منشور ؟
                             </label>
                         </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <button type="submit" class="btn btn-primary"> تعديل و حفظ</button>
+                        <div class="form-group col-sm-12 col-md-6 col-lg-6 py-3">
+                            <div class="form-check ">
+                                <input type="checkbox" name="takenFromStdut_thesis"
+                                       value="takenFromStdut_thesis" {{ $selectedPaper->takenFromStdut_thesis ? 'checked="checked"' : '' }}/>
+                                <label class="form-check-label" for="takenFromStdut_thesis">
+                                    هل البحث مستل من اطروحة؟
+                                </label>
+                            </div>
                         </div>
+                        {{-- todo:ask Hussien to update the select option list to use loop
+                         <select class="js-states browser-default select2" name="shopping_id" required id="shopping_id">
+                               <option value="option_select" disabled selected>Shoppings</option>
+                               @foreach($shoppings as $shopping)
+                                   <option value="{{ $shopping->id }}" {{$company->shopping_id == $shopping->id  ? 'selected' : ''}}>{{ $shopping->fantasyname}}</option>
+                               @endforeach
+                           </select>--}}
+
+                        <div class="form-row">
+                            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                                <label for="publishType">تصنيف جهة النشر </label>
+                                <select class="form-control" name="publishType">
+                                    <option value="1" {{ $selectedPaper->publishType==1? 'selected':"" }}>مجلات ذات
+                                        معامل
+                                        تأثير
+                                    </option>
+                                    <option value="2" {{ $selectedPaper->publishType==2? 'selected':"" }}>مجلات عالمية
+                                        مطبوعة
+                                    </option>
+                                    <option value="3" {{ $selectedPaper->publishType==3? 'selected':"" }}>مجلات عربية
+                                        وعراقية
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                                <div class="form-check">
+                                    <input type="checkbox" name="exact_specialization" value="exact_specialization"
+                                        {{ $selectedPaper->exact_specialization ? 'checked="checked"' : '' }}/>
+                                    <label class="form-check-label" for="exact_specialization">
+                                        هل البحث ب الاختصاص الدقيق ؟
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                                <div class="form-check">
+                                    <input type="checkbox" name="general_specialization" value="general_specialization"
+                                        {{ $selectedPaper->general_specialization ? 'checked="checked"' : '' }}/>
+                                    <label class="form-check-label" for="general_specialization">
+                                        هل البحث ب الاختصاص العام ؟
+                                    </label>
+                                </div>
+                            </div>
+                            {{--   todo: following columns should be filledout from controller.
+                   $table->integer('headCommitee_ID')->nullable();
+                      $table->timestamp('headCommitee_createdat')->nullable();--}}
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="plagiarised_Details">تفاصيل الاستلال</label>
+                                <input type="textarea" class="form-control" name="plagiarised_Details"
+                                       value="{{ $selectedPaper->plagiarised_Details }}"></inputtextarea>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-check">
+                                    <input type="checkbox" name="Is_paper_fromApplTheses"
+                                           value="Is_paper_fromApplTheses"
+                                        {{ $selectedPaper->Is_paper_fromApplTheses ? 'checked="checked"' : '' }}/>
+                                    <label class="form-check-label" for="Is_paper_fromApplTheses">
+                                        هل البحث مستل من رسالة أو اطروحة طالب الترقية ؟
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="plagiarised_resource">مصدر الاستلال</label>
+                                <input type="textarea" class="form-control" name="plagiarised_resource"
+                                       value="{{ $selectedPaper->plagiarised_resource }}"></textarea>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-check">
+                                    <input type="checkbox" name="Is_paperRelated_CoAuther"
+                                           value="Is_paperRelated_CoAuther"
+                                        {{ $selectedPaper->Is_paperRelated_CoAuther ? 'checked="checked"' : '' }}/>
+                                    <label class="form-check-label" for="Is_paperRelated_CoAuther">
+                                        هل للبحث علاقة مع بحوث اخرى للباحثين المشتركين ؟
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-check">
+                                    <input type="checkbox" name="Is_paper_AppSuperlTheses"
+                                           value="Is_paper_AppSuperlTheses"
+                                        {{ $selectedPaper->Is_paper_AppSuperlTheses ? 'checked="checked"' : '' }}/>
+                                    <label class="form-check-label" for="Is_paper_AppSuperlTheses">
+                                        هل البحث مستل من رسالة أو اطروحة اشرف عليها طالب الترقية؟
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-6 col-lg-12">
+                                <label for="Ratio_paper_AppSuperlTheses">النسبة المئوية البحث مستل من رسالة أو اطروحة
+                                    اشرف
+                                    عليها
+                                    طالب
+                                    الترقية:</label>
+                                <input type="number" name="Ratio_paper_AppSuperlTheses" id="Ratio_paper_AppSuperlTheses"
+                                       value="{{ $selectedPaper->Ratio_paper_AppSuperlTheses}}"
+                                       min="0">
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="plagiarised_resource_Sup">مصدر الاستلال من البحث مستل من رسالة أو اطروحة
+                                    اشرف
+                                    عليها
+                                    طالب
+                                    الترقية</label>
+                                <input type="textarea" class="form-control" name="plagiarised_resource_Sup"
+                                       value="{{ $selectedPaper->plagiarised_resource_Sup }}"></textarea>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-check">
+                                    <input type="checkbox" name="Is_paperRelated_CoAuther_Sup"
+                                           value="Is_paperRelated_CoAuther_Sup"
+                                        {{ $selectedPaper->Is_paperRelated_CoAuther_Sup ? 'checked="checked"' : '' }}/>
+                                    <label class="form-check-label" for="Is_paperRelated_CoAuther_Sup">
+                                        هل للبحث علاقة مع بحوث آخرى للباحثين المشاركين للبحث مستل من رسالة أو اطروحة
+                                        اشرف
+                                        عليها
+                                        طالب
+                                        الترقية؟
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-check">
+                                    <input type="checkbox" name="Is_paper_CoSuperTheses" value="Is_paper_CoSuperTheses"
+                                        {{ $selectedPaper->Is_paper_CoSuperTheses ? 'checked="checked"' : '' }}/>
+                                    <label class="form-check-label" for="Is_paper_CoSuperTheses">
+                                        هل البحث مستل من رسالة أو اطروحة اشرف عليها احد الباحثين المشاركين؟
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="Ratio_paper_CoSuperTheses">النسبة المئوية البحث مستل من رسالة أو اطروحة اشرف
+                                    عليها
+                                    احد
+                                    الباحثين
+                                    المشاركين:</label>
+                                <input type="number" name="Ratio_paper_CoSuperTheses" id="Ratio_paper_CoSuperTheses"
+                                       value="{{$selectedPaper->Ratio_paper_CoSuperTheses}}" min="0">
+                            </div>
+                            {{--           add collection of fields--}}
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="plagiarised_resource_CoSuper">مصدر الاستلال من البحث مستل من رسالة أو اطروحة
+                                    اشرف
+                                    عليها احد
+                                    الباحثين المشاركين</label>
+
+                                <input type="textarea" class="form-control" name="plagiarised_resource_CoSuper"
+                                       value="{{ $selectedPaper->plagiarised_resource_CoSuper }}"></textarea>
+
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-check">
+                                    <input type="checkbox" name="Is_paperRelated_CoSuper"
+                                           value="Is_paperRelated_CoSuper"
+                                        {{ $selectedPaper->Is_paperRelated_CoSuper ? 'checked="checked"' : '' }}/>
+                                    <label class="form-check-label" for="Is_paperRelated_CoSuper">
+                                        هل للبحث علاقة مع بحوث آخرى للباحثين المشاركين للبحث مستل من رسالة أو اطروحة
+                                        اشرف
+                                        عليها
+                                        احد
+                                        الباحثين المشاركين؟
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-check">
+                                    <input type="checkbox" name="Is_paper_CoTheses" value="Is_paper_CoTheses"
+                                        {{ $selectedPaper->Is_paper_CoTheses ? 'checked="checked"' : '' }}/>
+                                    <label class="form-check-label" for="Is_paper_CoTheses">
+                                        هل البحث مستل من رسالة أو اطروحة انجزها احد الباحثين المشاركين؟
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                                <label for="Ratio_paper_CoTheses">
+                                    النسبة المئوية البحث مستل من رسالة أو اطروحة انجزها احد الباحثين المشاركين:
+                                </label>
+                                <input type="number" name="Ratio_paper_CoTheses" id="Ratio_paper_CoTheses"
+                                       value="{{$selectedPaper->Ratio_paper_CoTheses}}" min="0">
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="plagiarised_resource_CoTheses">
+                                    مصدر الاستلال من البحث مستل من رسالة أو اطروحة انجزها احد الباحثين المشاركين
+                                </label>
+                                <input type="textarea" class="form-control" name="plagiarised_resource_CoTheses"
+                                       value="{{ $selectedPaper->plagiarised_resource_CoTheses }}"></textarea>
+                            </div>
+                            {{--
+                            begining of the last group of editable fields:
+                            --}}
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <input type="checkbox" name="Is_paperRelated_CoTheses" value="Is_paperRelated_CoTheses"
+                                    {{ $selectedPaper->Is_paperRelated_CoTheses ? 'checked="checked"' : '' }}/>
+                                <label class="form-check-label" for="Is_paperRelated_CoTheses">
+                                    هل للبحث علاقة مع بحوث آخرى للباحثين المشاركين للبحث مستل من رسالة أو اطروحة انجزها
+                                    احد
+                                    الباحثين
+                                    المشاركين؟
+                                </label>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <input type="checkbox" name="Is_paper_OldProm" value="Is_paper_OldProm"
+                                    {{ $selectedPaper->Is_paper_OldProm ? 'checked="checked"' : '' }}/>
+                                <label class="form-check-label" for="Is_paper_OldProm">
+                                    هل البحث مستل من بحث تم استخدامه في ترقية سابقة ؟
+                                </label>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="Ratio_paper_OldProm">
+                                    النسبة المئوية للبحث مستل من بحث تم استخدامه في ترقية سابقة :
+                                </label>
+                                <input type="number" name="Ratio_paper_OldProm" id="Ratio_paper_OldProm"
+                                       value="{{$selectedPaper->Ratio_paper_OldProm}}" min="0">
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="plagiarised_resource_OldProm">
+                                    مصدر الاستلال للبحث مستل من بحث تم استخدامه في ترقية سابقة :
+                                </label>
+                                <input type="textarea" class="form-control" name="plagiarised_resource_OldProm"
+                                       value="{{$selectedPaper->plagiarised_resource_OldProm}}"></inputtextarea>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <input type="checkbox" name="Is_paperRelated_CoAuther_OldProm"
+                                       value="Is_paperRelated_CoAuther_OldProm"
+                                    {{ $selectedPaper->Is_paperRelated_CoAuther_OldProm ? 'checked="checked"' : '' }}/>
+                                <label class="form-check-label" for="Is_paperRelated_CoAuther_OldProm">
+                                    هل للبحث علاقة مع بحوث آخرى للباحثين المشاركين للبحث مستل من بحث تم استخدامه في
+                                    ترقية
+                                    سابقة
+                                    ؟
+                                </label>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <input type="checkbox" name="Is_paper_From_Others" value="Is_paper_From_Others"
+                                    {{ $selectedPaper->Is_paper_From_Others ? 'checked="checked"' : '' }}/>
+                                <label class="form-check-label" for="Is_paper_From_Others">
+                                    هل البحث مستل من بحوث آخرى او من شبكة الانترنت؟
+                                </label>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-12">
+                                <label for="Ratio_paper_From_Others">
+                                    النسبة المئوية للبحث مستل من بحوث آخرى او من شبكة الانترنت:
+                                </label>
+                                <input type="number" name="Ratio_paper_From_Others" id="Ratio_paper_From_Others"
+                                       value="{{$selectedPaper->Ratio_paper_From_Others}}" min="0">
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="plagiarised_resFrom_Others">
+                                    مصدر الاستلال للبحث مستل من بحوث آخرى او من شبكة الانترنت :
+                                </label>
+                                <input type="textarea" class="form-control" name="plagiarised_resFrom_Others"
+                                       value="{{$selectedPaper->plagiarised_resFrom_Others}}"></inputtextarea>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <input type="checkbox" name="Is_paperRelated_CoAuther_From_Others"
+                                       value="Is_paperRelated_CoAuther_From_Others"
+                                    {{ $selectedPaper->Is_paperRelated_CoAuther_From_Others ? 'checked="checked"' : '' }}/>
+                                <label class="form-check-label" for="Is_paperRelated_CoAuther_From_Others">
+                                    هل للبحث علاقة مع بحوث آخرى للباحثين المشاركين للبحث مستل من بحوث آخرى او من شبكة
+                                    الانترنت ؟
+                                </label>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-check">
+                                    <input type="checkbox" name="sabbaticalLeave" value="sabbaticalLeave"
+                                        {{ $selectedPaper->sabbaticalLeave ? 'checked="checked"' : '' }}/>
+                                    <label class="form-check-label" for="sabbaticalLeave">
+                                        هل البحث ضمن التفرغ العلمي ؟
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="journalName">
+                                    اسم المجلة:
+                                </label>
+                                <input type="text" class="form-control" name="journalName"
+                                       value="{{$selectedPaper->journalName}}"></inputtextarea>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                                <label for="journalIssueNa">
+                                    عدد المجلة:
+                                </label>
+                                <input type="number" name="journalIssueNa" id="journalIssueNa"
+                                       value="{{$selectedPaper->journalIssueNa}}" min="0">
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                                <label for="journalvolume">
+                                    مجلد المجلة:
+                                </label>
+                                <input type="number" name="journalvolume" id="journalvolume"
+                                       value="{{$selectedPaper->journalvolume}}" min="0">
+                            </div>
+                            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                                <label for="totalPoints">
+                                    مجموع النقاط:
+                                </label>
+                                <input type="number" name="totalPoints" id="totalPoints"
+                                       value="{{$selectedPaper->totalPoints}}" min="0">
+                            </div>
+                            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                                <label for="TableTypeAorB">جدول الاول او الثاني: </label>
+                                <select class="form-control" name="TableTypeAorB">
+
+                                    <option value="1" {{ $selectedPaper->TableTypeAorB==1? 'selected':"" }}>
+                                        البحث ضمن الجدول الاول
+                                    </option>
+                                    <option value="2" {{ $selectedPaper->TableTypeAorB==1? 'selected':"" }}>
+                                        البحث ضمن الجدول الثاني
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="ExpertEssessment1">
+                                    تقييم خبير1:
+                                </label>
+                                <input type="textarea" class="form-control" name="ExpertEssessment1"
+                                       value="{{$selectedPaper->ExpertEssessment1}}"></inputtextarea>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="ExpertEssessment2">
+                                    تقييم خبير2:
+                                </label>
+                                <input type="textarea" class="form-control" name="ExpertEssessment2"
+                                       VALUE="{{$selectedPaper->ExpertEssessment2}}"></inputtextarea>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="ExpertEssessment3">
+                                    تقييم خبير3:
+                                </label>
+                                <input type="textarea" class="form-control" name="ExpertEssessment3"
+                                       value="{{$selectedPaper->ExpertEssessment3}}">
+                                </inputtextarea>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="TotalExpertEsses">
+                                    مجمل التقويم للخبراء للبحث الواحد:
+                                </label>
+                                <input type="textarea" class="form-control" name="TotalExpertEsses"
+                                       value="{{$selectedPaper->TotalExpertEsses}}"></inputtextarea>
+                            </div>
+
+                            <div class="form-check col-sm-12 col-md-12 col-lg-12">
+                                <input type="checkbox" name="supportedPaper" value="supportedPaper"
+                                    {{ $selectedPaper->supportedPaper ? 'checked="checked"' : '' }}/>
+                                <label class="form-check-label" for="supportedPaper">
+                                    هل يعتبر بحث التعزيزي ؟
+                                </label>
+                            </div>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="suppPaper_dateof_application">تأريخ السابق تقديم البحث التعزيزي</label>
+                                <input type="date" name="publish_date" id="publish_date"
+                                       value="{{date('Y-m-d',trim(strtotime($selectedPaper->publish_date)))}}">
+
+                            </div>
+                       {{--
+                             <input type="date" id="suppPaper_dateof_application" name="suppPaper_dateof_application"
+                                       value="{{ Carbon\Carbon::parse($selectedPaper->suppPaper_dateof_application)->format('Y-m-d') }}">--}}{{--
+                            <input type="date" name="suppPaper_dateof_application" id="suppPaper_dateof_application"
+                                   VALUE="{{date('Y-m-d',(strtotime($selectedPaper->suppPaper_dateof_application))}}">
+                                                      value="{{Carbon\Carbon::parse($selectedPaper->suppPaper_dateof_application)->format('Y-m-d')}}"
+
+--}}
+                         {{--   <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="suppPaper_dateof_application">تأريخ الجديد تقديم البحث التعزيزي</label>
+                                <input type="date" id="suppPaper_dateof_application" name="suppPaper_dateof_application"
+                            </div>
+--}}
+                            <div class="form-check col-sm-12 col-md-12 col-lg-12">
+                                <input type="checkbox" name="Is_suppPaper_In_SciPlan" value="Is_suppPaper_In_SciPlan"
+                                    {{ $selectedPaper->Is_suppPaper_In_SciPlan ? 'checked="checked"' : '' }}/>
+                                <label class="form-check-label" for="Is_suppPaper_In_SciPlan">
+                                    هل البحوث المقدمة للترقية ضمن الخطة البحثية للقسم ؟
+                                </label>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                <button type="submit" class="btn btn-primary"> تعديل و حفظ</button>
+                            </div>
             </form>
 
         @else
@@ -917,5 +939,5 @@
             </form>
 
         @endif
-
-        @endsection
+    </div>
+@endsection

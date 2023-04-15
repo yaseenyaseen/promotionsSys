@@ -145,7 +145,7 @@
                                                            placeholder="Sci_plan_presidency_Academic_Promotions_Affairs">
                                                 </div>
                                             </div>
-                                            @end-role
+                                            @endrole
                                                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                                     <button type="submit" class="btn btn-primary">Submit</button>
                                                 </div>

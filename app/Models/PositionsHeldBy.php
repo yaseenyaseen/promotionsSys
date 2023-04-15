@@ -16,7 +16,7 @@ class PositionsHeldBy extends Model
         'sDate',
         'edate'
     ];
-    protected $table='degrees';
+    protected $table='positions_held_bies';
 
     /* public function User(){
          return $this->belongsTo(User::class);

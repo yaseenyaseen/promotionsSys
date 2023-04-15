@@ -8,6 +8,7 @@
                 <h2>متطلبات الترقية- تأييد الخطة البحثية </h2>
                 <br>
                 @if(is_null($SciPlan))
+                    @role('Applicant')
                     <br>
                     <div class="pull-right">
                         <a class="btn btn-success" href="{{ route('createsciplanHamsh') }}"> أنشاء
@@ -15,7 +16,7 @@
                     </div>
                 @else
 {{-- following code should be upated to make the roles catogories based on head name of the page only.--}}
-                    @role('Applicant')
+
 
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
@@ -24,7 +25,7 @@
                     @endif
 
                     <div class="pull-right">
-                        <a class="btn btn-success" href="#"> صفحة الرئيسية</a>
+                        <a class="btn btn-success" href="{{route('NewApplicationBoard')}}"> صفحة الاستمارات المطلوبة </a>
                     </div>
                     <div>
                         The user name is: <br>
@@ -108,8 +109,12 @@
                 <tr>
                     <br>
                     <td>
+{{--
                         <form action="{{ route('hamshs.forms.destroyHamshsciplan',$SciPlan) }}" method="POST">
-
+--}}
+{{--
+                            <form action="{{ route("#") }}">
+--}}
                             <a class="btn btn-info" href="{{ route('hamshs.forms.showHamsh',$SciPlan) }}">طباعة
                                 الهامش</a>
 

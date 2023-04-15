@@ -102,8 +102,41 @@ Route::get('/hamshs/showUser/{user_id}', [HamshController::class, 'showUser'])->
 Route::get('/hamshs/forms/PromReq_submissionForm/createRequestApplyingHamsh', [HamshController::class, 'createRequestApplyingHamsh'])->name('createRequestApplyingHamsh');
 
 Route::post('/hamshs/forms/PromReq_submissionForm/store', [HamshController::class, 'storeReqApplyingHamsh'])->name('storeReqApplyingHamsh');
-Route::get('/hamshs/forms/PromReq_submissionForm/index/{user_id}', [HamshController::class, 'requestApplyingindex'])->name('requestApplyingindex');
 
 /*Route::get('/hamshs/forms/edit/{user_id}', [HamshController::class, 'storef'])->name('fillOutPaper');*/
 Route::post('hamshs/forms/createform/edit', [HamshController::class, 'editPaper'])->name('editPaper');
 Route::post('hamshs/forms/createform/update', [HamshController::class, 'updatePaper'])->name('updatePaper');
+
+/*requestapplying*/
+Route::get('/hamshs/PromReq_submissionForm/editHamshsciplan/{Ham_id}', [HamshController::class, 'editHamshProReq'])->name('hamshs.PromReq_submissionForm.forms.editHamsh');
+Route::put('/hamshs/PromReq_submissionForm/updateHamshsrequest_applying/{hamsh_id}', [HamshController::class, 'updateHamshsrequest_applying'])->name('hamshs.forms.updateHamshsrequest_applying');
+Route::get('/hamshs/forms/PromReq_submissionFormdd/index/{user_id}', [HamshController::class, 'requestApplyingindex'])->name('requestApplyingindex');
+Route::get('/hamshs/forms/PromReq_submissionForm/showHamsh/{Ham_id}', [HamshController::class, 'showHamshrequest_applying'])->name('hamshs.forms.showHamshrequest_applying');
+
+/*admins*/
+Route::view('/administrators/indexrequestApplying', 'hamshs.forms.administrators.indexrequestApplying')->name('hamshs.forms.administrators.indexrequestApplying');// صفحة مسؤلين انجاز 'طلب الترقية'
+Route::view('/administrators/requestApplyingListForAdmins', 'hamshs.forms.administrators.RequestApplyingListForAdmins')->name('hamshs.forms.administrators.RequestApplyingListForAdmins');// صفحة رئيس قسم انجاز 'طلب الترقية'
+Route::get('/hamshs/forms/RequestApplyinglistindex', [HamshController::class, 'RequestApplyinglistindex'])->name('hamshs.forms.RequestApplyinglistindex');
+
+/*AcademicReputation*/
+Route::get('/hamshs/forms/AcademicReputation/iiindex/{user_id}', [HamshController::class, 'AcademicReputationindex'])->name('AcademicReputationindex');
+Route::get('/hamshs/forms/AcademicReputation/createAcademicReputationHamsh', [HamshController::class, 'createAcademicReputationHamsh'])->name('createAcademicReputationHamsh');
+Route::post('/hamshs/forms/AcademicReputation/store', [HamshController::class, 'storeAcademicReputationHamsh'])->name('storeAcademicReputationHamsh');
+Route::get('/hamshs/forms/AcademicReputation/showHamsh/{Ham_id}', [HamshController::class, 'showHamshAcademicReputation'])->name('hamshs.forms.showHamshAcademicReputation');
+Route::get('/hamshs/AcademicReputation/editHamsh/{Ham_id}', [HamshController::class, 'editHamshAcademicReputation'])->name('hamshs.AcademicReputation.forms.editHamsh');
+Route::put('/hamshs/AcademicReputation/updateHamsh/{hamsh_id}', [HamshController::class, 'updateHamshAcademicReputation'])->name('updateHamshAcademicReputation');
+/*admins*/
+Route::view('/administrators/AcademicReputationindex', 'hamshs.forms.administrators.AcademicReputationindex')->name('adminAcademicReputationindex');// صفحة مسؤلين انجاز 'السمعة الاكاديمية'
+Route::view('/administrators/AcademicReputationlistindex', 'hamshs.forms.administrators.AcademicReputationlistindex')->name('AcademicReputationlistindex');// صفحة مسؤول مركز الحاسبة  'السمعة الاكاديمية'
+Route::get('/hamshs/forms/AcademicReputationlistindex', [HamshController::class, 'AcademicReputationindex'])->name('RequestApplyinglistindex');
+
+/*positionsDegrees*/
+Route::get('/hamshs/forms/positionsDegrees/index/{user_id}', [HamshController::class, 'positionsDegreesindex'])->name('positionsDegreesindex');
+Route::get('/hamshs/forms/positionsDegrees/create', [HamshController::class, 'createpositionsDegrees'])->name('createpositionsDegrees');
+Route::post('/hamshs/forms/positionsDegrees/store', [HamshController::class, 'storepositionsDegrees'])->name('storepositionsDegrees');
+Route::get('/hamshs/positionsDegrees/editHamsh', [HamshController::class, 'editpositionsDegrees'])->name('editpositionsDegrees');
+Route::put('/hamshs/positionsDegrees/updateHamsh/{hamsh_id}', [HamshController::class, 'updateHamshAcademicReputation'])->name('updateHamshAcademicReputation');
+
+Route::post('hamshs/forms/positionsDegrees/editSingle', [HamshController::class, 'editsinglePositionsDegrees'])->name('editsinglePositionsDegrees');
+Route::post('hamshs/forms/positionsDegrees/update', [HamshController::class, 'updatePositionsDegrees'])->name('updatePositionsDegrees');
+Route::get('/hamshs/forms/positionsDegrees/showHamsh', [HamshController::class, 'showPositionsDegrees'])->name('showPositionsDegrees');

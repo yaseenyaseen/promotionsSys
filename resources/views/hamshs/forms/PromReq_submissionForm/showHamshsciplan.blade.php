@@ -3,65 +3,40 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>طباعة قائمة الهوامش ومراحل سير معاملة الترقية حسب تسلسل المرجعيات </h2>
+                <h2>طباعة قائمة الهوامش-استمارة تقديم الطلب للترقية العلمية </h2>
             </div>
-            <div class="pull-right">
+         {{--   <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
-            </div>
+            </div>--}}
         </div>
     </div>
 
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Title:</strong>
-                {{ $hamsh->title }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Description:</strong>
-                {{ $hamsh->description }}
-            </div>
-        </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <label>
+                    نظراً لاستحقاقي الترقية العلمية الى مرتبة ( ) يرجى التفضل بالموافقة على ترويج معاملة ترقيتي وذلك
+                    لاكمالي المدة القانونية اللازمة او قبل سنة من تاريخ استحقاق الترقية وفقا للفقرة (اولا – 1) من
+                    القرار 315 لسنة 1988 ، علما ان بحوثي المقدمة للترقية العلمية هي :
+
+                </label>
                 <strong>مقدم الطلب :</strong>
-                {{ $hamsh->Sci_plan_Applicant }}
+
+                {{ $hamsh->Applicant_hamsh }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>شؤون علمية كلية:</strong>
-                {{ $hamsh->Sci_plan_Coll_Sci_Affairs }}
+                <strong>هامش السيد رئيس القسم :</strong>
+                {{ $hamsh->Sci_Dep_hamsh }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>معاون عميد كلية :</strong>
-                {{ $hamsh->Sci_plan_Coll_Dean_Assis }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>مسؤول خطة بحثية رئاسة :</strong>
-                {{ $hamsh->Sci_plan_presidency_office }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>مساعد رئيس الجامعة الشؤون العلمية :</strong>
-                {{ $hamsh->Sci_plan_Sci_Affairs_President_University_Assistant }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>المركزية :</strong>
-                {{ $hamsh->Sci_plan_presidency_Academic_Promotions_Affairs }}
+                <strong>هامش السيد عميد الكلية  :</strong>
+                {{ $hamsh->Dean_hamsh }}
             </div>
         </div>
 
-
-    </div>
 @endsection

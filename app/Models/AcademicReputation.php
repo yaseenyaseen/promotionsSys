@@ -11,7 +11,7 @@ class AcademicReputation extends Model
     protected $table='academic_reputations';
     protected $fillable = [
         'id',
-'user_id',
+'promotionReqs_id',
 'GoogleScholar_ID',
 'Publons_ID',
 'ResearchGate_ID',
@@ -27,14 +27,7 @@ class AcademicReputation extends Model
 
 'computerCenter_hamsh',
 'computerCenter_Id',
+'IsAcademic_reputationsDone',
 'computerCenter_createdAt',
-
-'autherName',
-'supervisorName',
-'degree',// الدرجة العلمية
-'No_plagiarised_articles'
-    //end of add table columns
-
-
     ];
 }

@@ -15,8 +15,7 @@ class CreateAcademicReputationsTable extends Migration
     {
         Schema::create('academic_reputations', function (Blueprint $table) {
             $table->id();
-            //add table columns
-            $table->integer('user_id')->nullable();
+            $table->integer('promotionReqs_id')->nullable();
             $table->string('GoogleScholar_ID')->nullable();
             $table->string('Publons_ID')->nullable();
             $table->string('ResearchGate_ID')->nullable();
@@ -32,14 +31,8 @@ class CreateAcademicReputationsTable extends Migration
 
             $table->string('computerCenter_hamsh')->nullable();
             $table->integer('computerCenter_Id')->nullable();
+            $table->boolean('IsAcademic_reputationsDone')->nullable();
             $table->timestamp('computerCenter_createdAt')->nullable();
-
-            $table->string('autherName')->nullable();
-            $table->string('supervisorName')->nullable();
-            $table->string('degree')->nullable();// الدرجة العلمية
-            $table->integer('No_plagiarised_articles')->nullable();
-                        //end of add table columns
-
             $table->timestamps();
         });
     }

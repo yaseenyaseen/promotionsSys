@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="row">
+    <div class="row" dir="rtl">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h2>متطلبات الترقية-استمارة تقديم الطلب للترقية العلمية </h2>
@@ -24,7 +24,7 @@
                     @endif
 
                     <div class="pull-right">
-                        <a class="btn btn-success" href="#"> صفحة الرئيسية</a>
+                        <a class="btn btn-success" href={{route('NewApplicationBoard')}}> صفحة الاستمارات المطلوبة</a>
                     </div>
                     <div>
                         The user name is: <br>
@@ -39,8 +39,8 @@
                         <td>
                             <form action="{{ route('hamshs.forms.destroyHamshsciplan',$request_applying) }}" method="POST">
                                 <a class="btn btn-info"
-                                   href="{{ route('hamshs.forms.showHamsh',$request_applying) }}">طباعةالهامش</a>
-                                <a class="btn btn-primary" href="{{ route('hamshs.forms.editHamshsciplan',$request_applying) }}">
+                                   href="{{ route('hamshs.forms.showHamshrequest_applying',$request_applying) }}">طباعةالهامش</a>
+                                <a class="btn btn-primary" href="{{ route('hamshs.PromReq_submissionForm.forms.editHamsh',$request_applying) }}">
                                     تعديل الهامش edit</a>
                                 @csrf
                                 @method('DELETE')
@@ -54,28 +54,30 @@
                 @role('HeadDepartment_Coll')
                 <div class="pull-right">
                     <a class="btn btn-success"
-                       href="{{ route('hamshs.forms.administrators.index') }}">
+                       href="{{ route('hamshs.forms.administrators.indexrequestApplying') }}">
                         {{--/* redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
                         ->with('success','Blog created successfully.');*/
-                        $promotion_reqsForHeadDepartment_Coll
-                        --}}
-                        صفحة رئيس القسم الرئيسية</a>
+                        $promotion_reqsForHeadDepartment_Coll--}}
+
+                        صفحة مسؤلين انجاز استمارة </a>
                 </div>
                 The user name is: <br>
                 {{Auth::user()->name}} <br> <br>
-                <h6>معلومات الخطة البحثية <br></h6>
-                <h6> الخطة البحثية ID : <br></h6> {{$SciPlan->id}}
-                <h6> الخطة البحثية لمقدم الطلب ID : <br></h6> {{$SciPlan->Applicant_Id}}
+                <h6>معلومات استمارة تقديم الطلب للترقية العلمية <br></h6>
+                <h6> استمارة تقديم الطلب للترقية العلمية ID : <br></h6> {{$request_applying->id}}
+                <h6> استمارة تقديم الطلب للترقية العلمية لمقدم الطلب ID : <br></h6> {{$request_applying->Applicant_Id}}
 
                 <tr>
                     <br>
                     <td>
+{{--
                         <form action="{{ route('hamshs.forms.destroyHamshsciplan',$SciPlan) }}" method="POST">
+--}}
 
-                            <a class="btn btn-info" href="{{ route('hamshs.forms.showHamsh',$SciPlan) }}">طباعة
+                            <a class="btn btn-info" href="{{ route('hamshs.forms.showHamshrequest_applying',$request_applying) }}">طباعة
                                 الهامش</a>
 
-                            <a class="btn btn-primary" href="{{ route('hamshs.forms.editHamshsciplan',$SciPlan) }}">
+                            <a class="btn btn-primary" href="{{ route('hamshs.PromReq_submissionForm.forms.editHamsh',$request_applying) }}">
                                 تعديل الهامش edit</a>
                             @csrf
                             @method('DELETE')
@@ -85,18 +87,17 @@
                     </td>
                 </tr>
 
-                {{--                @endforeach--}}
                 @endrole
-                @role('Coll_ResearchPlan_Officer')
+             {{--   @role('Coll_ResearchPlan_Officer')
                 <h3>مسؤول خطة بحثية كلية </h3>
                 <br>
                 <div class="pull-right">
                     <a class="btn btn-success"
                        href="{{ route('hamshs.forms.administrators.index') }}">
-                        {{--/* redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
+                        --}}{{----}}{{--/* redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
                         ->with('success','Blog created successfully.');*/
                         $promotion_reqsForHeadDepartment_Coll
-                        --}}
+                        --}}{{----}}{{--
                         صفحة مسؤول خطة بحثية كلية الرئيسية</a>
                 </div>
                 The user name is: <br>
@@ -121,7 +122,7 @@
                         </form>
                     </td>
                 </tr>
-                @endrole
+                @endrole--}}
 
                 <table>
                     <thead>

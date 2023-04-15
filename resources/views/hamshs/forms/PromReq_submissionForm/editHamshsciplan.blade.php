@@ -4,11 +4,11 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Edit Hamsh من صفحة الاستمارات وليس فولدر الهامش الرئيسي</h2>
+                <h2>تعديل هامش-استمارة تقديم الطلب للترقية العلمية</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
-            </div>
+            {{-- <div class="pull-right">
+                 <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
+             </div>--}}
         </div>
     </div>
 
@@ -23,101 +23,81 @@
         </div>
     @endif
 
-    {{$hamsh->id}}
-
-    <form action="{{ route('hamshs.forms.updateHamshsciplan',$hamsh->id) }}" method="POST">
-
-    @method('PUT')
-
+    <form action="{{ route('hamshs.forms.updateHamshsrequest_applying',$hamsh->id) }}" method="POST">
+        @method('PUT')
         @role('Applicant')
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 @csrf
                 <div class="form-group">
-                    <strong>مقدم الطلب :</strong>
-                    <input type="text" name="Sci_plan_Applicant" value="{{ $hamsh->Sci_plan_Applicant }}" class="form-control" placeholder="Sci_plan_Applicant">
+                    <label>
+                        نظراً لاستحقاقي الترقية العلمية الى مرتبة ( ) يرجى التفضل بالموافقة على ترويج معاملة ترقيتي وذلك
+                        لاكمالي المدة القانونية اللازمة او قبل سنة من تاريخ استحقاق الترقية وفقا للفقرة (اولا – 1) من
+                        القرار 315 لسنة 1988 ، علما ان بحوثي المقدمة للترقية العلمية هي :
+                    </label>
+                    <strong>مقدم الطلب :</strong><br>
+                    <input type="text" name="Applicant_hamsh" value="{{ $hamsh->Applicant_hamsh }}" class="form-control"
+                           placeholder="Applicant_hamsh">
                 </div>
             </div>
-              @else
-              I am not a Applicant readolny text...
-                  <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-md-12">
-                          <div class="form-group">
-                              <strong>مقدم الطلب :</strong>
-                              <input type="text" name="Sci_plan_Applicant" value="{{ $blog->Sci_plan_Applicant }}" class="form-control" placeholder="Title" readonly>
-                          </div>
-                      </div>
-
-            @endrole
-
-
-
-
-            @role('Coll_Sci_Affairs')
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>شؤون علمية كلية:</strong>
-                        <input type="text" name="Sci_plan_Coll_Sci_Affairs" value="{{ $hamsh->Sci_plan_Coll_Sci_Affairs }}" class="form-control" placeholder="Sci_plan_Coll_Sci_Affairs">
-                    </div>
-                </div>
-                @endrole
-
-                @role('Coll_Dean_ Assistant')
+            @else
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong>معاون عميد كلية :</strong>
-                            <input type="text" name="Sci_plan_Coll_Dean_Assis" value="{{ $hamsh->Sci_plan_Coll_Dean_Assis }}" class="form-control" placeholder="Sci_plan_Coll_Dean_Assis">
+                            <strong>مقدم الطلب :</strong>
+                            <input type="text" name="Sci_plan_Applicant" value="{{ $hamsh->Applicant_hamsh }}"
+                                   class="form-control" placeholder="Title" readonly>
                         </div>
                     </div>
                     @endrole
-                    @role('Presidency_Research_Plan_Officer')
+                    @role('HeadDepartment_Coll')
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12">
+                            @csrf
                             <div class="form-group">
-                                <strong>مسؤول خطة بحثية رئاسة :</strong>
-                                <input type="text" name="Sci_plan_presidency_office" value="{{ $hamsh->Sci_plan_presidency_office }}" class="form-control" placeholder="Sci_plan_presidency_office">
+                                <strong> هامش السيد رئيس القسم :</strong><br>
+                                <input type="text" name="Sci_Dep_hamsh" value="{{ $hamsh->Sci_Dep_hamsh }}"
+                                       class="form-control"
+                                       placeholder="Sci_Dep_hamsh">
                             </div>
                         </div>
-                        @endrole
-                        @role('President_University_Assistant')
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong> مساعد رئيس الجامعة الشؤون العلمية :</strong>
-                                    <input type="text" name="Sci_plan_Sci_Affairs_President_University_Assistant" value="{{ $hamsh->Sci_plan_Sci_Affairs_President_University_Assistant }}" class="form-control" placeholder="Sci_plan_Sci_Affairs_President_University_Assistant">
-                                </div>
-                            </div>
-                            @endrole
-                            @role('presidency_Academic_Promotions_Affairs')
+                        @else
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>المركزية :</strong>
-                                        <input type="text" name="Sci_plan_presidency_Academic_Promotions_Affairs" value="{{ $hamsh->Sci_plan_presidency_Academic_Promotions_Affairs}}" class="form-control" placeholder="Sci_plan_presidency_Academic_Promotions_Affairs">
+                                        <strong>هامش السيد رئيس القسم :</strong>
+                                        <input type="text" name="Sci_Dep_hamsh" value="{{ $hamsh->Sci_Dep_hamsh }}"
+                                               class="form-control" placeholder="Sci_Dep_hamsh" readonly>
                                     </div>
                                 </div>
+
                                 @endrole
 
+                                @role('Dean')
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
+                                        @csrf
                                         <div class="form-group">
-                                            <strong>Title:</strong>
-                                            <input type="text" name="title" value="{{ $hamsh->title }}" class="form-control" placeholder="Title">
+                                            <strong>هامش السيد عميد الكلية :</strong>
+                                            <input type="text" name="Dean_hamsh" value="{{ $hamsh->Dean_hamsh }}"
+                                                   class="form-control" placeholder="Dean_hamsh">
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <strong>Description:</strong>
-                                            <textarea class="form-control" style="height:150px" name="description" placeholder="Description">{{ $hamsh->description }}</textarea>
+                                    @else
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>هامش السيد عميد الكلية :</strong>
+                                                    <input type="text" name="Dean_hamsh"
+                                                           value="{{ $hamsh->Dean_hamsh }}"
+                                                           class="form-control" placeholder="Dean_hamsh" readonly>
+                                                </div>
+                                            </div>
+                                            @endrole
+                                            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                                <button type="submit" class="btn btn-primary">حفظ</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>
-                                </div>
 
     </form>
 @endsection
