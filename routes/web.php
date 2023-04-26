@@ -61,7 +61,7 @@ Route::view('stage', 'prom.index');
 Route::resource('comments', CommentController::class);
 Route::resource('hamshs', HamshController::class);
 
-
+/*sciplan */
 Route::get('/hamshs/forms/sciplan/{user_id}', [HamshController::class, 'sciplanindex'])->name('hamshs.forms.sciplanindex');
 /*Route::get('/hamshs/showUser/{user_id}', [HamshController::class, 'showUser'])->name('hamshs.forms.showUser');*/
 
@@ -135,8 +135,14 @@ Route::get('/hamshs/forms/positionsDegrees/index/{user_id}', [HamshController::c
 Route::get('/hamshs/forms/positionsDegrees/create', [HamshController::class, 'createpositionsDegrees'])->name('createpositionsDegrees');
 Route::post('/hamshs/forms/positionsDegrees/store', [HamshController::class, 'storepositionsDegrees'])->name('storepositionsDegrees');
 Route::get('/hamshs/positionsDegrees/editHamsh', [HamshController::class, 'editpositionsDegrees'])->name('editpositionsDegrees');
-Route::put('/hamshs/positionsDegrees/updateHamsh/{hamsh_id}', [HamshController::class, 'updateHamshAcademicReputation'])->name('updateHamshAcademicReputation');
+/*Route::put('/hamshs/positionsDegrees/updateHamsh/{hamsh_id}', [HamshController::class, 'updateHamshAcademicReputation'])->name('updateHamshAcademicReputation');*/
 
 Route::post('hamshs/forms/positionsDegrees/editSingle', [HamshController::class, 'editsinglePositionsDegrees'])->name('editsinglePositionsDegrees');
 Route::post('hamshs/forms/positionsDegrees/update', [HamshController::class, 'updatePositionsDegrees'])->name('updatePositionsDegrees');
 Route::get('/hamshs/forms/positionsDegrees/showHamsh', [HamshController::class, 'showPositionsDegrees'])->name('showPositionsDegrees');
+/*add degrees*/
+Route::get('/hamshs/forms/positionsDegrees2/create', [HamshController::class, 'createpositionsDegrees2'])->name('createpositionsDegrees2');
+Route::post('/hamshs/forms/positionsDegrees2/store', [HamshController::class, 'storepositionsDegrees2'])->name('storepositionsDegrees2');
+Route::get('/hamshs/positionsDegrees2/editHamsh', [HamshController::class, 'editpositionsDegrees2'])->name('editpositionsDegrees2');
+Route::post('hamshs/forms/positionsDegrees2/editSingle', [HamshController::class, 'editsinglePositionsDegrees2'])->name('editsinglePositionsDegrees2');
+Route::get('/hamshs/forms/positionsDegrees2/showHamsh', [HamshController::class, 'showPositionsDegrees2'])->name('showPositionsDegrees2');

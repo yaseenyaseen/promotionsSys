@@ -24,6 +24,7 @@
             </ul>
         </div>
     @endif
+    @if(!$flag)
     <form action="{{ route('storepositionsDegrees') }}" method="POST">
         @csrf
         <div class="row">
@@ -62,4 +63,48 @@
         </div>
         </div>
     </form>
+    @else
+
+        <form action="{{ route('storepositionsDegrees2') }}" method="POST">
+            @csrf
+            <div class="row">
+
+                @role('Applicant')
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>الشهادة:</strong>
+                        <input type="text" name="degree" class="form-control" placeholder="الشهادة">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>الجامعة :</strong>
+                        <input type="text" name="university" class="form-control" placeholder="الجامعة ">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>البلد المانح:</strong>
+                        <input type="text" name="country" class="form-control" placeholder="البلد المانح">
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label for="acomplishDate">التأريخ</label><br>
+                    <input type="date" id="acomplishDate" name="acomplishDate">
+                </div>
+
+            @endrole
+
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">حفظ</button>
+            </div>
+            </div>
+            </div>
+            </div>
+        </form>
+
+
+    @endif
+
 @endsection

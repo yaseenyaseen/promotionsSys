@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AcademicReputation;
+use App\Models\Degree;
 use App\Models\Form;
 use App\Models\Hamsh;
 use App\Models\Paper;
@@ -473,8 +474,16 @@ class HamshController extends Controller
 
     public function createpositionsDegrees()
     {
-        //
-        return view('hamshs.forms.positionsDegrees.createpositionsDegrees');
+        //for positions only
+        $flag=false;
+        return view('hamshs.forms.positionsDegrees.createpositionsDegrees', compact('flag'));
+    }
+    public function createpositionsDegrees2()
+    {
+        //2 for degrees only
+        //todo: add tag "boolean" to call same view createpositionsDegrees but different form
+        $flag=true;
+        return view('hamshs.forms.positionsDegrees.createpositionsDegrees',compact('flag'));
     }
 
     /**
@@ -677,6 +686,20 @@ class HamshController extends Controller
         return redirect()->route('positionsDegreesindex', Auth::user()->id)
             ->with('success', ' معلومات الوظيفة الجديدة التي مارسها مقدم الترقية أضيفت بنجاح');
     }
+
+    public function storepositionsDegrees2(Request $request)
+    {
+        $request->validate([]);
+        Degree::create($request->all());
+        $HForm_id = Degree::latest('created_at')->value('id');//HFrorm means the hamsh form of PositionsHeldBy.
+        $HForm = Degree::find($HForm_id);
+        $HForm->user_id = Auth::user()->id;
+
+        $HForm->save();
+        return redirect()->route('positionsDegreesindex', Auth::user()->id)
+            ->with('success', ' معلومات الشهادة الجديدة التي انجزها مقدم الترقية بنجاح');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -746,13 +769,26 @@ class HamshController extends Controller
         //
       //todo: how to send list of value from view "positionsDegrees" to this method to print the variable $PositionsHeldBy.
        //dd($PositionsHeldBy);
+        $isDegree=false;
 
         $PositionsHeldBy = PositionsHeldBy::where('user_id',  Auth::user()->id)->get();
         return view('hamshs.forms.positionsDegrees.showpositionsDegrees',
-            compact('PositionsHeldBy')
+            compact('PositionsHeldBy','isDegree')
         )
             ->with('i', (request()->input('page', 1) - 1) * 5);
        }
+    public function showPositionsDegrees2(Degree $Degress)
+    {
+        //
+        //todo: how to send list of value from view "positionsDegrees" to this method to print the variable $PositionsHeldBy.
+        //dd($PositionsHeldBy);
+$isDegree=true;
+        $Degress = Degree::where('user_id',  Auth::user()->id)->get();
+        return view('hamshs.forms.positionsDegrees.showpositionsDegrees',
+            compact('Degress','isDegree')
+        )
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -824,13 +860,28 @@ class HamshController extends Controller
         $PositionsHeldBy = PositionsHeldBy::where('user_id', Auth::user()->id)
             ->get();
         $selectedposition=null;
+        $isDegree=false;
         return view('hamshs.forms.positionsDegrees.editpositionsDegrees',
-            compact('PositionsHeldBy','selectedposition'));
+            compact('PositionsHeldBy','selectedposition','isDegree'));
     }
+    public function editpositionsDegrees2(Request $request)
+    {
+        // dd( Auth::user()->id);
+        $Degrees = Degree::where('user_id', Auth::user()->id)
+            ->get();
+        $selecteddegree=null;
+        $isDegree=true;
+        return view('hamshs.forms.positionsDegrees.editpositionsDegrees',
+            compact('Degrees','selecteddegree','isDegree'));
+    }
+
     public function editsinglePositionsDegrees(Request $request)
     {
         $selectedOptionId = $request->input('selected_option');
         $selectedposition = PositionsHeldBy::find($selectedOptionId);
+
+        $isDegree = false;
+
 
      /*   $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
             ->latest('created_at')->first();*/
@@ -839,11 +890,25 @@ class HamshController extends Controller
             ->get();
       //  dd($selectedPaper);
         return view('hamshs.forms.positionsDegrees.editpositionsDegrees', compact('PositionsHeldBy',
-            'selectedposition'));
+            'selectedposition','isDegree'));
 
         //return $this->returnViewCreateForm($PromotionReqUser->id, $selectedPaper);
 //        return view('hamshs.forms.createform', ['option' => $selectedOption],
 //        compact('papers'));
+    }
+    public function editsinglePositionsDegrees2(Request $request)
+    {
+        $selected_option2Id = $request->input('selected_option2');
+        $selecteddegree = Degree::find($selected_option2Id);
+        $Degrees = Degree::where('user_id', Auth::user()->id)
+            ->get();
+        $isDegree = true;
+
+        return view('hamshs.forms.positionsDegrees.editpositionsDegrees',
+            compact('Degrees',
+            'selecteddegree','isDegree'));
+
+
     }
 
 
@@ -923,17 +988,21 @@ class HamshController extends Controller
     }
     public function updatePositionsDegrees(Request $request)
     {
-        $optionId = $request->input('option_id');
-        $option = PositionsHeldBy::find($optionId);
-
-        $option->update($request->all());
-        $option->save();
-
-        return redirect()->route('positionsDegreesindex', Auth::user()->id)
-            ->with('success', ' تم تعديل معلومات الوظائف التي مارسها مقدم الترقية بنجاح');
+        $isDegree = $request->input('isDegree');
+if($isDegree==1){
+    $optionId2 = $request->input('option_id2');
+    $option2 = Degree::find($optionId2);
+    $option2->update($request->all());
+    $option2->save();
+}else{
+    $optionId = $request->input('option_id');
+    $option = PositionsHeldBy::find($optionId);
+    $option->update($request->all());
+    $option->save();
     }
-
-
+        return redirect()->route('positionsDegreesindex', Auth::user()->id)
+            ->with('success', ' تم تعديل معلومات الوظائف والشهادات التي مارسها مقدم الترقية بنجاح');
+        }
     public function updateHamshsciplan(Request $request, SciPlan $hamsh_id)
     {
 

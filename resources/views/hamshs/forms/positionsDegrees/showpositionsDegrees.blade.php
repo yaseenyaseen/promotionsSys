@@ -10,7 +10,7 @@
                </div>--}}
         </div>
     </div>
-
+@if(!$isDegree)
     <div class="row">
      <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
@@ -41,5 +41,35 @@
 
                     </tbody>
                 </table>
+@else
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label> استمارة معلومات الشهادات التي انجزها مقدم الترقية
+                                </label>
 
+
+                                <table class="center">
+                                    <thead>
+                                    <tr>
+                                        <th>الشهادة:</th>
+                                        <th>  الجامعة:</th>
+                                        <th> البلد المانح:</th>
+                                        <th>  التأريخ:</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($Degress as $Degree)
+                                        <tr>
+                                            <td>{{ $Degree['degree'] }}</td>
+                                            <td>{{ $Degree['university'] }}</td>
+                                            <td>{{ $Degree['country'] }}</td>
+                                            <td>{{date('Y-m-d',trim(strtotime( $Degree['acomplishDate']))) }}</td>
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+@endif
 @endsection

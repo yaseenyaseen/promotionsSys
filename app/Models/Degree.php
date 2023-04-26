@@ -15,7 +15,8 @@ class Degree extends Model
         'degree',
         'specialist',
         'university',
-        'country'
+        'country',
+        'acomplishDate'
     ];
     protected $table='degrees';
 

@@ -22,62 +22,129 @@
             </ul>
         </div>
     @endif
-
-    <form action="{{ route('editsinglePositionsDegrees') }}" method="POST">
-        @csrf
-        <label for="select_option">أختار وظيفة سابقة للتعديل:</label>
-        <select name="selected_option" id="select_option">
-            <option value="---">---</option>
-            @foreach($PositionsHeldBy as $PositionHeldBy)
-                <option value="{{$PositionHeldBy->id}}">{{ $PositionHeldBy->workplace }}</option>
-            @endforeach
-        </select>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">أختيار للتعديل</button>
-        </div>
-    </form>
-    {{--
-        {{$selectedposition->workDescriptoin}}
-    --}}
-    @if($selectedposition!=null)
-        <form action="{{ route('updatePositionsDegrees') }}" method="POST">
-            <h3>تعديل على وظيفة سابق</h3>
+    @if(!$isDegree)
+        <form action="{{ route('editsinglePositionsDegrees') }}" method="POST">
             @csrf
-            <input type="hidden" name="option_id" value="{{ $selectedposition->id }}">
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <label for="workDescriptoin">عنوان الوظيفة:</label><br>
-                    <input type="textarea" class="form-control" name="workDescriptoin"
-                           value="{{ $selectedposition->workDescriptoin}}"></inputtextarea>
-
-                </div>
-            </div>
-
-            <div class=" form-group col-sm-12 col-md-12 col-lg-12">
-                <label for="workplace">جهة العمل:</label><br>
-                <input type="textarea" class="form-control" name="workplace"
-                       value="{{ $selectedposition->workplace}}"></inputtextarea>
-
-            </div>
-            <div class=" form-group col-sm-12 col-md-6 col-lg-4">
-                <label for="sDate">تاريخ بداية العمل</label><br>
-                <input type="date" id="sDate" name="sDate"
-                       value="{{date('Y-m-d',trim(strtotime($selectedposition->sDate)))}}">
-            </div>
-            <div class=" form-group col-sm-12 col-md-6 col-lg-4">
-                <label for="edate">تاريخ نهاية العمل</label><br>
-                <input type="date" id="edate" name="edate"
-                       value="{{date('Y-m-d',trim(strtotime($selectedposition->edate)))}}">
-
-            </div>
+            <label for="select_option">أختار وظيفة سابقة للتعديل:</label>
+            <select name="selected_option" id="select_option">
+                <option value="---">---</option>
+                @foreach($PositionsHeldBy as $PositionHeldBy)
+                    <option value="{{$PositionHeldBy->id}}">{{ $PositionHeldBy->workplace }}</option>
+                @endforeach
+            </select>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary"> تعديل و حفظ</button>
+                <button type="submit" class="btn btn-primary">أختيار للتعديل</button>
             </div>
         </form>
 
-    @else
+        @if($selectedposition!=null)
+            <form action="{{ route('updatePositionsDegrees') }}" method="POST">
+                <h3>تعديل على وظيفة سابق</h3>
+                @csrf
+                <input type="hidden" name="option_id" value="{{ $selectedposition->id }}">
+                <input type="hidden" name="isDegree" value="{{ $isDegree }}">
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <label for="workDescriptoin">عنوان الوظيفة:</label><br>
+                        <input type="textarea" class="form-control" name="workDescriptoin"
+                               value="{{ $selectedposition->workDescriptoin}}"></inputtextarea>
+
+                    </div>
+                </div>
+
+                <div class=" form-group col-sm-12 col-md-12 col-lg-12">
+                    <label for="workplace">جهة العمل:</label><br>
+                    <input type="textarea" class="form-control" name="workplace"
+                           value="{{ $selectedposition->workplace}}"></inputtextarea>
+
+                </div>
+                <div class=" form-group col-sm-12 col-md-6 col-lg-4">
+                    <label for="sDate">تاريخ بداية العمل</label><br>
+                    <input type="date" id="sDate" name="sDate"
+                           value="{{date('Y-m-d',trim(strtotime($selectedposition->sDate)))}}">
+                </div>
+                <div class=" form-group col-sm-12 col-md-6 col-lg-4">
+                    <label for="edate">تاريخ نهاية العمل</label><br>
+                    <input type="date" id="edate" name="edate"
+                           value="{{date('Y-m-d',trim(strtotime($selectedposition->edate)))}}">
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary"> تعديل و حفظ</button>
+                </div>
+            </form>
+
+        @endif
     @endif
+
+
+
+    @if($isDegree)
+        <form action="{{ route('editsinglePositionsDegrees2') }}" method="POST">
+            @csrf
+            <label for="select_option">أختار شهادة سابقة للتعديل:</label>
+            <select name="selected_option2" id="select_option2">
+                <option value="---">---</option>
+                {{$Degrees}}
+                @foreach($Degrees as $oneDegree)
+                    <option value="{{$oneDegree->id}}">{{ $oneDegree->degree }}</option>
+                @endforeach
+            </select>
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">أختيار للتعديل</button>
+            </div>
+        </form>
+        @if($selecteddegree!=null)
+            <form action="{{ route('updatePositionsDegrees') }}" method="POST">
+                <h3>تعديل على شهادة سابقة</h3>
+                @csrf
+                <input type="hidden" name="option_id2" value="{{ $selecteddegree->id }}">
+                <input type="hidden" name="isDegree" value="{{ $isDegree }}">
+
+
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <label for="degree">الشهادة</label><br>
+                        <input type="textarea" class="form-control" name="degree"
+                               value="{{ $selecteddegree->degree}}"></inputtextarea>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <label for="university">الجامعة</label><br>
+                        <input type="textarea" class="form-control" name="university"
+                               value="{{ $selecteddegree->university}}"></inputtextarea>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <label for="country">البلد المانح</label><br>
+                        <input type="textarea" class="form-control" name="country"
+                               value="{{ $selecteddegree->country}}"></inputtextarea>
+
+                    </div>
+                </div>
+
+
+                <div class=" form-group col-sm-12 col-md-6 col-lg-4">
+                    <label for="acomplishDate">التأريخ</label><br>
+                    <input type="date" id="acomplishDate" name="acomplishDate"
+                           value="{{date('Y-m-d',trim(strtotime($selecteddegree->acomplishDate)))}}">
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary"> تعديل و حفظ</button>
+                </div>
+            </form>
+
+        @endif
+
+    @endif
+
     {{--
         <form action="{{ route('updateHamshAcademicReputation',$hamsh->id) }}" method="POST">
             @method('PUT')

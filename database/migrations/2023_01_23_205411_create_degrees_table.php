@@ -20,6 +20,8 @@ class CreateDegreesTable extends Migration
             $table->string('specialist')->nullable();
             $table->string('university')->nullable();
             $table->string('country')->nullable();
+            $table->timestamp('acomplishDate')->nullable();
+
             $table->timestamps();
         });
     }

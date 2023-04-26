@@ -37,15 +37,15 @@
                     <tr>
                         <br>
                         <td>
-                            <form action="{{ route('hamshs.forms.destroyHamshsciplan',$request_applying) }}" method="POST">
+                            {{--<form action="{{ route('hamshs.forms.destroyHamshsciplan',$request_applying) }}" method="POST">--}}
                                 <a class="btn btn-info"
                                    href="{{ route('hamshs.forms.showHamshrequest_applying',$request_applying) }}">طباعةالهامش</a>
                                 <a class="btn btn-primary" href="{{ route('hamshs.PromReq_submissionForm.forms.editHamsh',$request_applying) }}">
                                     تعديل الهامش edit</a>
-                                @csrf
+                                {{--@csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                            </form>--}}
                         </td>
                     </tr>
                     @endrole
