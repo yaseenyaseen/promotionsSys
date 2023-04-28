@@ -8,16 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class These extends Model
 {
     use HasFactory;
-    protected $table='experts';
+    protected $table='theses';
     protected $fillable = [
         'id',
         'promotionReqs_id',
 
-        'expertName',
-        'scientificTitle',
-        'general_specialization',
-        'exact_specialization',
-        'workplace'
+        'title',
+        'autherName',
+        'supervisorName',
+        'degree',
+        'No_plagiarised_articles'
         //end of add table columns
+
+
     ];
 }

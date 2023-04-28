@@ -16,6 +16,7 @@ use App\Models\PromotionReq;
 use App\Models\College;
 
 //use http\Client\Curl\User;
+use App\Models\These;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -362,6 +363,18 @@ class HamshController extends Controller
         )
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    public function thesesindex(User $user_id)
+    {
+        $user = User::find($user_id)[1];
+        $PromotionReqUser = PromotionReq::where('user_id', $user->id)
+            ->latest('created_at')->first();
+        $theses = These::where('promotionReqs_id', $PromotionReqUser->id)
+            ->get()->first();
+        return view('hamshs.forms.theses.theses',
+            compact('theses')
+        )
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
 
     public function RequestApplyinglistindex()
     {
@@ -485,7 +498,10 @@ class HamshController extends Controller
         $flag=true;
         return view('hamshs.forms.positionsDegrees.createpositionsDegrees',compact('flag'));
     }
-
+    public function createthesis()
+    {
+        return view('hamshs.forms.theses.createthesis');
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -699,7 +715,21 @@ class HamshController extends Controller
         return redirect()->route('positionsDegreesindex', Auth::user()->id)
             ->with('success', ' معلومات الشهادة الجديدة التي انجزها مقدم الترقية بنجاح');
     }
+    public function storethesis(Request $request)
+    {
+        $request->validate([]);
+        These::create($request->all());
+        $HForm_id = These::latest('created_at')->value('id');
+        $HForm = These::find($HForm_id);
+        $reqsos = PromotionReq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
+        $proreq_id = $reqsos->id;
 
+        $HForm->promotionReqs_id = $proreq_id;
+
+        $HForm->save();
+        return redirect()->route('thesesindex', Auth::user()->id)
+            ->with('success', ' معلومات الاطاريح المتعلة بهذه الترقية أضيفت بنجاح');
+    }
     /**
      * Display the specified resource.
      *
@@ -874,6 +904,18 @@ $isDegree=true;
         return view('hamshs.forms.positionsDegrees.editpositionsDegrees',
             compact('Degrees','selecteddegree','isDegree'));
     }
+    public function edittheses(Request $request)
+    {
+
+        $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
+            ->latest('created_at')->first();
+        $theses = These::where('promotionReqs_id', $PromotionReqUser->id)
+            ->get();
+        $selectthsis=null;
+        return view('hamshs.forms.theses.edittheses',
+            compact('theses','selectthsis'));
+    }
+
 
     public function editsinglePositionsDegrees(Request $request)
     {
@@ -896,6 +938,8 @@ $isDegree=true;
 //        return view('hamshs.forms.createform', ['option' => $selectedOption],
 //        compact('papers'));
     }
+
+
     public function editsinglePositionsDegrees2(Request $request)
     {
         $selected_option2Id = $request->input('selected_option2');
@@ -911,7 +955,25 @@ $isDegree=true;
 
     }
 
+    public function editthesis(Request $request)
+    {
 
+        $selectedOptionId = $request->input('select_thoption');
+        $selectthsis = These::find($selectedOptionId);
+
+        $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
+            ->latest('created_at')->first();
+        $theses = These::where('promotionReqs_id', $PromotionReqUser->id)->get();
+        /*  $PositionsHeldBy = PositionsHeldBy::where('user_id', Auth::user()->id)
+              ->get();
+        */  //  dd($selectedPaper);
+        return view('hamshs.forms.theses.edittheses', compact('theses',
+            'selectthsis'));
+
+        //return $this->returnViewCreateForm($PromotionReqUser->id, $selectedPaper);
+//        return view('hamshs.forms.createform', ['option' => $selectedOption],
+//        compact('papers'));
+    }
     public function fillOutPaper(User $user_id)
     {
         //
@@ -1003,6 +1065,18 @@ if($isDegree==1){
         return redirect()->route('positionsDegreesindex', Auth::user()->id)
             ->with('success', ' تم تعديل معلومات الوظائف والشهادات التي مارسها مقدم الترقية بنجاح');
         }
+    public function updatethesis(Request $request)
+    {
+
+
+        $selectedThesisId = $request->input('selectedThesisId');
+        $selectethesis = These::find($selectedThesisId);
+        $selectethesis->update($request->all());
+        $selectethesis->save();
+        return redirect()->route('thesesindex', Auth::user()->id)
+            ->with('success', ' تم تعديل معلومات عن الاطاريح المتعلة بهذه الترقية بنجاح');
+    }
+
     public function updateHamshsciplan(Request $request, SciPlan $hamsh_id)
     {
 

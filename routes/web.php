@@ -146,3 +146,15 @@ Route::post('/hamshs/forms/positionsDegrees2/store', [HamshController::class, 's
 Route::get('/hamshs/positionsDegrees2/editHamsh', [HamshController::class, 'editpositionsDegrees2'])->name('editpositionsDegrees2');
 Route::post('hamshs/forms/positionsDegrees2/editSingle', [HamshController::class, 'editsinglePositionsDegrees2'])->name('editsinglePositionsDegrees2');
 Route::get('/hamshs/forms/positionsDegrees2/showHamsh', [HamshController::class, 'showPositionsDegrees2'])->name('showPositionsDegrees2');
+
+/* add theses */
+Route::get('/hamshs/forms/theses/index/{user_id}', [HamshController::class, 'thesesindex'])->name('thesesindex');
+Route::get('/hamshs/forms/theses/create', [HamshController::class, 'createthesis'])->name('createthesis');
+Route::post('/hamshs/forms/theses/store', [HamshController::class, 'storethesis'])->name('storethesis');
+Route::get('/hamshs/theses/editHamsh', [HamshController::class, 'edittheses'])->name('edittheses');
+Route::post('hamshs/forms/theses/update', [HamshController::class, 'updatethesis'])->name('updatethesis');
+
+Route::post('hamshs/forms/theses/editSingle', [HamshController::class, 'editthesis'])->name('editthesis');
+
+//Route::post('hamshs/forms/theses/editSingle', [HamshController::class, 'editsinglePositionsDegrees2'])->name('editsinglePositionsDegrees2');
+Route::get('/hamshs/forms/theses/showHamsh', [HamshController::class, 'showPositionsDegrees2'])->name('showPositionsDegrees2');

@@ -22,7 +22,6 @@
             </ul>
         </div>
     @endif
-{{--
     <form action="{{ route('updateHamshAcademicReputation',$hamsh->id) }}" method="POST">
         @method('PUT')
         @csrf
@@ -185,7 +184,6 @@
 
     </form>
 
-    --}}
 @endsection
 
 

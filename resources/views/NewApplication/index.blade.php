@@ -29,6 +29,9 @@
     <a class="btn btn-secondary"
        href="{{ route('positionsDegreesindex',Auth::user()->id) }}">     معلومات عن الوظائف التي مارسها و الشهادة</a>
     </div>
+    <a class="btn btn-secondary"
+       href="{{ route('thesesindex',Auth::user()->id) }}">     معلومات عن الاطاريح المتعلة بهذه الترقية</a>
+    </div>
     @else
         <div class="pull-right">
             <a class="btn btn-secondary" href="{{ route('hamshs.forms.administrators.index') }}"> تأييد خطة بحثية </a></div>

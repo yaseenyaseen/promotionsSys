@@ -25,44 +25,44 @@
         </div>
     @endif
     @if(!$flag)
-    <form action="{{ route('storepositionsDegrees') }}" method="POST">
-        @csrf
-        <div class="row">
+        <form action="{{ route('storepositionsDegrees') }}" method="POST">
+            @csrf
+            <div class="row">
 
-            @role('Applicant')
+                @role('Applicant')
 
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>عنوان الوظيفة:</strong>
-                    <input type="text" name="workDescriptoin" class="form-control" placeholder="عنوان الوظيفة">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>عنوان الوظيفة:</strong>
+                        <input type="text" name="workDescriptoin" class="form-control" placeholder="عنوان الوظيفة">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>جهة العمل:</strong>
+                        <input type="text" name="workplace" class="form-control" placeholder="جهة العمل">
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label for="sDate">تاريخ بداية العمل</label><br>
+                    <input type="date" id="sDate" name="sDate">
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label for="edate">تاريخ نهاية العمل</label><br>
+                    <input type="date" id="edate" name="edate">
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>جهة العمل:</strong>
-                    <input type="text" name="workplace" class="form-control" placeholder="جهة العمل">
-                </div>
-            </div>
-            <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                <label for="sDate">تاريخ بداية العمل</label><br>
-                <input type="date" id="sDate" name="sDate">
-            </div>
-            <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                <label for="edate">تاريخ نهاية العمل</label><br>
-                <input type="date" id="edate" name="edate">
-            </div>
-        </div>
 
-        @endrole
+            @endrole
 
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">حفظ</button>
-        </div>
-        </div>
-        </div>
-        </div>
-    </form>
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">حفظ</button>
+            </div>
+            </div>
+            </div>
+            </div>
+        </form>
     @else
 
         <form action="{{ route('storepositionsDegrees2') }}" method="POST">
@@ -94,17 +94,15 @@
                     <input type="date" id="acomplishDate" name="acomplishDate">
                 </div>
 
-            @endrole
+                @endrole
 
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">حفظ</button>
-            </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary">حفظ</button>
+                </div>
             </div>
             </div>
             </div>
         </form>
 
-
     @endif
-
 @endsection
