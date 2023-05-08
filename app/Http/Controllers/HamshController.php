@@ -8,6 +8,7 @@ use App\Models\Form;
 use App\Models\Hamsh;
 use App\Models\Paper;
 use App\Models\PositionsHeldBy;
+use App\Models\ProApplicationSummary;
 use App\Models\proreq;
 use App\Models\RequestApplying;
 use App\Models\SciPlan;
@@ -350,6 +351,18 @@ class HamshController extends Controller
             compact('AcademicReputation'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    public function ProApplicationSummaryindex(User $user_id)
+    {
+        $user = User::find($user_id)[1];
+        $PromotionReqUser = PromotionReq::where('user_id', $user->id)
+            ->latest('created_at')->first();
+        $ProApplicationSummary = ProApplicationSummary::where('promotionReqs_id', $PromotionReqUser->id)
+            ->get()->first();
+        return view('hamshs.forms.ProApplicationSummary.ProApplicationSummary',
+            compact('ProApplicationSummary'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
 
     public function positionsDegreesindex(User $user_id)
     {
@@ -472,6 +485,11 @@ class HamshController extends Controller
     {
         //
         return view('hamshs.forms.AcademicReputation.createAcademicReputationHamsh');
+    }
+    public function createProApplicationSummary()
+    {
+        //
+        return view('hamshs.forms.ProApplicationSummary.create');
     }
 
     public function createsciplanForm()
@@ -689,6 +707,26 @@ class HamshController extends Controller
         return redirect()->route('AcademicReputationindex', Auth::user()->id)
             ->with('success', 'Hamsh created successfully.');
     }
+    public function storeProApplicationSummary(Request $request)
+    {
+        $request->validate([]);
+        ProApplicationSummary::create($request->all());
+        $HForm_id = ProApplicationSummary::latest('created_at')->value('id');//HFrorm means the hamsh form of RequestApplying.
+        $HForm = ProApplicationSummary::find($HForm_id);
+
+        $reqsos = PromotionReq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
+        $proreq_id = $reqsos->id;
+
+        $HForm->promotionReqs_id = $proreq_id;
+        $HForm->presidencyPromCommi_createdAt = now();// change now method to updated at value. creanlty, it save created at value.
+
+        $HForm->presidencyPromCommi_ID = Auth::user()->id;
+
+        $HForm->save();
+        return redirect()->route('ProApplicationSummaryindex', Auth::user()->id)
+            ->with('success', 'أضافة بيانات على استمارة ملخص معاملة الترقية تمت بنجاح');
+    }
+
 
     public function storepositionsDegrees(Request $request)
     {
@@ -819,6 +857,19 @@ $isDegree=true;
         )
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    public function showtheses(These $theses)
+    {
+        $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
+            ->latest('created_at')->first();
+        $theses = These::where('promotionReqs_id', $PromotionReqUser->id)
+            ->get();
+
+        return view('hamshs.forms.theses.showtheses',
+            compact('theses')
+        )
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

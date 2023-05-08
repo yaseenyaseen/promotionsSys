@@ -5,41 +5,14 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div>
-                <h2>متطلبات الترقية-معلومات عن الاطاريح المتعلة بهذه الترقية </h2>
+                <h2>متطلبات الترقية-استمارة ملخص معاملة الترقية </h2>
                 <br>
                 <br>
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
-                @role('Applicant')
-                <div class="pull-right">
-                    <a class="btn btn-success" href="{{route('NewApplicationBoard')}}"> صفحة الاستمارات
-                        المطلوبة </a>
-                </div>
-                @endrole
-                <div>
-                    The user name is: <br>
-                    {{Auth::user()->name}} <br> <br>
-                </div>
-                @role('Applicant')
-                <div class="pull-right">
-                    <a class="btn btn-success" href="{{ route('createthesis') }}">أضافة أطروحة </a>
-                </div>
-                <a class="btn btn-primary" href="{{ route('edittheses') }}">
-                    تعديل قائمة الاطاريح </a>
-                <a class="btn btn-info"
-                   href="{{ route('showtheses') }}">طباعة قائمة الاطاريح </a>
-                @endrole
-
-{{--
-
-                @if(is_null($AcademicReputation))
+                @if(is_null($ProApplicationSummary))
                     @role('Applicant')
 
                     <div class="pull-right">
-                        <a class="btn btn-success" href="{{ route('createAcademicReputationHamsh') }}"> أنشاء
+                        <a class="btn btn-success" href="{{ route('createProApplicationSummary') }}"> أنشاء
                             هامش</a>
                     </div>
                     @endrole
@@ -68,16 +41,15 @@
                         The user name is: <br>
                         {{Auth::user()->name}} <br> <br>
                         <h6>معلومات عن استمارة استمارة السمعة الاكاديمية للترقية العلمية بالرقم <br></h6>
-                        --}}
-{{-- <h6> استمارة تقديم الطلب للترقية العلمية ID : <br></h6> {{$AcademicReputation->id}}
+                        {{-- <h6> استمارة تقديم الطلب للترقية العلمية ID : <br></h6> {{$AcademicReputation->id}}
                          <h6> استمارة السمعة الاكاديمية الطلب للترقية العلمية لمقدم الطلب ID : <br>
-                         </h6> {{$AcademicReputation->Applicant_Id}}--}}{{--
-
+                         </h6> {{$AcademicReputation->Applicant_Id}}--}}
                     </div>
 
                     <tr>
                         <br>
-                        <td>
+                    {{--
+                     <td>
 
                             <a class="btn btn-info"
                                href="{{ route('hamshs.forms.showHamshAcademicReputation',$AcademicReputation) }}">طباعةأستمارة
@@ -131,7 +103,7 @@
                         </tr>
                         </tbody>
                     </table>
+                    --}}
     @endif
---}}
 
 @endsection

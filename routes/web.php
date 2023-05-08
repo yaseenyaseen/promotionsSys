@@ -155,6 +155,16 @@ Route::get('/hamshs/theses/editHamsh', [HamshController::class, 'edittheses'])->
 Route::post('hamshs/forms/theses/update', [HamshController::class, 'updatethesis'])->name('updatethesis');
 
 Route::post('hamshs/forms/theses/editSingle', [HamshController::class, 'editthesis'])->name('editthesis');
+Route::get('/hamshs/forms/theses/show', [HamshController::class, 'showtheses'])->name('showtheses');
 
-//Route::post('hamshs/forms/theses/editSingle', [HamshController::class, 'editsinglePositionsDegrees2'])->name('editsinglePositionsDegrees2');
-Route::get('/hamshs/forms/theses/showHamsh', [HamshController::class, 'showPositionsDegrees2'])->name('showPositionsDegrees2');
+/*ProApplicationSummary*/
+Route::get('/hamshs/forms/ProApplicationSummary/index/{user_id}', [HamshController::class, 'ProApplicationSummaryindex'])->name('ProApplicationSummaryindex');
+Route::get('/hamshs/forms/ProApplicationSummary/create', [HamshController::class, 'createProApplicationSummary'])->name('createProApplicationSummary');
+Route::post('/hamshs/forms/ProApplicationSummary/store', [HamshController::class, 'storeProApplicationSummary'])->name('storeProApplicationSummary');
+Route::get('/hamshs/forms/AcademicReputation/showHamsh/{Ham_id}', [HamshController::class, 'showHamshAcademicReputation'])->name('hamshs.forms.showHamshAcademicReputation');
+Route::get('/hamshs/AcademicReputation/editHamsh/{Ham_id}', [HamshController::class, 'editHamshAcademicReputation'])->name('hamshs.AcademicReputation.forms.editHamsh');
+Route::put('/hamshs/AcademicReputation/updateHamsh/{hamsh_id}', [HamshController::class, 'updateHamshAcademicReputation'])->name('updateHamshAcademicReputation');
+/*admins*/
+Route::view('/administrators/AcademicReputationindex', 'hamshs.forms.administrators.AcademicReputationindex')->name('adminAcademicReputationindex');// صفحة مسؤلين انجاز 'السمعة الاكاديمية'
+Route::view('/administrators/AcademicReputationlistindex', 'hamshs.forms.administrators.AcademicReputationlistindex')->name('AcademicReputationlistindex');// صفحة مسؤول مركز الحاسبة  'السمعة الاكاديمية'
+Route::get('/hamshs/forms/AcademicReputationlistindex', [HamshController::class, 'AcademicReputationindex'])->name('RequestApplyinglistindex');

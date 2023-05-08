@@ -24,7 +24,24 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'college_id',
+        'department_id',
+        'position',
+        'currentPromotion',
+        'currentPromotionDoI',
+        'general_specialization',
+        'exact_specialization',
+        'Is_pass_Educational_Qualification',
+        'Date_Educational_Qualification',
+        'Order_No_Educational_Qualification',
+        'Is_pass_Computing',
+        'Order_No_Computing',
+        'Date_Computing',
+        'Date_hire',
+        'College_SD_hire',
+        'mobileNumber',
+
         'password',
+        'Is_pass_Educational_Qualification'
     ];
 
     /**
