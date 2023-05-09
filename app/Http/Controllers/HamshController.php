@@ -718,9 +718,13 @@ class HamshController extends Controller
         $proreq_id = $reqsos->id;
 
         $HForm->promotionReqs_id = $proreq_id;
-        $HForm->presidencyPromCommi_createdAt = now();// change now method to updated at value. creanlty, it save created at value.
+       // $HForm->presidencyPromCommi_createdAt = now();// change now method to updated at value. creanlty, it save created at value.
 
-        $HForm->presidencyPromCommi_ID = Auth::user()->id;
+        $HForm->collegePromCommi_ID = Auth::user()->id;
+        $HForm->collegePromCommi_createdAt = now();// change now method to updated at value. creanlty, it save created at value.
+
+        //  $HForm->presidencyPromCommi_ID = Auth::user()->id; merge this line to update method. // add role based condition
+      //  $HForm->presidencyPromCommi_createdAt = now();// change now method to updated at value. creanlty, it save created at value.
 
         $HForm->save();
         return redirect()->route('ProApplicationSummaryindex', Auth::user()->id)
@@ -934,6 +938,12 @@ $isDegree=true;
 
         $hamsh = $Ham_id;
         return view('hamshs.forms.AcademicReputation.editHamshsAcademicReputation', compact('hamsh'));
+    }
+    public function editProApplicationSummary(ProApplicationSummary $Ham_id)
+    {
+
+        $Form = $Ham_id;
+        return view('hamshs.forms.ProApplicationSummary.edit', compact('Form'));
     }
     public function editpositionsDegrees(Request $request)
     {
@@ -1225,6 +1235,31 @@ if($isDegree==1){
         $user_id = $PromotionReq->user_id;
         return redirect()->route('AcademicReputationindex', compact('user_id'))
             ->with('success', 'The  specific user AcademicReputation updated successfully');
+    }
+    public function updateProApplicationSummary(Request $request, ProApplicationSummary $hamsh_id)
+    {
+        $hamsh = $hamsh_id;
+        $request->validate([
+        ]);
+        //add updated at column value.
+        $hamsh->update($request->all());
+
+        $a = Auth::user()->getRoleNames();
+        if (count($a) > 0) {
+            if ($a->contains('presidency_Academic_Promotions_Affairs')) {
+                $hamsh->presidencyPromCommi_createdAt = now();
+         $hamsh->presidencyPromCommi_ID = Auth::user()->id;
+            }
+        }
+
+
+        $hamsh->save();
+
+        $ProApplicationSummary = $hamsh;
+        $PromotionReq = PromotionReq::where('id', $ProApplicationSummary->promotionReqs_id)->latest('created_at')->first();
+        $user_id = $PromotionReq->user_id;
+        return redirect()->route('ProApplicationSummaryindex', compact('user_id'))
+            ->with('success', 'تعديل استمارة ملخص معاملة الترقية تمت بنجاح');
     }
 
     /**

@@ -24,93 +24,88 @@
             </ul>
         </div>
     @endif
-    {{--
+
+
+
     <form action="{{ route('storeProApplicationSummary') }}" method="POST">
         @csrf
         <div class="row">
+        {{--    @role('Applicant') replace it with "Coll_Scientific_Committee" role--}}
 
-            @role('Applicant')
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>GoogleScholar_ID:</strong>
-                    <input type="text" name="GoogleScholar_ID" class="form-control" placeholder="GoogleScholar_ID">
-                </div>
+             <div class="form-group col-sm-12 col-md-6 col-lg-12">
+                        <label for="table1points">مجموع نقاط جدول 1</label>
+                        <input type="number" name="table1points" id="table1points"
+                               min="0">
+                    </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-12">
+                <label for="table2points">مجموع نقاط جدول 2</label>
+                <input type="number" name="table2points" id="table2points"
+                       min="0">
             </div>
+
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Publons_ID:</strong>
-                    <input type="text" name="Publons_ID" class="form-control" placeholder="Publons_ID">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>ResearchGate_ID:</strong>
-                    <input type="text" name="ResearchGate_ID" class="form-control" placeholder="ResearchGate_ID">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>ORCID_ID:</strong>
-                    <input type="text" name="ORCID_ID" class="form-control" placeholder="ORCID_ID">
+                    <strong>توصيات لجنة علمية:</strong>
+                    <input type="text" name="SciCommittee_Recmd" class="form-control" placeholder="SciCommittee_Recmd">
                 </div>
             </div>
             <div class="form-group col-sm-12 col-md-6 col-lg-12">
-                <label for="No_ORCID">No_ORCID </label>
-                <input type="number" name="No_ORCID" id="No_ORCID" min="0">
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Researcher_ID:</strong>
-                    <input type="text" name="Researcher_ID" class="form-control" placeholder="Researcher_ID">
-                </div>
-            </div>
-            <div class="form-group col-sm-12 col-md-6 col-lg-12">
-                <label for="No_ORCID">No_Researcher </label>
-                <input type="number" name="No_Researcher" id="No_Researcher" min="0">
-            </div>
+                <label for="SessionNo">رقم الجلسة للجنة ترقيات توصيات الكلية</label>
+                <input type="number" name="SessionNo" id="SessionNo"
+                       min="0">
 
-            <div class="form-row">
-                <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
-                    <input type="checkbox" name="Applicant_page" class="form-check-input" value="1"
-                        {{ old('Applicant_page') ? 'checked="checked"' : '' }}/>
-                    <label class="form-check-label" for="Applicant_page">
-                        هل صفحة التدريسي الالكترونية مفعلة؟
-                    </label>
+                <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label for="SessionNo_Date">تاريخ جلسة لجنة ترقيات توصيات الكلية</label><br>
+                    <input type="date" id="SessionNo_Date" name="SessionNo_Date">
                 </div>
-
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Applicant_hamsh:</strong>
-                        <input type="text" name="Applicant_hamsh" class="form-control" placeholder="Applicant_hamsh">
+                        <strong>هامش لجنة علمية كلية:</strong>
+                        <input type="text" name="collegePromCommi_hamsh" class="form-control" placeholder="collegePromCommi_hamsh">
                     </div>
                 </div>
 
-                @else
-                    <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                        <strong> هامش مسؤول مركز الحاسبة :</strong><br>
-                        <input type="text" name="computerCenter_hamsh"
-                               value="{{ $hamsh->computerCenter_hamsh }}"
-                               class="form-control"
-                               placeholder="computerCenter_hamsh" readonly>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>توصيات مجلس الكلية :</strong>
+                        <input type="text" name="collegecouncil_Recmd" class="form-control" placeholder="collegecouncil_Recmd">
                     </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-12">
+                </div>
 
-                        <input type="checkbox" onclick="return false;" name="Applicant_page" value="Applicant_page"
-                            {{ $hamsh->IsAcademic_reputationsDone ? 'checked="checked"' : 'disabled' }}/>
-                        <label class="form-check-label" for="Applicant_page">
-                            هل أستمارة التسجيل في المواقع البحثية منجزة؟
-                        </label>
-                    </div>
-                    @endrole
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                    <label for="collegecouncil_SessNo">رقم جلسة توصيات مجلس الكلية</label>
+                    <input type="number" name="collegecouncil_SessNo" id="collegecouncil_SessNo"
+                           min="0">
 
-                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <label for="collegecouncil_SessDate">تاريخ جلسة توصيات مجلس الكلية</label><br>
+                        <input type="date" id="collegecouncil_SessDate" name="collegecouncil_SessDate">
                     </div>
-            </div>
-        </div>
-        </div>
-    </form>
-    --}}
+
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <label for="Admin_OrderNo_UniHead_comm">رقم كتاب الاحالة من رئيس الجامعة الى ترقيات المركزية </label>
+                        <input type="number" name="Admin_OrderNo_UniHead_comm" id="Admin_OrderNo_UniHead_comm"
+                               min="0">
+
+                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <label for="Admin_OrderDate_UniHead_comm">تاريخ كتاب الاحالة من رئيس الجامعة الى ترقيات المركزية </label><br>
+                            <input type="date" id="Admin_OrderDate_UniHead_comm" name="Admin_OrderDate_UniHead_comm">
+                        </div>
+                        {{--    @role('Applicant') replace it with "presidency_Academic_Promotions_Affairs" role--}}
+                        {{--add the following (anything related to presidency_Academic_Promotions_Affairs role )to edit page only, not in create page.--}}
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>هامش لجنة ترقيات المركزية  :</strong>
+                                <input type="text" name="presidencyPromCommi_hamsh" class="form-control" placeholder="presidencyPromCommi_hamsh">
+                            </div>
+                        </div>
+
+
+                        {{--@endrole--}}
+          <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+</form>
 
 @endsection

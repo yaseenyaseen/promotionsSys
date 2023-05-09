@@ -9,17 +9,16 @@
                 <br>
                 <br>
                 @if(is_null($ProApplicationSummary))
-                    @role('Applicant')
+                    {{--    @role('Applicant') replace it with "Coll_Scientific_Committee" role--}}
 
                     <div class="pull-right">
-                        <a class="btn btn-success" href="{{ route('createProApplicationSummary') }}"> أنشاء
-                            هامش</a>
+                        <a class="btn btn-success" href="{{ route('createProApplicationSummary') }}"> أنشاء استمارة ملخص معاملة الترقية</a>
                     </div>
-                    @endrole
+                    {{--@endrole--}}
                 @else
 
 
-                    following code should be upated to make the roles catogories based on head name of the page only.
+                 {{--   following code should be upated to make the roles catogories based on head name of the page only.--}}
 
 
                     @if ($message = Session::get('success'))
@@ -28,13 +27,13 @@
                         </div>
                     @endif
 
-                    @role('Applicant')
+                    {{--@role('Applicant')--}}
 
                     <div class="pull-right">
                         <a class="btn btn-success" href="{{route('NewApplicationBoard')}}"> صفحة الاستمارات
                             المطلوبة </a>
                     </div>
-                    @endrole
+                    {{--@endrole--}}
 
 
                     <div>
@@ -48,6 +47,10 @@
 
                     <tr>
                         <br>
+                        <a class="btn btn-primary"
+                           href="{{ route('editProApplicationSummary',$ProApplicationSummary) }}">
+                            الاطلاع و تعديل استمارة ملخص معاملة الترقية و الهوامش المتعقلة</a>
+
                     {{--
                      <td>
 
