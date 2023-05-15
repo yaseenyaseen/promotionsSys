@@ -28,6 +28,14 @@ echo{$place}
                     <a class="nav-link" href="{{ route('dashboard') }}"> الصفحة الرئيسية</a>
                 </li>
             </ul>
+            <ul class="navbar-nav nav-left ">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();">
+                        تسجيل خروج
+                    </a>
+                </li>
+            </ul>
         </div>
 
         <div>
@@ -49,6 +57,7 @@ echo{$place}
     <div class="container-fluid">
         <p class="text-muted" style="text-align: center"> جامعة الانبار{{date("Y")}}@ </p>
     </div>
+
 </nav>
 
 
