@@ -707,7 +707,6 @@ class HamshController extends Controller
         return redirect()->route('AcademicReputationindex', Auth::user()->id)
             ->with('success', 'Hamsh created successfully.');
     }
-
     public function storeProApplicationSummary(Request $request)
     {
         $request->validate([]);
@@ -758,7 +757,6 @@ class HamshController extends Controller
         return redirect()->route('positionsDegreesindex', Auth::user()->id)
             ->with('success', ' معلومات الشهادة الجديدة التي انجزها مقدم الترقية بنجاح');
     }
-
     public function storethesis(Request $request)
     {
         $request->validate([]);
@@ -944,8 +942,8 @@ $isDegree=true;
     public function editProApplicationSummary(ProApplicationSummary $Ham_id)
     {
 
-        $hamsh = $Ham_id;
-        return view('hamshs.forms.ProApplicationSummary.edit', compact('hamsh'));
+        $Form = $Ham_id;
+        return view('hamshs.forms.ProApplicationSummary.edit', compact('Form'));
     }
     public function editpositionsDegrees(Request $request)
     {
@@ -1039,12 +1037,12 @@ $isDegree=true;
     }
     public function fillOutPaper(User $user_id)
     {
-        //
-        // $hamsh = Hamsh::find($Ham_id)[0];
-        $hamsh = $Ham_id;
-        // $Hams = SciPlan::where('user_id', $user_id)->get();//HFrorm means the hamsh form.
-
-        return view('hamshs.forms.editHamshsciplan', compact('hamsh'));
+//        //
+//        // $hamsh = Hamsh::find($Ham_id)[0];
+//        $hamsh = $Ham_id;
+//        // $Hams = SciPlan::where('user_id', $user_id)->get();//HFrorm means the hamsh form.
+//
+//        return view('hamshs.forms.editHamshsciplan', compact('hamsh'));
     }
 
     public function edit(Hamsh $hamsh)
@@ -1237,6 +1235,31 @@ if($isDegree==1){
         $user_id = $PromotionReq->user_id;
         return redirect()->route('AcademicReputationindex', compact('user_id'))
             ->with('success', 'The  specific user AcademicReputation updated successfully');
+    }
+    public function updateProApplicationSummary(Request $request, ProApplicationSummary $hamsh_id)
+    {
+        $hamsh = $hamsh_id;
+        $request->validate([
+        ]);
+        //add updated at column value.
+        $hamsh->update($request->all());
+
+        $a = Auth::user()->getRoleNames();
+        if (count($a) > 0) {
+            if ($a->contains('presidency_Academic_Promotions_Affairs')) {
+                $hamsh->presidencyPromCommi_createdAt = now();
+         $hamsh->presidencyPromCommi_ID = Auth::user()->id;
+            }
+        }
+
+
+        $hamsh->save();
+
+        $ProApplicationSummary = $hamsh;
+        $PromotionReq = PromotionReq::where('id', $ProApplicationSummary->promotionReqs_id)->latest('created_at')->first();
+        $user_id = $PromotionReq->user_id;
+        return redirect()->route('ProApplicationSummaryindex', compact('user_id'))
+            ->with('success', 'تعديل استمارة ملخص معاملة الترقية تمت بنجاح');
     }
 
     /**

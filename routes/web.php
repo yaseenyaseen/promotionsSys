@@ -161,9 +161,10 @@ Route::get('/hamshs/forms/theses/show', [HamshController::class, 'showtheses'])-
 Route::get('/hamshs/forms/ProApplicationSummary/index/{user_id}', [HamshController::class, 'ProApplicationSummaryindex'])->name('ProApplicationSummaryindex');
 Route::get('/hamshs/forms/ProApplicationSummary/create', [HamshController::class, 'createProApplicationSummary'])->name('createProApplicationSummary');
 Route::post('/hamshs/forms/ProApplicationSummary/store', [HamshController::class, 'storeProApplicationSummary'])->name('storeProApplicationSummary');
-Route::get('/hamshs/forms/AcademicReputation/showHamsh/{Ham_id}', [HamshController::class, 'showHamshAcademicReputation'])->name('hamshs.forms.showHamshAcademicReputation');
 Route::get('/hamshs/ProApplicationSummary/editHamsh/{Ham_id}', [HamshController::class, 'editProApplicationSummary'])->name('editProApplicationSummary');
-Route::put('/hamshs/AcademicReputation/updateHamsh/{hamsh_id}', [HamshController::class, 'updateHamshAcademicReputation'])->name('updateHamshAcademicReputation');
+Route::put('/hamshs/ProApplicationSummary/update/{hamsh_id}', [HamshController::class, 'updateHamshAcademicReputation'])->name('updateHamshAcademicReputation');
+Route::get('/hamshs/forms/AcademicReputation/showHamsh/{Ham_id}', [HamshController::class, 'showHamshAcademicReputation'])->name('hamshs.forms.showHamshAcademicReputation');
+
 /*admins*/
 Route::view('/administrators/AcademicReputationindex', 'hamshs.forms.administrators.AcademicReputationindex')->name('adminAcademicReputationindex');// صفحة مسؤلين انجاز 'السمعة الاكاديمية'
 Route::view('/administrators/AcademicReputationlistindex', 'hamshs.forms.administrators.AcademicReputationlistindex')->name('AcademicReputationlistindex');// صفحة مسؤول مركز الحاسبة  'السمعة الاكاديمية'
