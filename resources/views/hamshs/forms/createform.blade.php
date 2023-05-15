@@ -102,7 +102,8 @@
                             <div class="form-group col-sm-12 col-md-6 col-lg-4">
                                 <label for="publishType">تصنيف جهة النشر </label>
                                 <select class="form-control" name="publishType">
-                                    <option value="1" {{ $selectedPaper->publishType==1? 'selected':"" }}>مجلات ذات
+                                    <option value="1" {{ $selectedPaper->publishType==1? 'selected':"" }}>
+                                        مجلات ذات
                                         معامل
                                         تأثير
                                     </option>
@@ -341,8 +342,7 @@
 
                             <div class="form-group col-sm-12 col-md-6 col-lg-12">
                                 <label for="Ratio_paper_From_Others">
-                                    النسبة المئوية للبحث مستل من بحوث آخرى او من شبكة الانترنت:
-                                </label>
+                                    النسبة المئوية للبحث مستل من بحوث آخرى او من شبكة الانترنت:</label>
                                 <input type="number" name="Ratio_paper_From_Others" id="Ratio_paper_From_Others"
                                        value="{{$selectedPaper->Ratio_paper_From_Others}}" min="0">
                             </div>

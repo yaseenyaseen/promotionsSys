@@ -22,169 +22,88 @@
             </ul>
         </div>
     @endif
-    {{--
-    <form action="{{ route('updateHamshAcademicReputation',$Form->id) }}" method="POST">
+
+    <form action="{{ route('updateProApplicationSummary',$Form->id) }}" method="POST">
         @method('PUT')
         @csrf
-        @role('Applicant')
-        <div class="row">
+       {{-- @role('Coll_Promotions_Committee')--}}
+        <div class="form-group col-sm-12 col-md-6 col-lg-12">
+            <label for="table1points">مجموع نقاط جدول 1 </label>
+            <input type="number" name="table1points" value="{{ $Form->table1points }}" id="table1points"
+                   min="0">
+        </div>
+        <div class="form-group col-sm-12 col-md-6 col-lg-12">
+            <label for="table2points">مجموع نقاط جدول 2 </label>
+            <input type="number" name="table2points" value="{{ $Form->table2points }}" id="table2points"
+                   min="0">
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>توصيات لجنة علمية:</strong>
+                <input type="text" name="SciCommittee_Recmd" value="{{ $Form->SciCommittee_Recmd }}"class="form-control" placeholder="SciCommittee_Recmd">
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-6 col-lg-12">
+            <label for="SessionNo">رقم الجلسة للجنة ترقيات توصيات الكلية</label>
+            <input type="number" name="SessionNo" value="{{ $Form->SessionNo }}" id="SessionNo"
+                   min="0">
+            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                <label for="SessionNo_Date">تاريخ جلسة لجنة ترقيات توصيات الكلية</label><br>
+                <input type="date" id="SessionNo_Date" name="SessionNo_Date"
+                value="{{date('Y-m-d',trim(strtotime($Form->SessionNo_Date)))}}">
+            </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-
-                    <strong> GoogleScholar_ID :</strong><br>
-                    <input type="text" name="GoogleScholar_ID" value="{{ $Form->GoogleScholar_ID }}"
-                           class="form-control"
-                           placeholder="GoogleScholar_ID">
+                    <strong>هامش لجنة علمية كلية:</strong>
+                    <input type="text" name="collegePromCommi_hamsh" value="{{ $Form->collegePromCommi_hamsh }}" class="form-control" placeholder="collegePromCommi_hamsh">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Publons_ID:</strong>
-                    <input type="text" name="Publons_ID" value="{{ $Form->Publons_ID }}" class="form-control"
-                           placeholder="Publons_ID">
+                    <strong>توصيات مجلس الكلية :</strong>
+                    <input type="text" name="collegecouncil_Recmd"
+                          value="{{$Form->collegecouncil_Recmd}}"
+                           class="form-control" placeholder="collegecouncil_Recmd">
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>ResearchGate_ID:</strong>
-                    <input type="text" name="ResearchGate_ID" value="{{ $Form->ResearchGate_ID }}" class="form-control"
-                           placeholder="ResearchGate_ID">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>ORCID_ID:</strong>
-                    <input type="text" name="ORCID_ID" value="{{ $Form->ORCID_ID }}" class="form-control"
-                           placeholder="ORCID_ID">
-                </div>
-            </div>
-            <div class="form-group col-sm-12 col-md-6 col-lg-12">
-                <label for="No_ORCID">No_ORCID </label>
-                <input type="number" name="No_ORCID" value="{{ $Form->No_ORCID }}" id="No_ORCID" min="0">
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Researcher_ID:</strong>
-                    <input type="text" name="Researcher_ID" value="{{ $Form->No_ORCID }}" class="form-control"
-                           placeholder="Researcher_ID">
-                </div>
-            </div>
-            <div class="form-group col-sm-12 col-md-6 col-lg-12">
-                <label for="No_ORCID">No_Researcher </label>
-                <input type="number" name="No_Researcher" value="{{ $Form->No_Researcher }}" id="No_Researcher"
+            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                <label for="collegecouncil_SessNo">رقم جلسة توصيات مجلس الكلية</label>
+                <input type="number" name="collegecouncil_SessNo" value="{{$Form->collegecouncil_SessNo}}" id="collegecouncil_SessNo"
                        min="0">
-            </div>
-
-
-            <div class="form-row">
-                <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                    <input type="checkbox" name="Applicant_page" value="Applicant_page"
-                        {{ $Form->Applicant_page ? 'checked="checked"' : '' }}/>
-                    <label class="form-check-label" for="Applicant_page">
-                        هل صفحة التدريسي الالكترونية مفعلة؟
-                    </label>
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                    <label for="collegecouncil_SessDate">تاريخ جلسة توصيات مجلس الكلية</label><br>
+                    <input type="date" id="collegecouncil_SessDate" name="collegecouncil_SessDate"
+                           value="{{date('Y-m-d',trim(strtotime($Form->collegecouncil_SessDate)))}}">
                 </div>
-                <div class="form-row">
-                    <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                        <strong>مقدم الطلب :</strong><br>
-                        <input type="text" name="Applicant_hamsh" value="{{ $Form->Applicant_hamsh }}"
-                               class="form-control"
-                               placeholder="Applicant_hamsh">
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                    <label for="Admin_OrderNo_UniHead_comm">رقم كتاب الاحالة من رئيس الجامعة الى ترقيات المركزية </label>
+                    <input type="number" name="Admin_OrderNo_UniHead_comm" id="Admin_OrderNo_UniHead_comm"
+                           value="{{$Form->Admin_OrderNo_UniHead_comm}}"
+                           min="0">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <label for="Admin_OrderDate_UniHead_comm">تاريخ كتاب الاحالة من رئيس الجامعة الى ترقيات المركزية </label><br>
+                        <input type="date" id="Admin_OrderDate_UniHead_comm" name="Admin_OrderDate_UniHead_comm"
+                               value="{{date('Y-m-d',trim(strtotime($Form->Admin_OrderDate_UniHead_comm)))}}">
                     </div>
-                </div>
-                @else
-                    <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                        <strong> GoogleScholar_ID :</strong><br>
-                        <input type="text" name="GoogleScholar_ID" value="{{ $Form->GoogleScholar_ID }}"
-                               class="form-control"
-                               placeholder="GoogleScholar_ID" readonly>
-                    </div>
-                    <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                        <strong>Publons_ID:</strong>
-                        <input type="text" name="Publons_ID" value="{{ $Form->Publons_ID }}" class="form-control"
-                               placeholder="Publons_ID" readonly>
-                    </div>
+                    {{--@endrole--}}
+
+                    {{--    @role('Applicant') replace it with "presidency_Academic_Promotions_Affairs" role--}}
+                    {{--add the following (anything related to presidency_Academic_Promotions_Affairs role )to edit page only, not in create page.--}}
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <strong>ResearchGate_ID:</strong>
-                        <input type="text" name="ResearchGate_ID" value="{{ $Form->ResearchGate_ID }}"
-                               class="form-control"
-                               placeholder="ResearchGate_ID" readonly>
-                    </div>
-                    <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                        <strong>ORCID_ID:</strong>
-                        <input type="text" name="ORCID_ID" value="{{ $Form->ORCID_ID }}" class="form-control"
-                               placeholder="ORCID_ID" readonly>
-                    </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-12">
-                        <label for="No_ORCID">No_ORCID </label>
-                        <input type="number" name="No_ORCID" value="{{ $Form->No_ORCID }}" id="No_ORCID" min="0"
-                               readonly>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <strong>Researcher_ID:</strong>
-                        <input type="text" name="Researcher_ID" value="{{ $Form->No_ORCID }}" class="form-control"
-                               placeholder="Researcher_ID" readonly>
-                    </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-12">
-                        <label for="No_ORCID">No_Researcher </label>
-                        <input type="number" name="No_Researcher" value="{{ $Form->No_Researcher }}" id="No_Researcher"
-                               min="0" readonly>
-                    </div>
-                    <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                        <input type="checkbox" onclick="return false;" name="Applicant_page" value="Applicant_page"
-                            {{ $Form->Applicant_page ? 'checked="checked"' : '' }}/>
-                        <label class="form-check-label" for="Applicant_page">
-                            هل صفحة التدريسي الالكترونية مفعلة؟
-                        </label>
-                    </div>
-                    <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                        <strong>مقدم الطلب :</strong>
-                        <input type="text" name="Sci_plan_Applicant" value="{{ $Form->Applicant_hamsh }}"
-                               class="form-control" placeholder="Title" readonly>
-                    </div>
-                    @endrole
-                    @role('Computer_Center_Officer')
-                    <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                        <strong> هامش مسؤول مركز الحاسبة :</strong><br>
-                        <input type="text" name="computerCenter_hamsh"
-                               value="{{ $Form->computerCenter_hamsh }}"
-                               class="form-control"
-                               placeholder="computerCenter_hamsh">
-                    </div>
-                    <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                        <input type="checkbox" name="IsAcademic_reputationsDone"
-                               value="IsAcademic_reputationsDone"
-                            {{ $Form->IsAcademic_reputationsDone ? 'checked="checked"' : '' }} />
-                        <label class="form-check-label" for="Applicant_page">
-                            هل أستمارة التسجيل في المواقع البحثية منجزة؟
-                        </label>
-                    </div>
-
-
-                    @else
-                        <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                            <strong> هامش مسؤول مركز الحاسبة :</strong><br>
-                            <input type="text" name="computerCenter_hamsh"
-                                   value="{{ $Form->computerCenter_hamsh }}"
-                                   class="form-control"
-                                   placeholder="computerCenter_hamsh" readonly>
+                        <div class="form-group">
+                            <strong>هامش لجنة ترقيات المركزية  :</strong>
+                            <input type="text" name="presidencyPromCommi_hamsh" value="{{$Form->presidencyPromCommi_hamsh}}"
+                                   class="form-control" placeholder="presidencyPromCommi_hamsh">
                         </div>
-                        <div class="form-group col-sm-12 col-md-6 col-lg-12">
+                    </div>
 
-                            <input type="checkbox" onclick="return false;" name="Applicant_page" value="Applicant_page"
-                                {{ $Form->IsAcademic_reputationsDone ? 'checked="checked"' : 'disabled' }}/>
-                            <label class="form-check-label" for="Applicant_page">
-                                هل أستمارة التسجيل في المواقع البحثية منجزة؟
-                            </label>
-                        </div>
-                        @endrole
 
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <button type="submit" class="btn btn-primary">حفظ</button>
-                        </div>
+    {{--@endrole--}}
+                  <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                   <button type="submit" class="btn btn-primary">حفظ</button>
+               </div>
 
-    </form>
---}}
+</form>
 @endsection
 
 

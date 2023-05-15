@@ -12,13 +12,14 @@
                     {{--    @role('Applicant') replace it with "Coll_Scientific_Committee" role--}}
 
                     <div class="pull-right">
-                        <a class="btn btn-success" href="{{ route('createProApplicationSummary') }}"> أنشاء استمارة ملخص معاملة الترقية</a>
+                        <a class="btn btn-success" href="{{ route('createProApplicationSummary') }}"> أنشاء استمارة ملخص
+                            معاملة الترقية</a>
                     </div>
                     {{--@endrole--}}
                 @else
 
 
-                 {{--   following code should be upated to make the roles catogories based on head name of the page only.--}}
+                    {{--   following code should be upated to make the roles catogories based on head name of the page only.--}}
 
 
                     @if ($message = Session::get('success'))
@@ -50,63 +51,175 @@
                         <a class="btn btn-primary"
                            href="{{ route('editProApplicationSummary',$ProApplicationSummary) }}">
                             الاطلاع و تعديل استمارة ملخص معاملة الترقية و الهوامش المتعقلة</a>
+                        <a class="btn btn-info"
+                           href="{{ route('showProApplicationSummary',$ProApplicationSummary) }}">طباعةأستمار</a>
+                        <br>
+                        <label for="currentPromotion">المرتبة العلمية الحالية </label>
+                        @if(Auth::user()->currentPromotion == 1)
+                            غير حاصل على لقب <br>
+                        @elseif(Auth::user()->currentPromotion == 2)
+                            مدرس مساعد <br>
+                        @elseif(Auth::user()->currentPromotion == 3)
+                            مدرس <br>
+                        @elseif(Auth::user()->currentPromotion == 4)
+                            استاذ مساعد<br>
+                        @endif
+                        <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                            <label for="currentPromotionDoI"> تاريخ الحصول عليها</label><br>
+                        </div>
+                        {{Auth::user()->currentPromotionDoI}} <br>
+                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <label for="general_specialization">الاختصاص العام</label>
+                        </div>
+                        {{Auth::user()->general_specialization}}<br>
+                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <label for="exact_specialization"> الاختصاص الدقيق</label>
+                        </div>
+                        {{Auth::user()->exact_specialization}}<br>
+                        <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                            <label for="Date_placingOrder">تاريخ تقديم الطلب </label><br>
+                        </div>
+                        {{$PromotionReqUser->Date_placingOrder}} <br>
+                        <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                            <label for="DueDate">تاريخ استحقاقه للترقية </label><br>
+                        </div>
 
-                    {{--
-                     <td>
+                        {{$PromotionReqUser->DueDate}}
+                        <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                            <input type="checkbox" onclick="return false;" name="Is_papers_CP_published"
+                                   value="Is_papers_CP_published"
+                                {{ $PromotionReqUser->Is_papers_CP_published ? 'checked="checked"' : ''}}>
+                            <label class="form-check-label" for="Is_papers_CP_published">
+                                هل بحوث الترقية السابقة منشورة
+                            </label>
+                        </div>
+                        <div class="form-group col-sm-12 col-md-6 col-lg-12">
+                            <label for="performance_assessment"> تقويم الأداء</label>
+                        </div>
+                        {{$PromotionReqUser->performance_assessment}}
 
-                            <a class="btn btn-info"
-                               href="{{ route('hamshs.forms.showHamshAcademicReputation',$AcademicReputation) }}">طباعةأستمارة
-                                التسجيل بالمواقع البحثية</a>
-                            <a class="btn btn-primary"
-                               href="{{ route('hamshs.AcademicReputation.forms.editHamsh',$AcademicReputation) }}">
-                                الاطلاع و تعديل استمارة التسجيل بالمواقع البحثية و الهوامش المتعقلة</a>
+                        <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                            <input type="checkbox" onclick="return false;" name="Is_papers_In_SciPlan"
+                                   value="Is_papers_In_SciPlan"
+                                {{ $PromotionReqUser->Is_papers_In_SciPlan ? 'checked="checked"' : ''}}>
+                            <label class="form-check-label" for="Is_papers_In_SciPlan">
+                                هل البحوث ضمن الخطة البحثية
+                            </label>
+                        </div>
 
+                        <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                            <input type="checkbox" onclick="return false;" name="Is_pass_Educational_Qualification"
+                                   value="Is_pass_Educational_Qualification"
+                                {{ Auth::user()->Is_pass_Educational_Qualification ? 'checked="checked"' : ''}}>
+                            <label class="form-check-label" for="Is_pass_Educational_Qualification">
+                                هل اجتاز دورة التاهيل التربوي
+                            </label>
+                        </div>
+
+                        {{Auth::user()->Is_pass_Educational_Qualification}}
+                        <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                            <label for="Date_Educational_Qualification">تاريخ انتهاء دورة التاهيل
+                                التربوي </label><br>
+                        </div>
+                        {{Auth::user()->Date_Educational_Qualification}}<br>
+                        <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                            <input type="checkbox" onclick="return false;" name="Is_pass_Computing"
+                                   value="Is_pass_Computing"
+                                {{ Auth::user()->Is_pass_Computing ? 'checked="checked"' : ''}}>
+                            <label class="form-check-label" for="Is_pass_Computing">
+                                هل اجتاز دورة الحاسوب
+                            </label>
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                            <label for="Date_Computing">تاريخ اجتياز دورة الحاسوب </label><br>
+                            {{Auth::user()->Date_Computing}} <br>
+                        </div>
+                        <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                            <input type="checkbox" onclick="return false;" name="IsApplicant_PG" value="IsApplicant_PG"
+                                {{ $PromotionReqUser->IsApplicant_PG ? 'checked="checked"' : ''}}>
+                            <label class="form-check-label" for="IsApplicant_PG">
+                                هل المتقدم طالب دراسات عليا
+                            </label>
+                        </div>
+            </div>
+
+            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                <label for="Date_PG_start">تاريخ استحقاقه للترقية </label><br>
+                {{$PromotionReqUser->Date_PG_start}}<br>
+            </div>
+            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                <input type="checkbox" onclick="return false;" name="IsDeserve_dues" value="IsDeserve_dues"
+                    {{ $PromotionReqUser->IsDeserve_dues ? 'checked="checked"' : ''}}>
+                <label class="form-check-label" for="IsDeserve_dues">
+                    هل المتقدم يستحق قدم وظيفي
+                </label>
+            </div>
+
+            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                <label for="dues_period"> فترة القدم</label>
+                {{$PromotionReqUser->dues_period}}<br>
+
+            </div>
+
+
+            <table>
+                <thead>
+                <tr>
+                    <th>عنوان البحث</th>
+                    <th>التاريخ</th>
+                    <th>هل البحث منفرد؟</th>
+                    <th>هل البحث منشور؟</th>
+                    <th>تصنيف جهة النشر</th>
+                    <th>مستل ام غير مستل من رسالة او اطروحة</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($papers as $paper)
+                    <tr>
+                        <td>{{ $paper['paper_title'] }}</td>
+                        <td>{{ $paper['publish_date'] }}</td>
+                        <td>
+                            @if($paper->singleAuther)
+                                <input type="checkbox" onclick="return false;" name="singleAuther" value="singleAuther"
+                                    {{ $paper->singleAuther ? 'checked="checked"' : ''}}>
+                            @endif
+                        </td>
+                        <td>
+                            @if($paper->Ispubished)
+                                <input type="checkbox" onclick="return false;" name="Ispubished" value="Ispubished"
+                                    {{ $paper->Ispubished ? 'checked="checked"' : ''}}>
+                            @endif
+                        </td>
+                        <td>
+
+                            @if($paper->publishType == 1)
+                                مجلات ذات معامل تأثير <br>
+                            @elseif($paper->publishType == 2)
+                                مجلات عالمية مطبوعة
+                            @elseif($paper->publishType == 3)
+                                مجلات عربية وعراقية <br>
+
+                            @endif
+                        </td>
+                        <td> @if($paper->takenFromStdut_thesis)
+                                <input type="checkbox" onclick="return false;" name="takenFromStdut_thesis"
+                                       value="takenFromStdut_thesis"
+                                    {{ $paper->takenFromStdut_thesis ? 'checked="checked"' : ''}}>
+                            @endif
                         </td>
                     </tr>
+                @endforeach
+                </tbody>
+            </table>
 
-                    <table class="center">
-                        <thead>
-                        <tr>
-                            <th>(الرابط الشخصي)</th>
-                            <th> عنوان الموقع البحثي</th>
-                        </tr>
-                        </thead>
-                        <tbody>
 
-                        <tr>
-                            <td>{{ $AcademicReputation['GoogleScholar_ID'] }}</td>
 
-                            <td>GoogleScholar</td>
-                        </tr>
-                        <tr>
-                            <td>{{ $AcademicReputation['Publons_ID'] }}</td>
 
-                            <td>Publons</td>
-                        </tr>
-                        <tr>
-                            <td>{{ $AcademicReputation['ResearchGate_ID'] }}</td>
-                            <td>ResearchGate</td>
-                        </tr>
-                        <tr>
-                            <td>{{ $AcademicReputation['ORCID_ID'] }}</td>
-                            <td>ORCID</td>
-                        </tr>
-                        <tr>
-                            <td>{{ $AcademicReputation['No_ORCID'] }}</td>
-                            <td>No_ORCID</td>
-                        </tr>
-                        <tr>
-                            <td>{{ $AcademicReputation['Researcher_ID'] }}</td>
-                            <td>Researcher_ID</td>
-                        </tr>
 
-                        <tr>
-                            <td>{{ $AcademicReputation['No_Researcher'] }}</td>
-                            <td>No_Researcher</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    --}}
+
     @endif
 
 @endsection

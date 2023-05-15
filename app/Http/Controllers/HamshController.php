@@ -358,8 +358,10 @@ class HamshController extends Controller
             ->latest('created_at')->first();
         $ProApplicationSummary = ProApplicationSummary::where('promotionReqs_id', $PromotionReqUser->id)
             ->get()->first();
+        $papers = Paper::where('promotionReqs_id', $PromotionReqUser->id)->get();
+
         return view('hamshs.forms.ProApplicationSummary.ProApplicationSummary',
-            compact('ProApplicationSummary'))
+            compact('ProApplicationSummary','PromotionReqUser','papers'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -502,6 +504,18 @@ class HamshController extends Controller
         /*        return view('hamshs.forms.createform');*/
 
     }
+
+    public function userPromotiondata()
+    {
+        //todo: find papers of the user.and compact it
+        $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
+            ->latest('created_at')->first();
+        //$papers = Paper::where('promotionReqs_id', $PromotionReqUser->id)->get();
+
+        return view('hamshs.forms.userPromotiondata.createEdit',compact('PromotionReqUser'));
+
+    }
+
 
     public function createpositionsDegrees()
     {
@@ -800,6 +814,12 @@ class HamshController extends Controller
         return view('hamshs.forms.AcademicReputation.showHamshAcademicReputation', compact('hamsh'));
     }
 
+    public function showProApplicationSummary(ProApplicationSummary $Ham_id)
+    {
+        //
+        $Form = $Ham_id;
+        return view('hamshs.forms.ProApplicationSummary.show', compact('Form'));
+    }
 
     public function show2(Form $form_id)
     {
@@ -1109,6 +1129,39 @@ $isDegree=true;
             ->with('success', 'The Scientific plan Form is updated successfully');
         /*        return redirect()->back()->with('success', 'Option updated successfully');*/
     }
+    public function updateuserPromotiondata(Request $request)
+    {
+        $optionId = $request->input('option_id');
+        $option = Paper::find($optionId);
+
+        /*$PromotionReqId = $request->input('PromotionReqId');
+        $selectePromotionReq = PromotionReq::find($PromotionReqId);
+        $selectePromotionReq->update($request->all());
+        $selectePromotionReq->save();
+        */
+        $user_id = $request->input('user_id');
+        $user = User::find($user_id);
+
+        $PromotionReqUser = PromotionReq::where('user_id', $user->id)
+            ->latest('created_at')->first();
+
+        $user->update($request->all());
+        $user->Is_pass_Educational_Qualification = $request->has('Is_pass_Educational_Qualification');
+        $user->Is_pass_Computing = $request->has('Is_pass_Computing');
+
+        $user->save();
+
+        $PromotionReqUser->update($request->all());
+        $PromotionReqUser->Is_papers_CP_published = $request->has('Is_papers_CP_published');
+        $PromotionReqUser->Is_papers_In_SciPlan = $request->has('Is_papers_In_SciPlan');
+        $PromotionReqUser->IsApplicant_PG = $request->has('IsApplicant_PG');
+        $PromotionReqUser->IsDeserve_dues = $request->has('IsDeserve_dues');
+
+        $PromotionReqUser->save();
+        return redirect()->route('NewApplicationBoard')
+            ->with('success', ' تم تعديل بيانات مقدم الترقية بنجاح');
+    }
+
     public function updatePositionsDegrees(Request $request)
     {
         $isDegree = $request->input('isDegree');

@@ -15,6 +15,17 @@
     <br>
 
     @role('Applicant')
+    <br>
+    <div class="pull-right">
+        <a class="btn btn-secondary"
+           href="{{route('userPromotiondata')}}"> ملئ بيانات لمقدم الترقية </a>
+        {{--
+        if applicant go to create paper(or update) send user_id.
+        else if admin go to adminstrator page, selct role, selct user.
+        --}}
+    </div>
+    <br>
+
 
     <div class="pull-right">
         <a class="btn btn-secondary"

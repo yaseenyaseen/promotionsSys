@@ -53,7 +53,7 @@
                 <label for="SessionNo">رقم الجلسة للجنة ترقيات توصيات الكلية</label>
                 <input type="number" name="SessionNo" id="SessionNo"
                        min="0">
-
+// todo: delete time info from the date varibale
                 <div class="form-group col-sm-12 col-md-6 col-lg-4">
                     <label for="SessionNo_Date">تاريخ جلسة لجنة ترقيات توصيات الكلية</label><br>
                     <input type="date" id="SessionNo_Date" name="SessionNo_Date">
