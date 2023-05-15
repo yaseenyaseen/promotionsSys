@@ -2,16 +2,13 @@
 
 @section('content')
 
-    <div class="row">
+    <div class="container">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>أنشاء معاملة ترقية جديدة</h2>
-                <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('dashboard') }}"> Back</a>
-                </div>
+                <h3 style="text-align: center; padding-top: 15px">أنشاء معاملة ترقية جديدة</h3>
             </div>
         </div>
-       @if ($errors->any())
+        @if ($errors->any())
             <div class="alert alert-danger">
                 <strong>Warning!</strong> Please check your input code<br><br>
                 <ul>
@@ -21,48 +18,39 @@
                 </ul>
             </div>
         @endif
+
+        <br>
+        <br>
+        <br>
         <form action="{{ route('hamshs.store') }}" method="POST">
             @csrf
-            <section>
-
-                <div style="float:left;margin-right:20px;">
-                    <label for="name">
-                        أسم مقدم الترقية:
-                        <br>
-                        {{Auth::user()->name}}
+            <div class="row">
+                <div class="col-sm-6 col-md-3 col-lg-2 py-3">
+                    <label>أسم مقدم الترقية:
                     </label>
                 </div>
-                <br style="clear:both;" />
-
-            </section>
-
-            <div class="row">
-                {{--<div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Title:</strong>
-                        <input type="text" name="title" class="form-control" placeholder="Title">
-                    </div>
-                </div>--}}
-               <section>
-                <label>أختر أسم الترقية القادمة:
-                    <div>
-                        <select name="sci_title">
-                            <option value="">Select options</option>
-                            <option value="1">مدرس مساعد</option>
-                            <option value="2">مدرس</option>
-                            <option value="3">استاذ مساعد</option>
-                            <option value="4">استاذ</option>
-                        </select>
-                    </div>
-                </label>
-                </section>
-            </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="col-sm-6 col-md-6 col-lg-4 py-3">
+                    <input type="text" value="{{Auth::user()->name}}" disabled style="width: 100%">
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-3 col-lg-2 py-3">
+                    <label>أختر أسم الترقية القادمة:</label>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 py-3">
+                    <select name="sci_title" class="form-select" style="width: 100%">
+                        <option value="">---</option>
+                        <option value="1">مدرس مساعد</option>
+                        <option value="2">مدرس</option>
+                        <option value="3">استاذ مساعد</option>
+                        <option value="4">استاذ</option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-center py-3">
+                <button type="submit" class="btn btn-primary">إنتقال الى الخطوة التالية</button>
+            </div>
+        </form>
     </div>
-    </div>
-    </form>
 
 @endsection

@@ -35,7 +35,7 @@ class CreateProApplicationSummariesTable extends Migration
             $table->timestamp('collegecouncil_SessDate')->nullable();
 
             $table->integer('Admin_OrderNo_UniHead_comm')->nullable();
-            $table->integer('Admin_OrderDate_UniHead_comm')->nullable();
+            $table->timestamp('Admin_OrderDate_UniHead_comm')->nullable();
 
             $table->string('presidencyPromCommi_hamsh')->nullable();
             $table->integer('presidencyPromCommi_ID')->nullable();

@@ -707,6 +707,7 @@ class HamshController extends Controller
         return redirect()->route('AcademicReputationindex', Auth::user()->id)
             ->with('success', 'Hamsh created successfully.');
     }
+
     public function storeProApplicationSummary(Request $request)
     {
         $request->validate([]);
@@ -718,9 +719,13 @@ class HamshController extends Controller
         $proreq_id = $reqsos->id;
 
         $HForm->promotionReqs_id = $proreq_id;
-        $HForm->presidencyPromCommi_createdAt = now();// change now method to updated at value. creanlty, it save created at value.
+       // $HForm->presidencyPromCommi_createdAt = now();// change now method to updated at value. creanlty, it save created at value.
 
-        $HForm->presidencyPromCommi_ID = Auth::user()->id;
+        $HForm->collegePromCommi_ID = Auth::user()->id;
+        $HForm->collegePromCommi_createdAt = now();// change now method to updated at value. creanlty, it save created at value.
+
+        //  $HForm->presidencyPromCommi_ID = Auth::user()->id; merge this line to update method. // add role based condition
+      //  $HForm->presidencyPromCommi_createdAt = now();// change now method to updated at value. creanlty, it save created at value.
 
         $HForm->save();
         return redirect()->route('ProApplicationSummaryindex', Auth::user()->id)
@@ -753,6 +758,7 @@ class HamshController extends Controller
         return redirect()->route('positionsDegreesindex', Auth::user()->id)
             ->with('success', ' معلومات الشهادة الجديدة التي انجزها مقدم الترقية بنجاح');
     }
+
     public function storethesis(Request $request)
     {
         $request->validate([]);
@@ -934,6 +940,12 @@ $isDegree=true;
 
         $hamsh = $Ham_id;
         return view('hamshs.forms.AcademicReputation.editHamshsAcademicReputation', compact('hamsh'));
+    }
+    public function editProApplicationSummary(ProApplicationSummary $Ham_id)
+    {
+
+        $hamsh = $Ham_id;
+        return view('hamshs.forms.ProApplicationSummary.edit', compact('hamsh'));
     }
     public function editpositionsDegrees(Request $request)
     {

@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>تعديل هامش ومعلومات-استمارة معلومات الوظائف التي مارسها و الشهادة مقدم الترقية</h2>
+                <h2>تعديل هامش ومعلومات-استمارة ملخص معاملة الترقية</h2>
             </div>
             {{-- <div class="pull-right">
                  <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
@@ -22,6 +22,7 @@
             </ul>
         </div>
     @endif
+    {{--
     <form action="{{ route('updateHamshAcademicReputation',$hamsh->id) }}" method="POST">
         @method('PUT')
         @csrf
@@ -183,7 +184,7 @@
                         </div>
 
     </form>
-
+--}}
 @endsection
 
 
