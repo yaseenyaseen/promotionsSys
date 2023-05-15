@@ -161,11 +161,17 @@ Route::get('/hamshs/forms/theses/show', [HamshController::class, 'showtheses'])-
 Route::get('/hamshs/forms/ProApplicationSummary/index/{user_id}', [HamshController::class, 'ProApplicationSummaryindex'])->name('ProApplicationSummaryindex');
 Route::get('/hamshs/forms/ProApplicationSummary/create', [HamshController::class, 'createProApplicationSummary'])->name('createProApplicationSummary');
 Route::post('/hamshs/forms/ProApplicationSummary/store', [HamshController::class, 'storeProApplicationSummary'])->name('storeProApplicationSummary');
-Route::get('/hamshs/ProApplicationSummary/editHamsh/{Ham_id}', [HamshController::class, 'editProApplicationSummary'])->name('editProApplicationSummary');
-Route::put('/hamshs/ProApplicationSummary/update/{hamsh_id}', [HamshController::class, 'updateHamshAcademicReputation'])->name('updateHamshAcademicReputation');
-Route::get('/hamshs/forms/AcademicReputation/showHamsh/{Ham_id}', [HamshController::class, 'showHamshAcademicReputation'])->name('hamshs.forms.showHamshAcademicReputation');
+Route::get('/hamshs/forms/ProApplicationSummary/editHamsh/{Ham_id}', [HamshController::class, 'editProApplicationSummary'])->name('editProApplicationSummary');
+Route::put('/hamshs/forms/ProApplicationSummary/update/{hamsh_id}', [HamshController::class, 'updateProApplicationSummary'])->name('updateProApplicationSummary');
+Route::get('/hamshs/forms/ProApplicationSummary/show/{Ham_id}', [HamshController::class, 'showProApplicationSummary'])->name('showProApplicationSummary');
 
 /*admins*/
 Route::view('/administrators/AcademicReputationindex', 'hamshs.forms.administrators.AcademicReputationindex')->name('adminAcademicReputationindex');// صفحة مسؤلين انجاز 'السمعة الاكاديمية'
 Route::view('/administrators/AcademicReputationlistindex', 'hamshs.forms.administrators.AcademicReputationlistindex')->name('AcademicReputationlistindex');// صفحة مسؤول مركز الحاسبة  'السمعة الاكاديمية'
 Route::get('/hamshs/forms/AcademicReputationlistindex', [HamshController::class, 'AcademicReputationindex'])->name('RequestApplyinglistindex');
+
+
+/*add applicant data */
+Route::get('/hamshs/forms/userPromotiondata/createEdit', [HamshController::class, 'userPromotiondata'])->name('userPromotiondata');
+Route::post('hamshs/forms/userPromotiondata/update', [HamshController::class, 'updateuserPromotiondata'])->name('updateuserPromotiondata');
+
