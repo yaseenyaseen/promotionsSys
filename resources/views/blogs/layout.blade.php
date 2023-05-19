@@ -30,12 +30,15 @@ echo{$place}
             </ul>
             <ul class="navbar-nav nav-left ">
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();">
-                        تسجيل خروج
-                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <a class="nav-link" onclick="event.preventDefault(); this.closest('form').submit();">
+                            تسجيل خروج
+                          </a>
+                    </form>
                 </li>
-            </ul>
+           </ul>
         </div>
 
         <div>
