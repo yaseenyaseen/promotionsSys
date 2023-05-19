@@ -45,7 +45,7 @@
 
                     @endrole
 
-                    @role('HeadDepartment_Coll')
+                    @role('HeadDepartment_Coll|admin')
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             @csrf
                             <div class="form-group">
@@ -98,7 +98,7 @@
                                                 </div>
                                                 @endrole
 
-                                                @role('Coll_Dean_ Assistant|admin')
+                                                @role('Coll_Dean_ Assistant')
                                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                                         <div class="form-group">
                                                             <strong>معاون عميد كلية :</strong>

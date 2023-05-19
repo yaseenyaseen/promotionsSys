@@ -4,6 +4,8 @@
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h2>طباعة قائمة الهوامش لتأييد الخطة البحثية حسب تسلسل المرجعيات </h2>
+                <br>
+                <br>
             </div>
             {{-- <div class="pull-right">
                  <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>

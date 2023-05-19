@@ -48,7 +48,7 @@
                             <a class="btn btn-info"
                                href="{{ route('hamshs.forms.showHamsh',$SciPlan) }}">طباعةالهامش</a>
                             <a class="btn btn-primary" href="{{ route('hamshs.forms.editHamshsciplan',$SciPlan) }}">
-                                تعديل الهامش edit</a>
+                                تعديل الهامش </a>
                             {{--@csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -63,8 +63,11 @@
                 <h5>رئيس قسم كلية</h5>
                     <div class="pull-right">
                         <a class="btn btn-success"
-                           {{--                       href="{{ route('hamshs.forms.administrators.SciPlanListForAdmins') }}">--}}
-                           href="{{ route('hamshs.forms.sciplanlistindex') }}">
+                           href="{{ route('hamshs.forms.administrators.index') }}">
+                           {{-- following lines need more testing to permenently deleting
+                            href="{{ route('hamshs.forms.administrators.SciPlanListForAdmins') }}">--}}
+                           {{--href="{{ route('hamshs.forms.sciplanlistindex') }}">--}}
+                            {{--href="{{ route('hamshs.forms.sciplanlistindex') }}">--}}
                             {{--/* redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
                             ->with('success','Blog created successfully.');*/
                             $promotion_reqsForHeadDepartment_Coll
@@ -82,7 +85,7 @@
                                 الهامش</a>
 
                             <a class="btn btn-primary" href="{{ route('hamshs.forms.editHamshsciplan',$SciPlan) }}">
-                                تعديل الهامش edit</a>
+                                تعديل الهامش </a>
                             {{--@csrf
                             @method('DELETE')
 
@@ -116,7 +119,7 @@
                                 الهامش</a>
 
                             <a class="btn btn-primary" href="{{ route('hamshs.forms.editHamshsciplan',$SciPlan) }}">
-                                تعديل الهامش edit</a>
+                                تعديل الهامش </a>
 
                         </td>
                     </tr>
@@ -136,7 +139,8 @@
                     @foreach($papers as $paper)
                         <tr>
                             <td>{{ $paper['paper_title'] }}</td>
-                            <td>{{ $paper['publish_date'] }}</td>
+                            <td>{{date('Y-m-d',strtotime( $paper['publish_date'])) }}</td>
+
                         </tr>
                     @endforeach
                     </tbody>
