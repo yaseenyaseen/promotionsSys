@@ -46,7 +46,6 @@
             <form action="{{ route('updatePaper') }}" method="POST">
                 <h3>تعديل على بحث سابق</h3>
                 @csrf
-                {{--@method('PUT')--}}
 
                 <input type="hidden" name="option_id" value="{{ $selectedPaper->id }}">
 
@@ -416,6 +415,10 @@
                                     </option>
                                 </select>
                             </div>
+                            <br>
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <label>تملئ من قبل اللجنة المركزية </label>
+                            </div>
                             <div class="form-group col-sm-12 col-md-12 col-lg-12">
                                 <label for="ExpertEssessment1">
                                     تقييم خبير1:
@@ -484,6 +487,13 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                 <button type="submit" class="btn btn-primary"> تعديل و حفظ</button>
                             </div>
+                            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+
+                            </div>
+                            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+
+                            </div>
+
             </form>
 
         @else
@@ -493,7 +503,7 @@
             <form action="{{ route('hamshs.forms.storef')}}" method="POST">
                 <h3>أدخال بحث جديد</h3>
                 @csrf
-                @role('Applicant')
+                @role('Applicant|admin')
 
                 <div class="form-row">
                     <div class="form-group col-sm-12 col-md-12 col-lg-12">
@@ -813,12 +823,16 @@
                         </label>
                         <input type="number" name="totalPoints" id="totalPoints" min="0">
                     </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
                         <label for="TableTypeAorB">جدول الاول او الثاني: </label>
                         <select class="form-control" name="TableTypeAorB">
                             <option value="1">البحث ضمن الجدول الاول</option>
                             <option value="2">البحث ضمن الجدول الثاني</option>
                         </select>
+                    </div>
+
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                    <label>تملئ من قبل اللجنة المركزية </label>
                     </div>
                     <div class="form-group col-sm-12 col-md-12 col-lg-12">
                         <label for="ExpertEssessment1">
@@ -932,6 +946,12 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                         <button type="submit" class="btn btn-primary">أضافة البحث</button>
+                                    </div>
+                                    <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+
+                                    </div>
+                                    <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+
                                     </div>
                                 </div>
                             </div>
