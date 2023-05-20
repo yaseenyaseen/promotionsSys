@@ -6,11 +6,9 @@
             <div class="pull-left">
                 <h2>متطلبات الترقية- استمارة تقديم الطلب للترقية العلمية </h2>
 <h3>معاملات استمارة تقديم الطلب للترقية العلمية المطلوب انجازها</h3>
-                @role('HeadDepartment_Coll')
+                @role('HeadDepartment_Coll|admin')
                 <h3>رئيس قسم </h3>
                 <br>
-
-
                 @foreach ($promotion_reqsForHeadDepartment_Coll as $req)
                     <br>
                     <a class="btn btn-info"
@@ -21,10 +19,11 @@
                         <br>
                         {{$req->user_id}}
                     </a>
+                    <br>
                 @endforeach
                 @endrole
                 @role('Dean')
-                <h3>مسؤول خطة بحثية كلية </h3>
+                <h3>العميد </h3>
                 <br>
                 @foreach ($promotion_reqsForCollage as $req)
                     <br>
@@ -37,5 +36,6 @@
                         {{$req->user_id}}
                     </a>
                 @endforeach
+                <br>
                 @endrole
 @endsection

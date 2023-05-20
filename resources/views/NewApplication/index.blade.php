@@ -16,10 +16,20 @@
     <br>
     <div class="pull-right">
         <a class="btn btn-secondary"
-           href="{{route('createpapersdata')}}"> ملئ معلومات البحوث </a>
+           href="{{route('createpapersdata')}}"> ملئ بيانات البحوث </a>
     </div>
     <br>
+    <div class="pull-right">
+        <a class="btn btn-secondary"
+           href="{{ route('positionsDegreesindex',Auth::user()->id) }}">     بيانات عن الوظائف التي مارسها و الشهادة</a>
+    </div>
+    <br>
+    <div class="pull-right">
+        <a class="btn btn-secondary"
+           href="{{ route('thesesindex',Auth::user()->id) }}">     بيانات عن الاطاريح المتعلة بهذه الترقية</a>
+    </div>
 
+<br>
     <div class="pull-right">
         <a class="btn btn-secondary"
            href="{{ route('hamshs.forms.sciplanindex',Auth::user()->id) }}"> تأييد خطة بحثية </a>
@@ -34,16 +44,8 @@
     <a class="btn btn-secondary"
        href="{{ route('AcademicReputationindex',Auth::user()->id) }}"> السمعة الاكاديمية </a>
     </div>
-    <br>
-    <div class="pull-right">
-    <a class="btn btn-secondary"
-       href="{{ route('positionsDegreesindex',Auth::user()->id) }}">     معلومات عن الوظائف التي مارسها و الشهادة</a>
-    </div>
-    <br>
-    <div class="pull-right">
-    <a class="btn btn-secondary"
-       href="{{ route('thesesindex',Auth::user()->id) }}">     معلومات عن الاطاريح المتعلة بهذه الترقية</a>
-    </div>
+
+
     <br>
     <div class="pull-right">
         <a class="btn btn-secondary"

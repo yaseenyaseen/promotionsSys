@@ -204,7 +204,7 @@ $promotion_reqsForCollage=null;
          */
         $a = Auth::user()->getRoleNames();
         if (count($a) > 0) {
-            if ($a->contains('HeadDepartment_Coll')) {
+            if ($a->contains('HeadDepartment_Coll')||$a->contains('admin')) {
                 $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
                     ->select('s.*', 'a.*')
                     ->join('promotion_reqs as a',
@@ -235,7 +235,11 @@ $promotion_reqsForCollage=null;
                 return view('hamshs.forms.administrators.RequestApplyingListForAdmins',
                     compact('promotion_reqsForCollage'))
                     ->with('i', (request()->input('page', 1) - 1) * 5);
-            } elseif ($a->contains('Computer_Center_Officer')) {
+            }
+          /*
+           * check the following elsif section, I think it needs to be deleted
+           * */
+            elseif ($a->contains('Computer_Center_Officer')) {
                 $promotion_reqsForUni = DB::table('users as s')
                     ->select('s.*', 'a.*')
                     ->join('promotion_reqs as a',
@@ -484,7 +488,7 @@ $promotion_reqsForCollage=null;
 
         $HForm->save();
         return redirect()->route('requestApplyingindex', Auth::user()->id)
-            ->with('success', 'Hamsh created successfully.');
+            ->with('success', 'تم البدء بترويج استمارة تقديم الطلب بنجاح.');
     }
 
     public function storeAcademicReputationHamsh(Request $request)

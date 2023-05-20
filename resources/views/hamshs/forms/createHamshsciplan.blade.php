@@ -5,9 +5,12 @@
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h2>أضافة الهامش على استمارة الخطة البحثية</h2>
+{{--
                 <h3>ملاحظة بعض الحقول غير مفعله لان الاضافة حسب الدور للمسؤول </h3>
-
+--}}
             </div>
+            <br>
+            <br>
             <div class="pull-right">
                 {{--
                                 <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
@@ -33,15 +36,15 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>هامش مقدم الطلب :</strong>
-                <input type="text" name="Applicant_hamsh" class="form-control" placeholder="Applicant_hamsh">
+                <input type="text" name="Applicant_hamsh" class="form-control" placeholder="ارجو ... ">
             </div>
         </div>
 
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" value="{{ date('Y-m-d') }}">
+        {{--<label for="date">Date:</label>
+        <input type="date" id="date" name="date" value="{{ date('Y-m-d') }}">--}}
 
         @endrole
-        @role('HeadDepartment_Coll|admin')
+      {{--  @role('HeadDepartment_Coll|admin')
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
@@ -99,7 +102,7 @@
                             </div>
                             @endrole
 
-
+--}}
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                 <button type="submit" class="btn btn-primary">حفظ</button>
                             </div>

@@ -487,15 +487,14 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                 <button type="submit" class="btn btn-primary"> تعديل و حفظ</button>
                             </div>
-                            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
-
-                            </div>
-                            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
-
-                            </div>
+                            <br>
+                            <br>
+                            <br>
 
             </form>
-
+            <br>
+            <br>
+            <br>
         @else
             {{--
                         add new paper.
@@ -947,12 +946,9 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                         <button type="submit" class="btn btn-primary">أضافة البحث</button>
                                     </div>
-                                    <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
-
-                                    </div>
-                                    <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
-
-                                    </div>
+                                    <br>
+                                    <br>
+                                    <br>
                                 </div>
                             </div>
                         </div>

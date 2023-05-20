@@ -55,6 +55,8 @@
                         </div>
                         @endrole
                         @role('HeadDepartment_Coll|admin')
+                        @csrf
+
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong> هامش السيد رئيس القسم :</strong><br>

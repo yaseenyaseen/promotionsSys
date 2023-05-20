@@ -7,6 +7,7 @@
             <div class="pull-left">
                 <h2>متطلبات الترقية-استمارة تقديم الطلب للترقية العلمية </h2>
                 <br>
+                <br>
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success">
                         <p>{{ $message }}</p>
@@ -14,7 +15,10 @@
                 @endif
 
                 @role('Applicant|admin')
-                @if(is_null($request_applying))
+                <br>
+                <h5>مقدم الطلب </h5>
+
+            @if(is_null($request_applying))
                     <br>
                     <div class="pull-right">
                         <a class="btn btn-success" href="{{ route('createRequestApplyingHamsh') }}">
@@ -39,24 +43,23 @@
 
                     <tr>
                         <br>
+                        <br>
                         <td>
-                            {{--<form action="{{ route('hamshs.forms.destroyHamshsciplan',$request_applying) }}" method="POST">--}}
                                 <a class="btn btn-info"
                                    href="{{ route('hamshs.forms.showHamshrequest_applying',$request_applying) }}">طباعةالهامش</a>
                                 <a class="btn btn-primary" href="{{ route('hamshs.PromReq_submissionForm.forms.editHamsh',$request_applying) }}">
-                                    تعديل الهامش </a>
-                                {{--@csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>--}}
+                                    اضافة أو تعديل الهامش </a>
+
                         </td>
                     </tr>
                     @endrole
                 @endif
                 @if(!is_null($request_applying))
+                    <br>
+                <br>
                     @role('HeadDepartment_Coll|admin')
                     <h5>رئيس قسم كلية</h5>
-
+<br>
                     <div class="pull-right">
                         <a class="btn btn-success"
                            href="{{ route('hamshs.forms.administrators.indexrequestApplying') }}">
@@ -71,46 +74,36 @@
                     <tr>
                         <br>
                         <td>
-                            {{--
-                                                    <form action="{{ route('hamshs.forms.destroyHamshsciplan',$SciPlan) }}" method="POST">
-                            --}}
-
                             <a class="btn btn-info" href="{{ route('hamshs.forms.showHamshrequest_applying',$request_applying) }}">طباعة
                                 الهامش</a>
 
                             <a class="btn btn-primary" href="{{ route('hamshs.PromReq_submissionForm.forms.editHamsh',$request_applying) }}">
-                                تعديل الهامش </a>
-                            {{--  @csrf
-                              @method('DELETE')
-
-                              <button type="submit" class="btn btn-danger">Delete</button>
-                          </form>--}}
+                                اضافة أو تعديل الهامش </a>
                         </td>
                     </tr>
 
                     @endrole
                     @role('Dean|admin')
+                <br>
+                <br>
                     <h5>العميد</h5>
+                <br>
                     @endrole
                 @endif
-
-
 <br>
                 <br>
-
                 <label>
                     نظراً لاستحقاقي الترقية العلمية الى مرتبة ( ) يرجى التفضل بالموافقة على ترويج معاملة ترقيتي وذلك
                     لاكمالي المدة القانونية اللازمة او قبل سنة من تاريخ استحقاق الترقية وفقا للفقرة (اولا – 1) من
                     القرار 315 لسنة 1988 ، علما ان بحوثي المقدمة للترقية العلمية هي :
 
                 </label>
-
-
-                <table>
+                <table class="table table-dark">
                     <thead>
                     <tr>
-                        <th>عنوان البحث</th>
-                        <th>التاريخ</th>
+                        <th scope="col">عنوان البحث</th>
+                        <th scope="col">التاريخ</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -122,6 +115,7 @@
                         </tr>
                     @endforeach
                     </tbody>
+
                 </table>
 <br>
     <br>
