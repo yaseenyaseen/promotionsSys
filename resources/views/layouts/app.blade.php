@@ -28,15 +28,21 @@
 
 </head>
 <body class="antialiased bg-gray-100 dark:bg-gray-900">
+{{--
+
 <form method="POST" action="{{route('logout')}}">
     @csrf
 
-    {{--
-            <a href="{{ route('register') }}" class="btn btn-info" role="button" aria-pressed="true">Register</a>
     --}}
+{{--
+            <a href="{{ route('register') }}" class="btn btn-info" role="button" aria-pressed="true">Register</a>
+    --}}{{--
+
 
     <a class="btn btn-info" type="button" style="float:right; href="{{route('logout')}}" onclick="event.preventDefault();  this.closest('form').submit();">Logout</a>
 </form>
+--}}
+
 <div class="flex-col w-full md:flex md:flex-row md:min-h-screen">
     <div @click.away="open = false" class="flex flex-col flex-shrink-0 w-full text-gray-700 bg-white md:w-64 dar:text-gray-200 dark:bg-gray-800" x-data="{ open: false }">
         <div class="flex flex-row items-center justify-between flex-shrink-0 px-8 py-4">
@@ -64,11 +70,13 @@
                         <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #2</a>
                         <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #3</a>
                     </div>
+                   {{--
                     <form method="POST" action="{{route('logout')}}">
                         @csrf
                         <a class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark:bg-gray-700 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                            href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
                     </form>
+                    --}}
                 </div>
             </div>
         </nav>

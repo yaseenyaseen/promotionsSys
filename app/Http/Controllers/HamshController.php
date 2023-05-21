@@ -81,213 +81,17 @@ class HamshController extends Controller
         //todo the above 'SciPlan' variable should be changed to Hamshs of Sciplan.
         //todo below code should be deleted, firsty, comment the code, then delete it.
         // todo From Hussien:
-        // get thier role
-        // if head dep get dep id
-        // if asses dean get dep ids for the college
-        // get users for the dep id(s)
-        /*     $a = Auth::user()->getRoleNames();
-             if (count($a) > 0) {
-                 if ($a->contains('HeadDepartment_Coll')) {
-                     $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
-                         ->select('s.*', 'a.*')
-                         ->join('promotion_reqs as a',
-                             's.id', '=', 'a.user_id')
-                         ->leftJoin('promotion_reqs as a1', function ($join) {
-                             $join->on('a.user_id', '=', 'a1.user_id')
-                                 ->whereRaw(DB::raw('a.created_at < a1.created_at'));
-                         })
-                         ->whereNull('a1.user_id')
-                         ->where('department_id', Auth::user()->department_id)
-                         ->get();
 
-                     // add $SciPlan to the view by compact.
-                     /*return view('hamshs.forms.administrators.HeadDepsciplan',
-                         compact('promotion_reqsForHeadDepartment_Coll'))
-                         ->with('i', (request()->input('page', 1) - 1) * 5);*/
-        /*                return view('hamshs.forms.sciplan',
-                            compact('promotion_reqsForHeadDepartment_Coll', 'SciPlan','papers'))
-                            ->with('i', (request()->input('page', 1) - 1) * 5);
-                    } elseif ($a->contains('Coll_ResearchPlan_Officer')) {
-                        $promotion_reqsForColl_ResearchPlan_Officer = DB::table('users as s')
-                            ->select('s.*', 'a.*')
-                            ->join('promotion_reqs as a',
-                                's.id', '=', 'a.user_id')
-                            ->leftJoin('promotion_reqs as a1', function ($join) {
-                                $join->on('a.user_id', '=', 'a1.user_id')
-                                    ->whereRaw(DB::raw('a.created_at < a1.created_at'));
-                            })
-                            ->whereNull('a1.user_id')
-                            ->where('college_id', Auth::user()->college_id)
-                            ->get();
-                        //  dd($promotion_reqsForColl_ResearchPlan_Officer);
-                        return view('hamshs.forms.sciplan',
-                            compact('promotion_reqsForColl_ResearchPlan_Officer', 'SciPlan','papers'))
-                            ->with('i', (request()->input('page', 1) - 1) * 5);
 
-                        /*return view('hamshs.forms.administrators.HeadDepsciplan',
-                            compact('promotion_reqsForColl_ResearchPlan_Officer'))
-                            ->with('i', (request()->input('page', 1) - 1) * 5);*/
-        /*   }
-           // todo from Friday:
-           /*
-            * add applicant role scinario:
-            */
-        /*elseif ($a->contains('Applicant')) {
-             // todo following quereies should be moved to the top of this method.
-
-             return view('hamshs.forms.sciplan',
-                 compact('SciPlan','papers'))
-                 ->with('i', (request()->input('page', 1) - 1) * 5);
-
-             /*return view('hamshs.forms.administrators.HeadDepsciplan',
-                 compact('promotion_reqsForColl_ResearchPlan_Officer'))
-                 ->with('i', (request()->input('page', 1) - 1) * 5);*/
-        /*
-            }
-        }
-        $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
-            ->select('s.*', 'a.*')
-            ->join('promotion_reqs as a',
-                's.id', '=', 'a.user_id')
-            ->leftJoin('promotion_reqs as a1', function ($join) {
-                $join->on('a.user_id', '=', 'a1.user_id')
-                    ->whereRaw(DB::raw('a.created_at < a1.created_at'));
-            })
-            ->whereNull('a1.user_id')
-            ->where('department_id', Auth::user()->department_id)
-            ->get();
-        // $reqs = PromotionReq::where('user_id', Auth::user()->id)->get();
-        $reqsos = PromotionReq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
-        $reqcolls = College::where('id', Auth::user()->college_id)->get();// Q/ last promotion request only
-        $Hams = Hamsh::all();
-        $Forms = Form::all();
-        return view('hamshs.forms.sciplan', compact('promotion_reqsForHeadDepartment_Coll', 'reqsos', 'Hams', 'Forms', 'reqcolls'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
-*/
     }
 
     public function sciplanlistindex()
     {
-        // dd($reqs);
-        /*   dd(Auth::user()->roles);*/
-        //  dd(Role::get());
-        //  dd(Auth::user()->getRoleNames());
-        /*       dd(Auth::user->hasRole('HeadDepartment_Coll')) ;*/
-
-        /* @role('HeadDepartment_Coll')
-         *
-         *
-         * @endrole
-         */
         $a = Auth::user()->getRoleNames();
         if (count($a) > 0) {
-            if ($a->contains('HeadDepartment_Coll')) {
-                /*$usersId = DB::table("users")
-                    ->where('department_id', Auth::user()->department_id)
-                    ->select('id')->distinct()->get()->map(function ($item){return get_object_vars($item);
-                    });*/
-                /*dd($usersId);*/
-                /*  $data = DB::table('promotion_reqs')
-                                     ->leftJoin('users', 'promotion_reqs.user_id', '=', 'users.id')
-                                     ->select('promotion_reqs.*','users.name',DB::raw('min(promotion_reqs.created_at)'))
-                                     ->groupBy('promotion_reqs.user_id')
-                                     ->latest()
-                                     ->get();
-                                 dd($data);*/
-                /*                $reqList = PromotionReq::where('user_id', $usersId[0])->orderBy('created_at', 'desc')->first();*/
-                /*     foreach ($usersId as $id) {
-                         /*                    $reqList = $reqList->concat( PromotionReq::where('user_id', $id)->orderBy('created_at', 'desc')->first());*/
-                //  $reqList =  PromotionReq::where('user_id', $id)->latest('created_at')->first();
-                /*dd($reqList);
-            }
-
-            dd($reqList);
-
-     */       // add for each user loop return latest promotion_reqs
-                //->where('promotion_reqs.created_at', latest()->first())->get();
-                /*return $reqs;*/
-
-
-                /*
-                request all promotion requests and users using join
-                $reqs = DB::table("users")
-                    ->join('promotion_reqs', 'promotion_reqs.user_id', '=', 'users.id')
-                    ->where('department_id', Auth::user()->department_id)
-                    ->get();
-                dd($reqs);
-                */
-
-                /*  use unique: this return latest promotion request
-                $reqs = DB::table("users")
-                      ->join('promotion_reqs', 'promotion_reqs.user_id', '=', 'users.id')
-                      ->where('department_id', Auth::user()->department_id)
-                      ->orderBy('promotion_reqs.created_at', 'desc')->get()->unique('promotion_reqs.user_id');
-                     // ->get();
-                  dd($reqs);*/
-
-                /* return all recent (latest) promotions requests of indiviual users But not of one department
-                 $allRowsNeeded = DB::table("promotion_reqs as s")
-                      ->select('s.*')
-                      ->leftJoin("promotion_reqs as s1", function ($join) {
-                          $join->on('s.user_id', '=', 's1.user_id');
-                          $join->on('s.created_at', '<', 's1.created_at');
-                      })
-                      ->whereNull('s1.user_id')
-                      ->get();
-                  dd($allRowsNeeded);*/
-                /*
-                   $allRowsNeeded = DB::table('users as s')
-                       ->select('s.*','a.*')
-                           ->join('promotion_reqs as a',
-                               's.id', '=', 'a.user_id')
-                          ->leftJoin('promotion_reqs as a1', function ($join){
-                              $join->on('a.user_id', '=', 'a1.user_id')
-                                  ->whereRaw(DB::raw('a.created_at < a1.created_at'));
-                          })
-                       ->whereNull('a1.user_id')
-                      ->where('department_id', Auth::user()->department_id)
-                    //  ->leftJoin("promotion_reqs as s1", function ($join) {
-                      //     $join->on('promotion_reqs.user_id', '=', 's1.user_id');
-                        //   $join->on('promotion_reqs.created_at', '<', 's1.created_at');
-                       //})
-                       //->whereNull('s1.user_id')
-
-                       ->get();
-                   dd($allRowsNeeded);
-                */
-                /*
-                join('promotion_reqs', 'promotion_reqs.user_id', '=', 'users.id')
-                    ->where('department_id', Auth::user()->department_id)
-                    ->orderBy('promotion_reqs.created_at', 'desc')
-                    // ->leftJoin("promotion_reqs as s1", function ($join) {
-                      //    $join->on('promotion_reqs.user_id', '=', 's1.user_id');
-                        //  $join->on('promotion_reqs.created_at', '<', 's1.created_at');
-                    //  })
-                      //->whereNull('s1.user_id')
-                    ->get();
-                dd($allRowsNeeded);
-*/
-                // use groupBy and other equery testings
-                /*    $reqs = DB::table("users")
-                        ->join('promotion_reqs', 'promotion_reqs.user_id', '=', 'users.id')
-                        ->where('department_id', Auth::user()->department_id)
-                        ->orderBy('promotion_reqs.created_at', 'desc')
-                        //->limit(1)
-                        //->orderByDesc('promotion_reqs.created_at')
-                        // ->selectRaw('*, MAX(promotion_reqs.created_at)')
-                        //->latest('promotion_reqs.created_at')
-
-                        // ->select('promotion_reqs.*','promotion_reqs.user_id',DB::raw('(promotion_reqs.created_at)'))
-                        //  ->latest('promotion_reqs.created_at')->get();
-                        //->groupBy('promotion_reqs.user_id')
-                        //->latest()
-                        ->get();
-                    dd($reqs);*/
-//todo to optimise the following code:
-// merege two variable names into one variable name
-// "$promotion_reqsForHeadDepartment_Coll" and "$promotion_reqsForCollage
-// then in "SciPlanListForAdmins.blade.php" view make one loop only.
-                /*$promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
+            if ($a->contains('admin')||$a->contains('HeadDepartment_Coll')) // use or with if condition
+            {
+                $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
                     ->select('s.*', 'a.*')
                     ->join('promotion_reqs as a',
                         's.id', '=', 'a.user_id')
@@ -297,13 +101,16 @@ class HamshController extends Controller
                     })
                     ->whereNull('a1.user_id')
                     ->where('department_id', Auth::user()->department_id)
-                    ->get();*/
-                return view('hamshs.forms.administrators.SciPlanListForAdmins',
+                    ->get();
+$promotion_reqsForCollage=null;
+
+                return view('hamshs.forms.administrators.SciPlanListForAdminss',
+                    compact('promotion_reqsForHeadDepartment_Coll','promotion_reqsForCollage')
                 )
                     ->with('i', (request()->input('page', 1) - 1) * 5);
 
             } elseif ($a->contains('Coll_ResearchPlan_Officer')) {
-                /*$promotion_reqsForCollage = DB::table('users as s')
+                $promotion_reqsForCollage = DB::table('users as s')
                     ->select('s.*', 'a.*')
                     ->join('promotion_reqs as a',
                         's.id', '=', 'a.user_id')
@@ -313,19 +120,15 @@ class HamshController extends Controller
                     })
                     ->whereNull('a1.user_id')
                     ->where('college_id', Auth::user()->college_id)
-                    ->get();*/
-                return view('hamshs.forms.administrators.SciPlanListForAdmins',
-                )
+                    ->get();
+                return view('hamshs.forms.administrators.SciPlanListForAdminss',
+                    compact('promotion_reqsForCollage'))
                     ->with('i', (request()->input('page', 1) - 1) * 5);
+
+
             }
         }
-        /*  //$reqs = PromotionReq::where('user_id',Auth::user()->id)->get();
-          $reqsos = PromotionReq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
-          $reqcolls = College::where('id', Auth::user()->college_id)->get();// Q/ last promotion request only
-          $Hams = Hamsh::all();
-          $Forms = Form::all();
-          return view('hamshs.forms.sciplan', compact('reqs', 'reqsos', 'Hams', 'Forms', 'reqcolls'))
-              ->with('i', (request()->input('page', 1) - 1) * 5);*/
+
     }
 
     public function requestApplyingindex(User $user_id)
@@ -401,7 +204,7 @@ class HamshController extends Controller
          */
         $a = Auth::user()->getRoleNames();
         if (count($a) > 0) {
-            if ($a->contains('HeadDepartment_Coll')) {
+            if ($a->contains('HeadDepartment_Coll')||$a->contains('admin')) {
                 $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
                     ->select('s.*', 'a.*')
                     ->join('promotion_reqs as a',
@@ -432,7 +235,11 @@ class HamshController extends Controller
                 return view('hamshs.forms.administrators.RequestApplyingListForAdmins',
                     compact('promotion_reqsForCollage'))
                     ->with('i', (request()->input('page', 1) - 1) * 5);
-            } elseif ($a->contains('Computer_Center_Officer')) {
+            }
+          /*
+           * check the following elsif section, I think it needs to be deleted
+           * */
+            elseif ($a->contains('Computer_Center_Officer')) {
                 $promotion_reqsForUni = DB::table('users as s')
                     ->select('s.*', 'a.*')
                     ->join('promotion_reqs as a',
@@ -544,10 +351,8 @@ class HamshController extends Controller
     {
         //
         $request->validate([
-            /* 'title' => 'required',
-             'Sci_plan_Applicant' => 'required',
-             'Sci_plan_Coll_Sci_Affairs' => 'required',
-             'Sci_plan_Coll_Dean_Assis' => 'required',
+            /*
+
              'Sci_plan_presidency_office' => 'required',
              'Sci_plan_Sci_Affairs_President_University_Assistant' => 'required',
              'Sci_plan_presidency_Academic_Promotions_Affairs' => 'required',
@@ -583,10 +388,10 @@ class HamshController extends Controller
         /*$data = array('list' => DB::table('pro_reqs')->get());*/
 
 
-        $reqs = proreq::where('user_id', Auth::user()->id)->get();
+      //  $reqs = proreq::where('user_id', Auth::user()->id)->get();
         /* latest('upload_time')->first()*/
 
-        $reqsos = proreq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
+        $reqsos = PromotionReq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
         $proreq_id = $reqsos->id;
         /*        return $proreq_id;*/
         $reqcolls = College::where('id', Auth::user()->college_id)->get();// Q/ last promotion request only
@@ -596,17 +401,7 @@ class HamshController extends Controller
 
         $Forms = Form::all();
 
-        /*return view('hamshs.index',compact('reqs','reqsos','Hams','Forms','reqcolls'))
-            ->with('i', (request()->input('page', 1) - 1) * 5); */
 
-        /* return view('hamshs.forms.sciplan',compact('reqs','reqsos','Hams','Forms','reqcolls'))
-             ->with('i', (request()->input('page', 1) - 1) * 5); /*add 'blogs'*/
-
-
-        /*return view('hamshs.forms.sciplan',compact('reqsos','Hams','Forms','reqcolls'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);*/
-        /* return redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
-             ->with('success','Blog created successfully.');*/
 
         return redirect()->route('NewApplicationBoard', compact('reqsos', 'Hams', 'Forms', 'reqcolls'))
             ->with('success', 'Blog created successfully.');
@@ -657,20 +452,16 @@ class HamshController extends Controller
 
         $reqsos = PromotionReq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
         $proreq_id = $reqsos->id;
-        /*  $Hamsh = Hamsh::create($request->all());//
-          $Hamsh_id = Hamsh::latest('created_at')->value('id');
-          $Hamsh = Hamsh::find($Hamsh_id);*/
         $HForm->promotionReqs_id = $proreq_id;
         $HForm->Applicant_createdAt = Carbon::now();
 
         $HForm->Applicant_Id = Auth::user()->id;
-        /*   'Sci_Dep_Id'
-         'Sci_Dep_createdAt'*/
-        $HForm->Sci_Dep_createdAt = Carbon::now();
+
+        $HForm->Sci_Dep_createdAt = Carbon::now();// not correct move it to update method.
 
         $HForm->save();
         return redirect()->route('hamshs.forms.sciplanindex', Auth::user()->id)
-            ->with('success', 'Hamsh created successfully.');
+            ->with('success', 'تم البدء بترويج استمارة الخطة البحثية بنجاح.');
     }
 
     public function storeReqApplyingHamsh(Request $request)
@@ -697,7 +488,7 @@ class HamshController extends Controller
 
         $HForm->save();
         return redirect()->route('requestApplyingindex', Auth::user()->id)
-            ->with('success', 'Hamsh created successfully.');
+            ->with('success', 'تم البدء بترويج استمارة تقديم الطلب بنجاح.');
     }
 
     public function storeAcademicReputationHamsh(Request $request)
@@ -1211,7 +1002,7 @@ if($isDegree==1){
         $PromotionReq = PromotionReq::where('id', $SciPlan->promotionReqs_id)->latest('created_at')->first();
         $user_id = $PromotionReq->user_id;
         return redirect()->route('hamshs.forms.sciplanindex', compact('user_id'))
-            ->with('success', 'The Head department choose a specific user Scientific plan successfully');
+            ->with('success', 'تم التحديث على هامش الخطة البحثية بنجاح.');
 
     }
 
@@ -1251,7 +1042,7 @@ if($isDegree==1){
         $PromotionReq = PromotionReq::where('id', $request_applying->promotionReqs_id)->latest('created_at')->first();
         $user_id = $PromotionReq->user_id;
         return redirect()->route('requestApplyingindex', compact('user_id'))
-            ->with('success', 'The Head department choose a specific user Scientific plan successfully');
+            ->with('success', 'تم تعديل استمارة تقديم الطلب بنجاح.');
     }
 
     public function updateHamshAcademicReputation(Request $request, AcademicReputation $hamsh_id)

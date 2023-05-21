@@ -3,14 +3,15 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>طباعة قائمة الهوامش ومراحل سير معاملة الترقية حسب تسلسل المرجعيات </h2>
+                <h2>طباعة قائمة الهوامش لتأييد الخطة البحثية حسب تسلسل المرجعيات </h2>
+                <br>
+                <br>
             </div>
-           {{-- <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
-            </div>--}}
+            {{-- <div class="pull-right">
+                 <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
+             </div>--}}
         </div>
     </div>
-
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
@@ -62,5 +63,5 @@
                 {{ $hamsh->Sci_plan_presidency_Academic_Promotions_Affairs }}
             </div>
         </div>
-    </div>
+
 @endsection

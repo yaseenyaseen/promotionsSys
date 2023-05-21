@@ -7,138 +7,118 @@
             <div class="pull-left">
                 <h2>متطلبات الترقية-استمارة تقديم الطلب للترقية العلمية </h2>
                 <br>
-                @if(is_null($request_applying))
+                <br>
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
+
+                @role('Applicant|admin')
+                <br>
+                <h5>مقدم الطلب </h5>
+
+            @if(is_null($request_applying))
                     <br>
                     <div class="pull-right">
-                        <a class="btn btn-success" href="{{ route('createRequestApplyingHamsh') }}"> أنشاء
-                            هامش</a>
+                        <a class="btn btn-success" href="{{ route('createRequestApplyingHamsh') }}">
+
+                            البدء بترويج استمارة تقديم الطلب
+
+                        </a>
                     </div>
                 @else
-                    {{-- following code should be upated to make the roles catogories based on head name of the page only.--}}
-                    @role('Applicant')
 
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
+
 
                     <div class="pull-right">
                         <a class="btn btn-success" href={{route('NewApplicationBoard')}}> صفحة الاستمارات المطلوبة</a>
                     </div>
                     <div>
-                        The user name is: <br>
-                        {{Auth::user()->name}} <br> <br>
-                        <h6>معلومات عن استمارة تقديم الطلب للترقية العلمية <br></h6>
-                        <h6> استمارة تقديم الطلب للترقية العلمية ID : <br></h6> {{$request_applying->id}}
-                        <h6> استمارة تقديم الطلب للترقية العلمية لمقدم الطلب ID : <br></h6> {{$request_applying->Applicant_Id}}
+                        <h6> استمارة تقديم الطلب لمقدم الطلب بالاسم : <br></h6>  {{Auth::user()->name}}
+
+
+                        <h6> استمارة تقديم الطلب للترقية العلمية والمرقمه ID : <br></h6> {{$request_applying->id}}
                     </div>
 
                     <tr>
                         <br>
+                        <br>
                         <td>
-                            {{--<form action="{{ route('hamshs.forms.destroyHamshsciplan',$request_applying) }}" method="POST">--}}
                                 <a class="btn btn-info"
                                    href="{{ route('hamshs.forms.showHamshrequest_applying',$request_applying) }}">طباعةالهامش</a>
                                 <a class="btn btn-primary" href="{{ route('hamshs.PromReq_submissionForm.forms.editHamsh',$request_applying) }}">
-                                    تعديل الهامش edit</a>
-                                {{--@csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>--}}
+                                    اضافة أو تعديل الهامش </a>
+
                         </td>
                     </tr>
                     @endrole
                 @endif
-
-                @role('HeadDepartment_Coll')
-                <div class="pull-right">
-                    <a class="btn btn-success"
-                       href="{{ route('hamshs.forms.administrators.indexrequestApplying') }}">
-                        {{--/* redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
-                        ->with('success','Blog created successfully.');*/
-                        $promotion_reqsForHeadDepartment_Coll--}}
-
-                        صفحة مسؤلين انجاز استمارة </a>
-                </div>
-                The user name is: <br>
-                {{Auth::user()->name}} <br> <br>
-                <h6>معلومات استمارة تقديم الطلب للترقية العلمية <br></h6>
-                <h6> استمارة تقديم الطلب للترقية العلمية ID : <br></h6> {{$request_applying->id}}
-                <h6> استمارة تقديم الطلب للترقية العلمية لمقدم الطلب ID : <br></h6> {{$request_applying->Applicant_Id}}
-
-                <tr>
+                @if(!is_null($request_applying))
                     <br>
-                    <td>
-{{--
-                        <form action="{{ route('hamshs.forms.destroyHamshsciplan',$SciPlan) }}" method="POST">
---}}
+                <br>
+                    @role('HeadDepartment_Coll|admin')
+                    <h5>رئيس قسم كلية</h5>
+<br>
+                    <div class="pull-right">
+                        <a class="btn btn-success"
+                           href="{{ route('hamshs.forms.administrators.indexrequestApplying') }}">
 
+                            صفحة مسؤلين انجاز استمارة </a>
+                    </div>
+                    اسم رئيس القسم <br>
+                    {{Auth::user()->name}} <br> <br>
+                    <h6> استمارة تقديم الطلب للترقية العلمية والمرقمه ID : <br></h6> {{$request_applying->id}}
+
+
+                    <tr>
+                        <br>
+                        <td>
                             <a class="btn btn-info" href="{{ route('hamshs.forms.showHamshrequest_applying',$request_applying) }}">طباعة
                                 الهامش</a>
 
                             <a class="btn btn-primary" href="{{ route('hamshs.PromReq_submissionForm.forms.editHamsh',$request_applying) }}">
-                                تعديل الهامش edit</a>
-                            @csrf
-                            @method('DELETE')
+                                اضافة أو تعديل الهامش </a>
+                        </td>
+                    </tr>
 
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-
-                @endrole
-             {{--   @role('Coll_ResearchPlan_Officer')
-                <h3>مسؤول خطة بحثية كلية </h3>
+                    @endrole
+                    @role('Dean|admin')
                 <br>
-                <div class="pull-right">
-                    <a class="btn btn-success"
-                       href="{{ route('hamshs.forms.administrators.index') }}">
-                        --}}{{----}}{{--/* redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
-                        ->with('success','Blog created successfully.');*/
-                        $promotion_reqsForHeadDepartment_Coll
-                        --}}{{----}}{{--
-                        صفحة مسؤول خطة بحثية كلية الرئيسية</a>
-                </div>
-                The user name is: <br>
-                {{Auth::user()->name}} <br> <br>
-                <h6>معلومات الخطة البحثية <br></h6>
-                <h6> الخطة البحثية ID : <br></h6> {{$SciPlan->id}}
-                <h6> الخطة البحثية لمقدم الطلب ID : <br></h6> {{$SciPlan->Applicant_Id}}
-                <tr>
-                    <br>
-                    <td>
-                        <form action="{{ route('hamshs.forms.destroyHamshsciplan',$SciPlan) }}" method="POST">
+                <br>
+                    <h5>العميد</h5>
+                <br>
+                    @endrole
+                @endif
+<br>
+                <br>
+                <label>
+                    نظراً لاستحقاقي الترقية العلمية الى مرتبة ( ) يرجى التفضل بالموافقة على ترويج معاملة ترقيتي وذلك
+                    لاكمالي المدة القانونية اللازمة او قبل سنة من تاريخ استحقاق الترقية وفقا للفقرة (اولا – 1) من
+                    القرار 315 لسنة 1988 ، علما ان بحوثي المقدمة للترقية العلمية هي :
 
-                            <a class="btn btn-info" href="{{ route('hamshs.forms.showHamsh',$SciPlan) }}">طباعة
-                                الهامش</a>
-
-                            <a class="btn btn-primary" href="{{ route('hamshs.forms.editHamshsciplan',$SciPlan) }}">
-                                تعديل الهامش edit</a>
-                            @csrf
-                            @method('DELETE')
-
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                @endrole--}}
-
-                <table>
+                </label>
+                <table class="table table-dark">
                     <thead>
                     <tr>
-                        <th>عنوان البحث</th>
-                        <th>التاريخ</th>
+                        <th scope="col">عنوان البحث</th>
+                        <th scope="col">التاريخ</th>
+
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($papers as $paper)
                         <tr>
                             <td>{{ $paper['paper_title'] }}</td>
-                            <td>{{ $paper['publish_date'] }}</td>
+                            <td>{{date('Y-m-d',strtotime( $paper['publish_date'])) }}</td>
+
                         </tr>
                     @endforeach
                     </tbody>
+
                 </table>
+<br>
+    <br>
+    <br>
 
 @endsection

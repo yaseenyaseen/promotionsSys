@@ -2,7 +2,7 @@
 @section('content')
     <h3>مسؤلين انجاز استمارة تقديم الطلب للترقية العلمية </h3>
     <br>
-    @role('HeadDepartment_Coll')
+    @role('HeadDepartment_Coll|admin')
     <div class="pull-right">
         <a class="btn btn-secondary" href="{{ route('hamshs.forms.RequestApplyinglistindex')}}"> رئيس القسم العلمي </a>
         {{-- the above line call a function named "sciplanlistindex" in the controller without need to send $user as a parameter.

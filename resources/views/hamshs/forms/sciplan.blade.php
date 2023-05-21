@@ -7,199 +7,181 @@
             <div class="pull-left">
                 <h2>متطلبات الترقية- تأييد الخطة البحثية </h2>
                 <br>
-                @role('Applicant')
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
+
+                @role('Applicant|admin')
+                <br>
+                <h5>مقدم الطلب </h5>
+
                 @if(is_null($SciPlan))
 
                     <br>
                     <div class="pull-right">
-                        <a class="btn btn-success" href="{{ route('createsciplanHamsh') }}"> أنشاء
-                            هامش</a>
+                        <a class="btn btn-success" href="{{ route('createsciplanHamsh') }}">
+                            البدء بترويج الخطة البحثية
+
+                        </a>
                     </div>
                 @else
                     {{-- following code should be upated to make the roles catogories based on head name of the page only.--}}
 
 
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
+
 
                     <div class="pull-right">
                         <a class="btn btn-success" href="{{route('NewApplicationBoard')}}"> صفحة الاستمارات
                             المطلوبة </a>
                     </div>
                     <div>
-                        The user name is: <br>
-                        {{Auth::user()->name}} <br> <br>
+
                         <h6>معلومات الخطة البحثية <br></h6>
-                        <h6> الخطة البحثية ID : <br></h6> {{$SciPlan->id}}
-                        <h6> الخطة البحثية لمقدم الطلب ID : <br></h6> {{$SciPlan->Applicant_Id}}
+                        <h6> الخطة البحثية المرقمه ID : <br></h6> {{$SciPlan->id}}
+
+                        <h6> الخطة البحثية لمقدم الطلب : <br></h6> {{Auth::user()->name}}
                     </div>
 
                     <tr>
                         <br>
                         <td>
                             {{--<form action="{{ route('hamshs.forms.destroyHamshsciplan',$SciPlan) }}" method="POST">--}}
-                                <a class="btn btn-info"
-                                   href="{{ route('hamshs.forms.showHamsh',$SciPlan) }}">طباعةالهامش</a>
-                                <a class="btn btn-primary" href="{{ route('hamshs.forms.editHamshsciplan',$SciPlan) }}">
-                                    تعديل الهامش edit</a>
-                                {{--@csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>--}}
+                            <a class="btn btn-info"
+                               href="{{ route('hamshs.forms.showHamsh',$SciPlan) }}">طباعةالهامش</a>
+                            <a class="btn btn-primary" href="{{ route('hamshs.forms.editHamshsciplan',$SciPlan) }}">
+                                تعديل الهامش </a>
+                            {{--@csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>--}}
                         </td>
                     </tr>
                 @endif
                 @endrole
 
-                @role('HeadDepartment_Coll')
-                <div class="pull-right">
-                    <a class="btn btn-success"
-                       {{--                       href="{{ route('hamshs.forms.administrators.SciPlanListForAdmins') }}">--}}
-                       href="{{ route('hamshs.forms.sciplanlistindex') }}">
-                        {{--/* redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
-                        ->with('success','Blog created successfully.');*/
-                        $promotion_reqsForHeadDepartment_Coll
-                        --}}
-                        صفحة رئيس القسم الرئيسية</a>
-                </div>
-                The user name is: <br>
-                {{Auth::user()->name}} <br> <br>
-                <h6>معلومات الخطة البحثية <br></h6>
-                <h6> الخطة البحثية ID : <br></h6> {{$SciPlan->id}}
-                <h6> الخطة البحثية لمقدم الطلب ID : <br></h6> {{$SciPlan->Applicant_Id}}
-
-                <tr>
+                @if(!is_null($SciPlan))
+                    @role('HeadDepartment_Coll|admin')
                     <br>
-                    <td>
-                        <form action="{{ route('hamshs.forms.destroyHamshsciplan',$SciPlan) }}" method="POST">
+                    <br>
+                    <h5>رئيس قسم كلية</h5>
+                    <div class="pull-right">
+                        <a class="btn btn-success"
+                           href="{{ route('hamshs.forms.administrators.index') }}">
+                            {{-- following lines need more testing to permenently deleting
+                             href="{{ route('hamshs.forms.administrators.SciPlanListForAdmins') }}">--}}
+                            {{--href="{{ route('hamshs.forms.sciplanlistindex') }}">--}}
+                            {{--href="{{ route('hamshs.forms.sciplanlistindex') }}">--}}
+                            {{--/* redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
+                            ->with('success','Blog created successfully.');*/
+                            $promotion_reqsForHeadDepartment_Coll
+                            --}}
+                            صفحة رئيس القسم الرئيسية</a>
+                    </div>
+                    اسم رئيس القسم <br>
+                    {{Auth::user()->name}} <br> <br>
+                    <tr>
+                        <br>
+                        <td>
+                            {{-- <form action="{{ route('hamshs.forms.destroyHamshsciplan',$SciPlan) }}" method="POST">--}}
 
                             <a class="btn btn-info" href="{{ route('hamshs.forms.showHamsh',$SciPlan) }}">طباعة
                                 الهامش</a>
 
                             <a class="btn btn-primary" href="{{ route('hamshs.forms.editHamshsciplan',$SciPlan) }}">
-                                تعديل الهامش edit</a>
-                            @csrf
+                                اضافة أو تعديل الهامش</a>
+                            {{--@csrf
                             @method('DELETE')
 
                             <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
+                        </form>--}}
+                        </td>
+                    </tr>
 
-                {{--                @endforeach--}}
-                @endrole
-                @role('Coll_ResearchPlan_Officer')
-                <h3>مسؤول خطة بحثية كلية </h3>
-                <br>
-                <div class="pull-right">
-                    <a class="btn btn-success"
-                       href="{{ route('hamshs.forms.administrators.index') }}">
-                        {{--/* redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
-                        ->with('success','Blog created successfully.');*/
-                        $promotion_reqsForHeadDepartment_Coll
-                        --}}
-                        صفحة مسؤول خطة بحثية كلية الرئيسية</a>
-                </div>
-                The user name is: <br>
-                {{Auth::user()->name}} <br> <br>
-                <h6>معلومات الخطة البحثية <br></h6>
-                <h6> الخطة البحثية ID : <br></h6> {{$SciPlan->id}}
-                <h6> الخطة البحثية لمقدم الطلب ID : <br></h6> {{$SciPlan->Applicant_Id}}
-                <tr>
+                    {{--                @endforeach--}}
+                    @endrole
+                    @role('Coll_ResearchPlan_Officer|admin')
                     <br>
-                    <td>
-                        {{--
-                                                <form action="{{ route('hamshs.forms.destroyHamshsciplan',$SciPlan) }}" method="POST">
-                        --}}
-                        {{--
-                                                    <form action="{{ route("#") }}">
-                        --}}
-                        <a class="btn btn-info" href="{{ route('hamshs.forms.showHamsh',$SciPlan) }}">طباعة
-                            الهامش</a>
+                    <br>
+                    <h5>مسؤول خطة بحثية كلية </h5>
+                    <div class="pull-right">
+                        <a class="btn btn-success"
+                           href="{{ route('hamshs.forms.administrators.index') }}">
+                            {{--/* redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
+                            ->with('success','Blog created successfully.');*/
+                            $promotion_reqsForHeadDepartment_Coll
+                            --}}
+                            صفحة مسؤول خطة بحثية كلية الرئيسية</a>
+                    </div>
+                    اسم مسؤول خطة بحثية كلية: <br>
+                    {{Auth::user()->name}} <br> <br>
 
-                        <a class="btn btn-primary" href="{{ route('hamshs.forms.editHamshsciplan',$SciPlan) }}">
-                            تعديل الهامش edit</a>
-                        @csrf
-                        @method('DELETE')
+                    <tr>
+                        <br>
+                        <td>
 
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                @endrole
+                            <a class="btn btn-info" href="{{ route('hamshs.forms.showHamsh',$SciPlan) }}">طباعة
+                                الهامش</a>
 
-                <table>
+                            <a class="btn btn-primary" href="{{ route('hamshs.forms.editHamshsciplan',$SciPlan) }}">
+                                اضافة أو تعديل الهامش </a>
+
+                        </td>
+                    </tr>
+                    @endrole
+                    <br>
+                    <br>
+                    @role('Coll_Sci_Affairs|admin')
+                    <br>
+                    <h5> شؤون علمية كلية </h5>
+                    <br>
+                    @endrole
+                    @role('Coll_Dean_ Assistant|admin')
+                    <h5> معاون عميد كلية </h5>
+                    <br>
+                    @endrole
+                    @role('Presidency_Research_Plan_Officer|admin')
+                    <h5>مسؤول خطة بحثية رئاسة </h5>
+                    <br>
+                    @endrole
+                    @role('President_University_Assistant|admin')
+                    <h5>مساعد رئيس الجامعة الشؤون العلمية </h5>
+                    <br>
+                    @endrole
+                    @role('presidency_Academic_Promotions_Affairs|admin')
+                    <h5>لجنة الترقيات المركزية </h5>
+                    @endrole
+                @endif
+
+
+                <br>
+                <br>
+
+                <table class="table table-dark">
                     <thead>
                     <tr>
-                        <th>عنوان البحث</th>
-                        <th>التاريخ</th>
+                        <th scope="col">عنوان البحث</th>
+                        <th scope="col">التاريخ</th>
+
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($papers as $paper)
                         <tr>
                             <td>{{ $paper['paper_title'] }}</td>
-                            <td>{{ $paper['publish_date'] }}</td>
+                            <td>{{date('Y-m-d',strtotime( $paper['publish_date'])) }}</td>
+
                         </tr>
                     @endforeach
                     </tbody>
+
                 </table>
 
 
 
-    {{--    @foreach ($promotion_reqsForHeadDepartment_Coll as $req)
-        أسم مقدم الترقية:
-        {{$req->id}}
-
-
-    @endforeach--}}
-    {{--  <h4> ID الترقية:
-          <br> {{$reqsos->id}}<br><br>--}}
-    {{--  user id:
-      <br> {{$reqsos->user_id}}<br><br></h4>
-  </h4>
-  <br>
---}}
-    {{--
-                    <h4> اسم الكلية:
-    --}}
-    {{-- @foreach ($reqcolls as $reqcoll)
-         {{ $reqcoll->name }}
-     @endforeach
-
-     <br> {{$reqcoll->name}}<br><br></h4>--}}
-    {{--<h4>
-        Below button should be edited to another columns of another tables based on information type.
-        basically, it should show information only which are prevously entered.
-    </h4>
---}}
-
-    {{--   <br>
-       <div class="pull-right">
-           <a class="btn btn-success" href="{{ route('sciplancreateform') }}"> أنشاء
-               أستمارة</a> This button is show for admin only to add a new role or form
-       </div>
-       @foreach ($Forms as $form)
-           @if($form->proreq_id == $reqsos->id)
-               <tr>
-                   <td>
-                       <form action="{{ route('hamshs.forms.deleteFsci',$form->id) }}" method="POST">
-                           <a class="btn btn-primary"
-                              href="{{ route('hamshs.forms.editHsci',$form->id) }}">تعديل الاستمارة</a>
-                           <br> <br>
-                           <a class="btn btn-info"
-                              href="{{ route('hamshs.forms.show',$form->id) }}">الاستمارة طباعة</a>
-                           @csrf
-                           @method('DELETE')
-                           <button type="submit" class="btn btn-danger">Delete</button>
-                       </form>
-                   </td>
-               </tr>
-           @endif
-       @endforeach
---}}
+                <br>
+                <br>
+                <br>
 
 @endsection
