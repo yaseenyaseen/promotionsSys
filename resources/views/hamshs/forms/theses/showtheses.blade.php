@@ -5,6 +5,8 @@
             <div class="pull-left">
                 <h2>طباعة معلومات الاطاريح المتعلة بهذه الترقية </h2>
             </div>
+            <br>
+            <br>
             {{--   <div class="pull-right">
                    <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
                </div>--}}
@@ -18,7 +20,7 @@
                 </label>
 
 
-                <table class="center">
+                <table class="table table-dark">
                     <thead>
                     <tr>
                         <th>عنوان الاطروحة:</th>
@@ -40,4 +42,8 @@
                     @endforeach
                     </tbody>
                 </table>
+    <br>
+    <br>
+    <br>
+
 @endsection

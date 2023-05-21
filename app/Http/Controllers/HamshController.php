@@ -510,7 +510,7 @@ $promotion_reqsForCollage=null;
 
         $HForm->save();
         return redirect()->route('AcademicReputationindex', Auth::user()->id)
-            ->with('success', 'Hamsh created successfully.');
+            ->with('success', 'أضافة البيانات على استمارة التسجيل بالمواقع البحثية تمت بنجاح.');
     }
     public function storeProApplicationSummary(Request $request)
     {
@@ -560,7 +560,7 @@ $promotion_reqsForCollage=null;
 
         $HForm->save();
         return redirect()->route('positionsDegreesindex', Auth::user()->id)
-            ->with('success', ' معلومات الشهادة الجديدة التي انجزها مقدم الترقية بنجاح');
+            ->with('success', ' معلومات الشهادة الجديدة لمقدم الترقية أضيفت بنجاح.');
     }
     public function storethesis(Request $request)
     {

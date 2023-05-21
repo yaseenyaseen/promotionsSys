@@ -11,6 +11,8 @@
              </div>--}}
         </div>
     </div>
+<br>
+    <br>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -36,7 +38,7 @@
             <button type="submit" class="btn btn-primary">أختيار للتعديل</button>
         </div>
     </form>
-    @if($selectthsis!=null) // this is required bcs calling above list need to show before staring below code.
+    @if($selectthsis!=null)
 
     <form action="{{ route('updatethesis') }}" method="POST">
         <h3>تعديل على شهادة سابقة</h3>
@@ -87,6 +89,10 @@
         </div>
     </form>
     @endif
+    <br>
+    <br>
+    <br>
+    
 @endsection
 
 

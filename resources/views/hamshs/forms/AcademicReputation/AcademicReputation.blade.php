@@ -9,20 +9,20 @@
     <br>
     <br>
     @if(is_null($AcademicReputation))
-        @role('Applicant')
+        @role('Applicant|admin')
         <div class="pull-right">
-            <a class="btn btn-secondary" href="{{ route('createAcademicReputationHamsh') }}">
-                أنشاء جديد</a>
+            <a class="btn btn-success" href="{{ route('createAcademicReputationHamsh') }}">
+                البدء بترويج استمارة المواقع البحثية </a>
         </div>
         @endrole
     @else
-        following code should be upated to make the roles catogories based on head name of the page only.
+
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
             </div>
         @endif
-        @role('Applicant')
+        @role('Applicant|admin')
         <div class="pull-right">
             <a class="btn btn-success" href="{{route('NewApplicationBoard')}}"> صفحة الاستمارات
                 المطلوبة </a>

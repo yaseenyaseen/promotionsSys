@@ -6,6 +6,9 @@
             <div class="pull-left">
                 <h2>أضافة معلومات عن الاطاريح المتعلة بهذه الترقية</h2>
             </div>
+            <br>
+            <br>
+
             <div class="pull-right">
                 {{--
                                 <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
@@ -28,7 +31,7 @@
             @csrf
             <div class="row">
 
-                @role('Applicant')
+                @role('Applicant|admin')
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>عنوان الاطروحة:</strong>
@@ -51,7 +54,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>الشهادة (دبلوم/ماجستير/دكتوراة):</strong>
-                        <input type="text" name="degree" class="form-control" placeholder="اسم المشرف">
+                        <input type="text" name="degree" class="form-control" placeholder="(دبلوم/ماجستير/دكتوراة)">
                     </div>
                 </div>
 

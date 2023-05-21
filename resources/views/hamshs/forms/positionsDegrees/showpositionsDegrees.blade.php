@@ -14,17 +14,17 @@
     <div class="row">
      <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <label> استمارة معلومات الوظائف التي مارسها
+                <label> استمارة معلومات الوظائف التي مارسها  مقدم الترقية
                 </label>
 
 
-                <table class="center">
+                <table class="table table-dark">
                     <thead>
                     <tr>
-                        <th>عنوان الوظيفة:</th>
-                        <th>  جهة العمل:</th>
-                        <th>  تاريخ بداية العمل:</th>
-                        <th>  تاريخ نهاية العمل:</th>
+                        <th>عنوان الوظيفة</th>
+                        <th>  جهة العمل</th>
+                        <th>  تاريخ بداية العمل</th>
+                        <th>  تاريخ نهاية العمل</th>
 
                     </tr>
                     </thead>
@@ -49,13 +49,13 @@
                                 </label>
 
 
-                                <table class="center">
+                                <table class="table table-dark">
                                     <thead>
                                     <tr>
-                                        <th>الشهادة:</th>
-                                        <th>  الجامعة:</th>
-                                        <th> البلد المانح:</th>
-                                        <th>  التأريخ:</th>
+                                        <th>الشهادة</th>
+                                        <th>  الجامعة</th>
+                                        <th> البلد المانح</th>
+                                        <th>  التأريخ</th>
 
                                     </tr>
                                     </thead>
