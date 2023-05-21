@@ -4,8 +4,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>أضافة بيانات على استمارة معلومات الوظائف التي مارسها و الشهادة مقدم الترقية</h2>
+                <h2>أضافة بيانات على استمارة معلومات الوظائف التي مارسها و الشهادة لمقدم الترقية</h2>
             </div>
+            <br>
+            <br>
             <div class="pull-right">
                 {{--
                                 <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
@@ -29,7 +31,7 @@
             @csrf
             <div class="row">
 
-                @role('Applicant')
+                @role('Applicant|admin')
 
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -69,7 +71,7 @@
             @csrf
             <div class="row">
 
-                @role('Applicant')
+                @role('Applicant|admin')
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>الشهادة:</strong>

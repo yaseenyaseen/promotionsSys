@@ -12,40 +12,48 @@
                         <p>{{ $message }}</p>
                     </div>
                 @endif
-                @role('Applicant')
+                @role('Applicant|admin')
+                <br>
                 <div class="pull-right">
                     <a class="btn btn-success" href="{{route('NewApplicationBoard')}}"> صفحة الاستمارات
                         المطلوبة </a>
                 </div>
                 @endrole
+                <br>
                 <div>
                     The user name is: <br>
                     {{Auth::user()->name}} <br> <br>
                 </div>
-                @role('Applicant')
+                @role('Applicant|admin')
+                <br>
                 <div class="pull-right">
                     <a class="btn btn-success" href="{{ route('createpositionsDegrees') }}">أضافة وظيفة</a>
                 </div>
+                <br>
                 <a class="btn btn-primary" href="{{ route('editpositionsDegrees') }}">
                     تعديل قائمة الوظائف </a>
                 <a class="btn btn-info"
                    href="{{ route('showPositionsDegrees') }}">طباعة قائمة الوظائف </a>
-
+<br>
+                <br>
                 <div class="pull-right">
-                    <a class="btn btn-success" href="{{ route('createpositionsDegrees2') }}">أضافة الشهادات الجامعية</a>
+                    <a class="btn btn-success" href="{{ route('createpositionsDegrees2') }}">أضافة شهادة جامعية</a>
                 </div>
+                <br>
                 <a class="btn btn-primary" href="{{ route('editpositionsDegrees2') }}">
                     تعديل قائمة الشهادات </a>
                 <a class="btn btn-info"
                    href="{{ route('showPositionsDegrees2') }}">طباعة قائمة الشهادات </a>
                @endrole
-                <table class="center">
+                <br>
+                <br>
+             {{--   <table class="table table-dark">
                     <thead>
                     <tr>
-                        <th>عنوان الوظيفة:</th>
-                        <th> جهة العمل:</th>
-                        <th> تاريخ بداية العمل:</th>
-                        <th> تاريخ نهاية العمل:</th>
+                        <th>عنوان الوظيفة</th>
+                        <th> جهة العمل</th>
+                        <th> تاريخ بداية العمل</th>
+                        <th> تاريخ نهاية العمل</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -58,5 +66,9 @@
                         </tr>
                     @endforeach
                     </tbody>
-                </table>
+                </table>--}}
+    <br>
+    <br>
+    <br>
+
 @endsection
