@@ -37,7 +37,6 @@ echo{$place}
                 </li>
             </ul>
         </div>
-
         <div>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
@@ -45,7 +44,6 @@ echo{$place}
                 </li>
             </ul>
         </div>
-
     </div>
 </nav>
 

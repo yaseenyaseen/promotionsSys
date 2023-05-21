@@ -1,4 +1,3 @@
-
 @extends('blogs.layout')
 
 @section('content')
@@ -7,15 +6,11 @@
             margin-right: 20px
         }
     </style>
-    <div dir="rtl">
-        <div class="row">
-            <div class="col-lg-12 margin-tb">
-                <div>
-                    <h2>أضافة بيانات جدول البحوث </h2>
-                </div>
-                {{-- <div class="pull-right">
-                     <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
-                 </div>--}}
+
+    <div class="container">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h3 style="text-align: center; padding-top: 15px">أضافة بيانات جدول البحوث </h3>
             </div>
         </div>
 
@@ -31,23 +26,26 @@
         @endif
         <form action="{{ route('editPaper') }}" method="POST">
             @csrf
-            <label for="select_option">أختار بحث سابق للتعديل (اذا توفر):</label>
-            <select name="selected_option" id="select_option">
-                <option value="---">---</option>
-                @foreach($papers as $paper)
-                    <option value="{{$paper->id}}">{{ $paper->paper_title }}</option>
-                @endforeach
-            </select>
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">أختيار للتعديل</button>
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <label for="select_option">أختار بحث سابق للتعديل (اذا توفر):</label>
+                    <select name="selected_option" id="select_option" name="selected_option" style="width: 100%">
+                        <option value="---">---</option>
+                        @foreach($papers as $paper)
+                            <option value="{{$paper->id}}">{{ $paper->paper_title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-sm-12 col-md-6 py-4">
+                    <button type="submit" class="btn btn-primary">أختيار للتعديل</button>
+                </div>
             </div>
         </form>
+        <hr style="width: 50%;">
         @if($selectedPaper!=null)
             <form action="{{ route('updatePaper') }}" method="POST">
                 <h3>تعديل على بحث سابق</h3>
                 @csrf
-                {{--@method('PUT')--}}
-
                 <input type="hidden" name="option_id" value="{{ $selectedPaper->id }}">
 
                 <div class="form-row">
@@ -55,7 +53,6 @@
                         <label for="paper_title">عنوان البحث</label>
                         <input type="textarea" class="form-control" name="paper_title"
                                value="{{ $selectedPaper->paper_title}}"></inputtextarea>
-
 
                         <div class="form-group col-sm-12 col-md-6 col-lg-6">
                             <label for="publish_date">تاريخ النشر </label><br>
@@ -72,7 +69,6 @@
                                 </label>
                             </div>
                         </div>
-
 
                         <div class="form-check col-sm-12 col-md-6 col-lg-4">
                             <input type="checkbox" name="Ispubished"
@@ -460,19 +456,19 @@
                                        value="{{date('Y-m-d',trim(strtotime($selectedPaper->publish_date)))}}">
 
                             </div>
-                       {{--
-                             <input type="date" id="suppPaper_dateof_application" name="suppPaper_dateof_application"
-                                       value="{{ Carbon\Carbon::parse($selectedPaper->suppPaper_dateof_application)->format('Y-m-d') }}">--}}{{--
-                            <input type="date" name="suppPaper_dateof_application" id="suppPaper_dateof_application"
-                                   VALUE="{{date('Y-m-d',(strtotime($selectedPaper->suppPaper_dateof_application))}}">
-                                                      value="{{Carbon\Carbon::parse($selectedPaper->suppPaper_dateof_application)->format('Y-m-d')}}"
+                            {{--
+                                  <input type="date" id="suppPaper_dateof_application" name="suppPaper_dateof_application"
+                                            value="{{ Carbon\Carbon::parse($selectedPaper->suppPaper_dateof_application)->format('Y-m-d') }}">--}}{{--
+                                 <input type="date" name="suppPaper_dateof_application" id="suppPaper_dateof_application"
+                                        VALUE="{{date('Y-m-d',(strtotime($selectedPaper->suppPaper_dateof_application))}}">
+                                                           value="{{Carbon\Carbon::parse($selectedPaper->suppPaper_dateof_application)->format('Y-m-d')}}"
 
---}}
-                         {{--   <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                <label for="suppPaper_dateof_application">تأريخ الجديد تقديم البحث التعزيزي</label>
-                                <input type="date" id="suppPaper_dateof_application" name="suppPaper_dateof_application"
-                            </div>
---}}
+     --}}
+                            {{--   <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                   <label for="suppPaper_dateof_application">تأريخ الجديد تقديم البحث التعزيزي</label>
+                                   <input type="date" id="suppPaper_dateof_application" name="suppPaper_dateof_application"
+                               </div>
+   --}}
                             <div class="form-check col-sm-12 col-md-12 col-lg-12">
                                 <input type="checkbox" name="Is_suppPaper_In_SciPlan" value="Is_suppPaper_In_SciPlan"
                                     {{ $selectedPaper->Is_suppPaper_In_SciPlan ? 'checked="checked"' : '' }}/>
@@ -487,9 +483,8 @@
             </form>
 
         @else
-            {{--
-                        add new paper.
-            --}}
+            {{--                        add new paper.            --}}
+
             <form action="{{ route('hamshs.forms.storef')}}" method="POST">
                 <h3>أدخال بحث جديد</h3>
                 @csrf
@@ -939,5 +934,8 @@
             </form>
 
         @endif
+
     </div>
+    <br>
+    <br><br><br><br>
 @endsection
