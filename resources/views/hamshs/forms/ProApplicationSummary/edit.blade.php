@@ -50,7 +50,7 @@
             <div class="form-group col-sm-12 col-md-6 col-lg-4">
                 <label for="SessionNo_Date">تاريخ جلسة لجنة ترقيات توصيات الكلية</label><br>
                 <input type="date" id="SessionNo_Date" name="SessionNo_Date"
-                value="{{date('Y-m-d',trim(strtotime($Form->SessionNo_Date)))}}">
+                value="{{date('Y-m-d',strtotime($Form->SessionNo_Date))}}">
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
@@ -73,7 +73,7 @@
                 <div class="form-group col-sm-12 col-md-12 col-lg-12">
                     <label for="collegecouncil_SessDate">تاريخ جلسة توصيات مجلس الكلية</label><br>
                     <input type="date" id="collegecouncil_SessDate" name="collegecouncil_SessDate"
-                           value="{{date('Y-m-d',trim(strtotime($Form->collegecouncil_SessDate)))}}">
+                           value="{{date('Y-m-d',strtotime($Form->collegecouncil_SessDate))}}">
                 </div>
                 <div class="form-group col-sm-12 col-md-12 col-lg-12">
                     <label for="Admin_OrderNo_UniHead_comm">رقم كتاب الاحالة من رئيس الجامعة الى ترقيات المركزية </label>
@@ -83,7 +83,7 @@
                     <div class="form-group col-sm-12 col-md-12 col-lg-12">
                         <label for="Admin_OrderDate_UniHead_comm">تاريخ كتاب الاحالة من رئيس الجامعة الى ترقيات المركزية </label><br>
                         <input type="date" id="Admin_OrderDate_UniHead_comm" name="Admin_OrderDate_UniHead_comm"
-                               value="{{date('Y-m-d',trim(strtotime($Form->Admin_OrderDate_UniHead_comm)))}}">
+                               value="{{date('Y-m-d',strtotime($Form->Admin_OrderDate_UniHead_comm))}}">
                     </div>
                     {{--@endrole--}}
 
@@ -104,6 +104,9 @@
                </div>
 
 </form>
+    <br>
+    <br>
+    <br>
 @endsection
 
 

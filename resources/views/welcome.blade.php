@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>الترقيات العليمة</title>
+
 
     <!-- Fonts -->
 
@@ -40,18 +40,22 @@
             @endauth
         </div>
     @endif
-    <br>
-    <br>
-    <br>
 
     <h1 style="text-align:center">شعبة شؤون الترقيات العلمية في رئاسة الجامعة</h1>
+        <a href="/">
+            <center>            <img src="../../../img/logo.png"  height="500" >
+            </center>
+        </a>
 
-    <div class="container" style="margin-top: 400px">
+    <div class="container" style="margin-top: 100px">
         <footer class="py-3 sticky-bottom">
             <p class="text-center text-muted">@ {{date("Y")}} جامعة الانبار </p>
         </footer>
     </div>
 </div>
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
