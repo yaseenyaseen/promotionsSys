@@ -24,9 +24,16 @@
                 </div>
                 @endrole
 
+                <div class="col-sm-12 col-md-12 py-3" style="text-align: center">
+                    <a class="btn btn-secondary" href="{{route('users_list')}}"> أدارة ادوار نظام الترقية</a>
+                </div>
 
             </div>
 
 
     </div>
+    <br>
+    <br>
+    <br>
+
 @endsection

@@ -29,6 +29,7 @@ class SciPlan extends Model
 'Dean_Assis_Id',
 'Dean_Assis_createdAt',
 
+
 'presidency_official_hamsh',
 'presidency_official_Id',
 'presidency_official_createdAt',

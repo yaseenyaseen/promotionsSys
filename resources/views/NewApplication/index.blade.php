@@ -97,6 +97,10 @@
             <div class="col-sm-12 col-md-6 col-lg-4 py-3">
                 <a class="btn btn-warning" href="#">السيرة الذاتية</a>
             </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 py-3">
+                <a class="btn btn-warning"
+                   href="{{ route('attachmentsindex',Auth::user()->id) }}"> تحميل مرفقات </a>
+            </div>
         </div>
 
         <br>

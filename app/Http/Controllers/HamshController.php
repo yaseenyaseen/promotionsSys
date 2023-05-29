@@ -103,7 +103,10 @@ class HamshController extends Controller
                     ->where('department_id', Auth::user()->department_id)
                     ->get();
 $promotion_reqsForCollage=null;
+//todo: ask husien to access users.name for indiviual $promotion_reqsForHeadDepartment_Coll
+// otherwise, make query for users.
 
+//dd($promotion_reqsForHeadDepartment_Coll);
                 return view('hamshs.forms.administrators.SciPlanListForAdminss',
                     compact('promotion_reqsForHeadDepartment_Coll','promotion_reqsForCollage')
                 )
@@ -168,6 +171,16 @@ $promotion_reqsForCollage=null;
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
+    public function attachmentsindex(User $user_id)
+    {
+        $user = User::find($user_id)[1];
+        $PromotionReqUser = PromotionReq::where('user_id', $user->id)
+            ->latest('created_at')->first();
+
+        return view('hamshs.attachments.index',
+            compact('PromotionReqUser'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
 
     public function positionsDegreesindex(User $user_id)
     {
@@ -1151,4 +1164,97 @@ if($isDegree==1){
             compact('papers', 'selectedPaper')) // how the option hold a selected paper? as in method definition = null
         ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+
+    public function getUsers(Request $request)
+    {
+        $users_roles = null;
+        if ($request['email'] != '')
+            $users_roles = $this->getUsers_roles($request['email']);
+
+        $rolesList = Role::select('id', 'name')->get();
+        $request->flash();
+
+        return view("auth.assign_role", compact("rolesList", "users_roles",));
+    }
+    //todo: ask husien about the structure of the following function, when shoule I apply it?
+    private function getUsers_roles($email): object
+    {
+        $users_roles = null;
+        if ($email != '') {
+            $users_roles = DB::table('users')
+                ->leftjoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+                ->leftjoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
+                ->select('users.id', 'users.name', 'users.email', 'roles.id as role_id', 'roles.name')
+                ->where('users.email', $email)
+                ->get();
+        }
+        return $users_roles;
+    }
+
+    public function changeRoleUsers(Request $request)
+    {
+        $user = User::find($request['user_id']);
+        $role = Role::find($request['role_id']);
+        $users_roles = [];
+        //return $request['status'] . ' '. $user->name . ' ' . $role->name;
+        if (!empty($user)) {
+            if ($request['status'] == 'false') {
+                $user->removeRole($role->name);
+            } else if ($request['status'] == true) {
+                $user->assignRole($role->name);
+            }
+            $users_roles = $this->getUsers_roles($user->email);
+        }
+        return $users_roles;
+    }
+
+// follwoing functions without calls!
+
+    public function addRoleToUsers(Request $request)
+    {
+        $user = User::find($request['user_id']);
+        if (!empty($user)) {
+            $user->assignRole($request['role']);
+        }
+        if (!empty($user) && $user->email != '')
+            $users_roles = $this->getUsers_roles($user->email);
+        else
+            $users_roles = [];
+
+        $rolesList = Role::select('id', 'name')->get();
+        $request->flash();
+        return view("auth.assign_role", compact("rolesList", "users_roles"));
+    }
+    public function removeRoleUsers(Request $request)
+    {
+        $user = User::find($request['user_id_rm']);
+        if ($user != []) {
+            $user->removeRole($request['user_roles']);
+        }
+        if ($user != [] && $user->email != '')
+            $users_roles = $this->getUsers_roles($user->email);
+        else
+            $users_roles = [];
+
+        $rolesList = Role::select('id', 'name')->get();
+        $request->flash();
+        return view("auth.assign_role", compact("rolesList", "users_roles"));
+    }
+
+// End follwoing functions without calls!
+    private function getUsers_rolesById($id): object
+    {
+        if ($id != '') {
+            $users_roles = DB::table('users')
+                ->leftjoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+                ->leftjoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
+                ->select('roles.name')
+                ->where('users.id', $id)
+                ->get();
+        } else
+            $users_roles = [];
+        return $users_roles;
+    }
+
+
 }

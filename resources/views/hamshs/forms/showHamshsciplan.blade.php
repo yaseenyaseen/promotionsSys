@@ -35,33 +35,37 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>شؤون علمية كلية:</strong>
-                {{ $hamsh->Sci_plan_Coll_Sci_Affairs }}
+                <strong> هامش معاون العميد للشؤون العلمية (كلية):</strong>
+                {{ $hamsh->Dean_Assis_hamsh }}
             </div>
         </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>معاون عميد كلية :</strong>
-                {{ $hamsh->Sci_plan_Coll_Dean_Assis }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>مسؤول خطة بحثية رئاسة :</strong>
+                <strong>هامش مسؤول خطة بحثية (رئاسة الجامعة) :</strong>
                 {{ $hamsh->Sci_plan_presidency_office }}
             </div>
         </div>
+        {{--
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>مساعد رئيس الجامعة الشؤون العلمية :</strong>
                 {{ $hamsh->Sci_plan_Sci_Affairs_President_University_Assistant }}
             </div>
         </div>
+        --}}
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>هامش مدير قسم الشؤون العلمية (رئاسة الجامعة) :</strong>
+                {{ $hamsh->presidency_SciAffairsDir_hamsh }}
+            </div>
+        </div>
+        {{--
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>المركزية :</strong>
                 {{ $hamsh->Sci_plan_presidency_Academic_Promotions_Affairs }}
             </div>
         </div>
-
+--}}
 @endsection

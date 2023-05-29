@@ -175,3 +175,11 @@ Route::get('/hamshs/forms/AcademicReputationlistindex', [HamshController::class,
 Route::get('/hamshs/forms/userPromotiondata/createEdit', [HamshController::class, 'userPromotiondata'])->name('userPromotiondata');
 Route::post('hamshs/forms/userPromotiondata/update', [HamshController::class, 'updateuserPromotiondata'])->name('updateuserPromotiondata');
 
+/*
+ * add attachments
+ */
+Route::get('/hamshs/attachments/index/{user_id}', [HamshController::class, 'attachmentsindex'])->name('attachmentsindex');
+/* assign role
+*/
+Route::get('/users_list', [\App\Http\Controllers\HamshController::class, 'getUsers'])->name('users_list');
+Route::post('/change_use_role', [\App\Http\Controllers\HamshController::class, 'changeRoleUsers'])->name('change_use_role');

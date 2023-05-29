@@ -35,7 +35,7 @@
 
         <br>
     <div class="pull-right">
-        <a class="btn btn-secondary" href="#">معاون العميد للشؤون العلمية </a></div>
+        <a class="btn btn-secondary" href="#">معاون العميد للشؤون العلمية (كلية) </a></div>
     <br>
     <div class="pull-right">
         <a class="btn btn-secondary" href="#"> اسم مسؤول الخطة البحثية (رئاسة الجامعة)</a></div>
