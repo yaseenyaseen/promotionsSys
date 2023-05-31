@@ -143,11 +143,12 @@
         </div>
         <div class="row">
             <div class="form-check col-sm-12 col-md-6 col-lg-4 py-5">
-                <input class="form-check-input" type="checkbox" name="IsDeserve_dues" value="IsDeserve_dues"
-                    {{ $PromotionReqUser->IsDeserve_dues ? 'checked="checked"' : ''}}>
                 <label class="form-check-label" for="IsDeserve_dues">
                     هل المتقدم يستحق قدم وظيفي
                 </label>
+                <input class="form-check-input" type="checkbox" name="IsDeserve_dues"  value="IsDeserve_dues"
+                    {{ $PromotionReqUser->IsDeserve_dues ? 'checked="checked"' : ''}}>
+
             </div>
             <div class="form-group col-sm-12 col-md-6 col-lg-4 py-3">
                 <label for="dues_period"> فترة القدم</label>

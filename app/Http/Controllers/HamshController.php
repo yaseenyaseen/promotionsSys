@@ -1193,6 +1193,7 @@ if($isDegree==1){
 
     public function changeRoleUsers(Request $request)
     {
+        //dd($request);
         $user = User::find($request['user_id']);
         $role = Role::find($request['role_id']);
         $users_roles = [];

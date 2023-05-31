@@ -56,15 +56,15 @@
                 </div>
             </div>
         @endforeach
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-            <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
-        </div>
+
 
     </div>
 
     <script>
         function UpdateActivation(role_id) {
+           // error_log('Some message here.');
+            var a = 'Display error message in JavaScript';
+
             var chk = document.getElementById("role_" + role_id).checked
             var user_id = {{$users_roles != null &&  count($users_roles)>0? $users_roles[0]->id : -1}};
             if (user_id > 0) {
@@ -88,5 +88,10 @@
             }
         }
     </script>
+
+    <br>
+    <br>
+    <br>
+
 
 @endsection
