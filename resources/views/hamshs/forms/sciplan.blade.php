@@ -62,24 +62,18 @@
                 @endrole
 
                 @if(!is_null($SciPlan))
-                    @role('HeadDepartment_Coll|admin')
+                    @role('رئيس قسم الكلية|admin|معاون العميد للشؤون العلمية (كلية)|Coll_ResearchPlan_Officer|Presidency_Research_Plan_Officer|President_University_Assistant|presidency_Academic_Promotions_Affairs')
                     <br>
                     <br>
-                    <h5>رئيس قسم كلية</h5>
+                    <strong>أهلا بالسيد:</strong><br>
+                    <label class="form-check-label" for="flexSwitchCheckChecked">{{Auth::user()->roles->pluck('name')->first()}}</label>
+
                     <div class="pull-right">
                         <a class="btn btn-success"
                            href="{{ route('hamshs.forms.administrators.index') }}">
-                            {{-- following lines need more testing to permenently deleting
-                             href="{{ route('hamshs.forms.administrators.SciPlanListForAdmins') }}">--}}
-                            {{--href="{{ route('hamshs.forms.sciplanlistindex') }}">--}}
-                            {{--href="{{ route('hamshs.forms.sciplanlistindex') }}">--}}
-                            {{--/* redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
-                            ->with('success','Blog created successfully.');*/
-                            $promotion_reqsForHeadDepartment_Coll
-                            --}}
-                            صفحة رئيس القسم الرئيسية</a>
+                            صفحة استمارات الخطط البحثية الرئيسية</a>
                     </div>
-                    اسم رئيس القسم <br>
+                    الأسم<br>
                     {{Auth::user()->name}} <br> <br>
                     <tr>
                         <br>
@@ -100,65 +94,11 @@
                     </tr>
 
                     {{--                @endforeach--}}
-                    @endrole
-                    @role('Coll_ResearchPlan_Officer|admin')
+                    @endrole <br>
                     <br>
-                    <br>
-                    <h5>مسؤول خطة بحثية كلية </h5>
-                    <div class="pull-right">
-                        <a class="btn btn-success"
-                           href="{{ route('hamshs.forms.administrators.index') }}">
-                            {{--/* redirect()->route('sciplan',compact('reqsos', 'Forms','reqcolls'))
-                            ->with('success','Blog created successfully.');*/
-                            $promotion_reqsForHeadDepartment_Coll
-                            --}}
-                            صفحة مسؤول خطة بحثية كلية الرئيسية</a>
-                    </div>
-                    اسم مسؤول خطة بحثية كلية: <br>
-                    {{Auth::user()->name}} <br> <br>
-
-                    <tr>
-                        <br>
-                        <td>
-
-                            <a class="btn btn-info" href="{{ route('hamshs.forms.showHamsh',$SciPlan) }}">طباعة
-                                الهامش</a>
-
-                            <a class="btn btn-primary" href="{{ route('hamshs.forms.editHamshsciplan',$SciPlan) }}">
-                                اضافة أو تعديل الهامش </a>
-
-                        </td>
-                    </tr>
-                    @endrole
-                    <br>
-                    <br>
-                    @role('Coll_Sci_Affairs|admin')
-                    <br>
-                    <h5> شؤون علمية كلية </h5>
-                    <br>
-                    @endrole
-                    @role('Coll_Dean_ Assistant|admin')
-                    <h5> معاون عميد كلية </h5>
-                    <br>
-                    @endrole
-                    @role('Presidency_Research_Plan_Officer|admin')
-                    <h5>مسؤول خطة بحثية رئاسة </h5>
-                    <br>
-                    @endrole
-                    @role('President_University_Assistant|admin')
-                    <h5>مساعد رئيس الجامعة الشؤون العلمية </h5>
-                    <br>
-                    @endrole
-                    @role('presidency_Academic_Promotions_Affairs|admin')
-                    <h5>لجنة الترقيات المركزية </h5>
-                    @endrole
                 @endif
-
-
                 <br>
-                <br>
-
-                <table class="table table-dark">
+                <br> <table class="table table-dark">
                     <thead>
                     <tr>
                         <th scope="col">عنوان البحث</th>
@@ -177,9 +117,6 @@
                     </tbody>
 
                 </table>
-
-
-
                 <br>
                 <br>
                 <br>

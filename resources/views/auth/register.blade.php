@@ -13,11 +13,10 @@
             @csrf
             <div>
                 <label for="name" >الاسم</label>
-
                 <input id="name" class="block mt-1 w-full" type="text" name="name" required autofocus />
             </div>
             <div class="mt-4">
-                <label for="email"> "البريد الالكتروني"</label>
+                <label for="email"> البريد الالكتروني</label>
 
                 <input id="email" class="block mt-1 w-full" type="email" name="email" required />
             </div>
@@ -37,6 +36,11 @@
                                 type="password"
                                 name="password_confirmation" required />
             </div>
+            <div>
+                <label for="college_id" >الكلية</label>
+                <input id="college_id" class="block mt-1 w-full" type="text" college_id="name" required autofocus />
+            </div>
+
 
             <div class="flex items-center justify-center mt-4">
                 <button class="btn btn-primary">تسجيل</button>

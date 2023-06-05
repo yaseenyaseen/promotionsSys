@@ -41,7 +41,7 @@
             </div>
         </div>
         @foreach($rolesList as $role )
-            <div class="col-sm-6 col-md-4 col-lg-4 py-2" style="font-size: large">
+            <div class="col-sm-6 col-md-6 col-lg-6 py-2" style="font-size: large">
                 <div class="form-check form-switch">
 
                     <input class="form-check-input" type="checkbox" id="role_{{$role->id}}" value="{{$role->id}}"

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -79,5 +80,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function positionsHeldBy(){
         return $this->belongsTo(PositionsHeldBy::class);
     }
+/*
+    public function college(): HasOne
+    {
+        return $this->hasOne(College::class, 'user_id');
+    }
+*/
 
 }

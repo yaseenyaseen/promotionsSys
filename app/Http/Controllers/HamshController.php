@@ -89,7 +89,7 @@ class HamshController extends Controller
     {
         $a = Auth::user()->getRoleNames();
         if (count($a) > 0) {
-            if ($a->contains('admin')||$a->contains('HeadDepartment_Coll')) // use or with if condition
+            if ($a->contains('admin')||$a->contains('رئيس قسم الكلية')) // use or with if condition
             {
                 $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
                     ->select('s.*', 'a.*')
@@ -112,7 +112,7 @@ $promotion_reqsForCollage=null;
                 )
                     ->with('i', (request()->input('page', 1) - 1) * 5);
 
-            } elseif ($a->contains('Coll_ResearchPlan_Officer')) {
+            } elseif ($a->contains('admin')||$a->contains('Coll_ResearchPlan_Officer')||$a->contains('معاون العميد للشؤون العلمية (كلية)')) {
                 $promotion_reqsForCollage = DB::table('users as s')
                     ->select('s.*', 'a.*')
                     ->join('promotion_reqs as a',
@@ -124,14 +124,32 @@ $promotion_reqsForCollage=null;
                     ->whereNull('a1.user_id')
                     ->where('college_id', Auth::user()->college_id)
                     ->get();
+
                 return view('hamshs.forms.administrators.SciPlanListForAdminss',
                     compact('promotion_reqsForCollage'))
                     ->with('i', (request()->input('page', 1) - 1) * 5);
 
 
             }
+            elseif ($a->contains('admin')||$a->contains('Presidency_Research_Plan_Officer')) {
+                $promotion_reqsForuni = DB::table('users as s')
+                    ->select('s.*', 'a.*')
+                    ->join('promotion_reqs as a',
+                        's.id', '=', 'a.user_id')
+                    ->leftJoin('promotion_reqs as a1', function ($join) {
+                        $join->on('a.user_id', '=', 'a1.user_id')
+                            ->whereRaw(DB::raw('a.created_at < a1.created_at'));
+                    })
+                    ->whereNull('a1.user_id')
+                    ->get();
+
+                return view('hamshs.forms.administrators.SciPlanListForAdminss',
+                    compact('promotion_reqsForuni'))
+                    ->with('i', (request()->input('page', 1) - 1) * 5);
         }
 
+
+    }
     }
 
     public function requestApplyingindex(User $user_id)
@@ -325,14 +343,24 @@ $promotion_reqsForCollage=null;
 
     }
 
-    public function userPromotiondata()
+    public function userPromotiondata(Request $request)
     {
+        $optionId = $request->input('option_id');
+
         //todo: find papers of the user.and compact it
         $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
             ->latest('created_at')->first();
-        //$papers = Paper::where('promotionReqs_id', $PromotionReqUser->id)->get();
+        //$colleges  = College::where('id', Auth::user()->college_id)->get();// Q/ last promotion request only
+        $colleges = College::select('college_id', 'name')->distinct()->get();
+       // dd($request->college_id);
 
-        return view('hamshs.forms.userPromotiondata.createEdit',compact('PromotionReqUser'));
+         $collegesList = College::select('id', 'college_id', 'name', 'department_name')->where('college_id',$optionId)->get();
+       //   $collegesList = College::all();
+       // $college = User::find(2)->college;
+         //dd($collegesList);
+
+        /*{{ Auth::user()->find(1) }}*/
+        return view('hamshs.forms.userPromotiondata.createEdit',compact('PromotionReqUser','colleges','collegesList'));
 
     }
 

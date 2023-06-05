@@ -57,7 +57,7 @@
         </div>
         <br>
         @endrole
-        @hasanyrole('HeadDepartment_Coll|Coll_ResearchPlan_Officer|Computer_Center_Officer|admin')
+        @hasanyrole('رئيس قسم الكلية|Coll_ResearchPlan_Officer|Computer_Center_Officer|معاون العميد للشؤون العلمية (كلية)|Coll_Sci_Affairs|Coll_Promotions_Committee|Coll_Scientific_Committee|Coll_Dean_Assistant|Dean|Presidency_Research_Plan_Officer|Presidency_DirectorDepart_Scient_Affairs|President_University_Assistant|presidency_Academic_Promotions_Affairs|admin')
         <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
             <span style="font-size: 20px; background-color: white; padding: 0 10px;">
                 أدارة الاستمارات

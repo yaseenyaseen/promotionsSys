@@ -10,7 +10,7 @@
                 <br>
                 <br>
 
-                @role('HeadDepartment_Coll|admin')
+                @role('رئيس قسم الكلية|admin')
                 <h3>رئيس قسم </h3>
                 <br>
                 @if($promotion_reqsForHeadDepartment_Coll!=null)
@@ -48,8 +48,51 @@
                         <br>
                     @endforeach
                 @endif
-
                 @endrole
+
+
+                @role('معاون العميد للشؤون العلمية (كلية)|admin')
+                <br>
+                <h3>معاون العميد للشؤون العلمية (كلية) </h3>
+                <br>
+                @if($promotion_reqsForCollage!=null)
+
+                    @foreach ($promotion_reqsForCollage as $req)
+                        <br>
+                        <a class="btn btn-info"
+                           href="{{ route('hamshs.forms.sciplanindex',$req->user_id) }}">
+                            <br>
+                            اسم مقدم الطلب :
+                            <br>
+                            {{--  {{$req->user_id}}--}}
+                            {{$req->name}}
+                        </a>
+                        <br>
+                    @endforeach
+                @endif
+                @endrole
+
+
+                @role('Presidency_Research_Plan_Officer|admin')
+                <br>
+                <h3>اسم مسؤول الخطة البحثية (رئاسة الجامعة) </h3>
+                <br>
+                @if($promotion_reqsForuni!=null)
+
+                    @foreach ($promotion_reqsForuni as $req)
+                        <br>
+                        <a class="btn btn-info"
+                           href="{{ route('hamshs.forms.sciplanindex',$req->user_id) }}">
+                            <br>
+                            اسم مقدم الطلب :
+                            <br>
+                            {{$req->name}}
+                        </a>
+                        <br>
+                    @endforeach
+                @endif
+                @endrole
+
                 <br>
                 <br>
                 <br>

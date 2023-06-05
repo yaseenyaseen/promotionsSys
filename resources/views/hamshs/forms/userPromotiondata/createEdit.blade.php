@@ -29,6 +29,44 @@
 
         <input type="hidden" name="PromotionReqId" value="{{ $PromotionReqUser->id }}">
         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
+        <div class="col-md-8 col-sm-10 col-lg-6 py-2">
+            <label for="college"
+                   class="col-form-label text-md-end"
+                   style="font-size: larger">الكلية</label>
+            <select class="form-control" name="college_id" id="college_id"
+                    required onchange="UpdateSelections(this)">
+                <option value="---">---</option>
+                @foreach($colleges as $college )
+                    <option value="{{$college->id}}">
+                        {{$college->name}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="col-md-8 col-sm-10 col-lg-6 py-2">
+            <label for="department"
+                   class="col-form-label text-md-end"
+                   style="font-size: larger">القسم</label>
+            <input type="hidden" name="option_id" value={{college_id}}">
+
+            <select class="form-control" name="department_name" id="department_name" required
+                    onchange="UpdateDepSelections(this)">
+                <option value="---" id="depDefault" data-tag="">---</option>
+                @foreach($collegesList as $college )
+                    <option value="{{$college->id}}"
+                            data-tag="{{$college->id}}">
+                        {{$college->department_name}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+{{--
+        $college = User::find(1)->phone;
+        {{ Auth::user()->find(1) }}
+       --}}
         <div class="row">
             <div class="form-group col-sm-12 col-md-6 col-lg-4">
                 <label for="currentPromotion">المرتبة العلمية الحالية </label>
@@ -163,5 +201,47 @@
     <br>
     <br>
     <br>
+    <script>
+        function UpdateDepSelections(val) {
+            $("#college_department_id").val($("#" + val.id).val());
+        }
 
+        function UpdateSelections(val) {
+            var wkp = $("#" + val.id).val()
+            var dep = "#department";
+            var dep_opt = "#department".concat(" option");
+            ;
+            if (wkp != "---") {
+                $(dep).val("");
+                $(dep_opt).each(function () {
+                    var element = $(this);
+                    if (element.data("tag") != wkp) {
+                        element.removeClass('visible');
+                        element.addClass('hidden');
+                        element.hide();
+                    } else {
+                        element.removeClass('hidden');
+                        element.addClass('visible');
+                        element.show();
+                    }
+                    if (wkp == "") {
+                        element.removeClass('hidden');
+                        element.addClass('visible');
+                        element.show();
+                    }
+                });
+            }
+            if (wkp == "---") {
+                $(dep_opt).each(function () {
+                    var element = $(this);
+                    element.removeClass('hidden');
+                    element.addClass('visible');
+                    element.show();
+                    $(dep).val("---");
+                });
+            }
+        }
+
+
+    </script>
 @endsection

@@ -47,7 +47,7 @@
 
             @endrole
 
-            @role('HeadDepartment_Coll|admin')
+            @role('رئيس قسم الكلية|admin')
             <div class="col-xs-12 col-sm-12 col-md-12">
                 @csrf
                 <div class="form-group">
@@ -65,7 +65,6 @@
                     </div>
                 </div>
                 @endrole
-
                 @role('Coll_ResearchPlan_Officer|admin')
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     @csrf
@@ -121,7 +120,8 @@
                                             @endrole
                     --}}
 
-                    @role('Coll_Dean_ Assistant')
+                    @role('معاون العميد للشؤون العلمية (كلية)')
+                    @csrf
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>معاون العميد للشؤون العلمية (كلية) :</strong>
@@ -143,6 +143,7 @@
                         </div>
                         @endrole
                         @role('Presidency_Research_Plan_Officer|admin')
+                        @csrf
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>اسم مسؤول خطة بحثية (رئاسة الجامعة) :</strong>
@@ -195,6 +196,7 @@
                             {{--   مدير قسم الشؤون العلمية (رئاسة الجامعة)
                            --}}
                             @role('Presidency_DirectorDepart_Scient_Affairs|admin')
+                            @csrf
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>مدير قسم الشؤون العلمية (رئاسة الجامعة) :</strong>
