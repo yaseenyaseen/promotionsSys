@@ -343,25 +343,14 @@ $promotion_reqsForCollage=null;
 
     }
 
-    public function userPromotiondata(Request $request)
+    public function userPromotiondata()
     {
-        $optionId = $request->input('option_id');
-
         //todo: find papers of the user.and compact it
         $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
             ->latest('created_at')->first();
-        //$colleges  = College::where('id', Auth::user()->college_id)->get();// Q/ last promotion request only
         $colleges = College::select('college_id', 'name')->distinct()->get();
-       // dd($request->college_id);
-
-         $collegesList = College::select('id', 'college_id', 'name', 'department_name')->where('college_id',$optionId)->get();
-       //   $collegesList = College::all();
-       // $college = User::find(2)->college;
-         //dd($collegesList);
-
-        /*{{ Auth::user()->find(1) }}*/
-        return view('hamshs.forms.userPromotiondata.createEdit',compact('PromotionReqUser','colleges','collegesList'));
-
+         $depList = College::select('id', 'college_id', 'department_name')->get();
+        return view('hamshs.forms.userPromotiondata.createEdit',compact('PromotionReqUser','colleges','depList'));
     }
 
 
@@ -963,6 +952,7 @@ $isDegree=true;
     }
     public function updateuserPromotiondata(Request $request)
     {
+        //dd($request);
         $optionId = $request->input('option_id');
         $option = Paper::find($optionId);
 

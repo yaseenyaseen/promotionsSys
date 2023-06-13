@@ -36,10 +36,10 @@
                                 type="password"
                                 name="password_confirmation" required />
             </div>
-            <div>
+          {{--  <div>
                 <label for="college_id" >الكلية</label>
                 <input id="college_id" class="block mt-1 w-full" type="text" college_id="name" required autofocus />
-            </div>
+            </div>--}}
 
 
             <div class="flex items-center justify-center mt-4">
