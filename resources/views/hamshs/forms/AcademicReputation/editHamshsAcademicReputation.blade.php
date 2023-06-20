@@ -27,7 +27,7 @@
         @csrf
         @role('Applicant')
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 py-2">
                 <div class="form-group">
 
                     <strong> GoogleScholar_ID :</strong><br>
@@ -76,8 +76,8 @@
 
 
             <div class="form-row">
-                <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                    <input type="checkbox" name="Applicant_page" value="Applicant_page"
+                <div class="form-check col-sm-4 col-md-4 col-lg-4">
+                    <input type="checkbox" name="Applicant_page" value="Applicant_page" class="form-check-input"
                         {{ $hamsh->Applicant_page ? 'checked="checked"' : '' }}/>
                     <label class="form-check-label" for="Applicant_page">
                         هل صفحة التدريسي الالكترونية مفعلة؟
@@ -129,8 +129,8 @@
                         <input type="number" name="No_Researcher" value="{{ $hamsh->No_Researcher }}" id="No_Researcher"
                                min="0" readonly>
                     </div>
-                    <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
-                        <input type="checkbox" onclick="return false;" name="Applicant_page" value="Applicant_page"
+                    <div class="form-check col-sm-4 col-md-4 col-lg-4">
+                        <input type="checkbox" onclick="return false;" name="Applicant_page" value="Applicant_page" class="form-check-input"
                             {{ $hamsh->Applicant_page ? 'checked="checked"' : '' }}/>
                         <label class="form-check-label" for="Applicant_page">
                             هل صفحة التدريسي الالكترونية مفعلة؟
@@ -150,9 +150,9 @@
                                class="form-control"
                                placeholder="computerCenter_hamsh">
                     </div>
-                    <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
+                    <div class="form-check col-sm-4 col-md-4 col-lg-4">
                         <input type="checkbox" name="IsAcademic_reputationsDone"
-                               value="IsAcademic_reputationsDone"
+                               value="IsAcademic_reputationsDone" class="form-check-input"
                             {{ $hamsh->IsAcademic_reputationsDone ? 'checked="checked"' : '' }} />
                         <label class="form-check-label" for="Applicant_page">
                             هل أستمارة التسجيل في المواقع البحثية منجزة؟
@@ -168,9 +168,9 @@
                                    class="form-control"
                                    placeholder="computerCenter_hamsh" readonly>
                         </div>
-                        <div class="form-group col-sm-12 col-md-6 col-lg-12">
+                        <div class="form-check col-sm-4 col-md-4 col-lg-4">
 
-                            <input type="checkbox" onclick="return false;" name="Applicant_page" value="Applicant_page"
+                            <input type="checkbox" onclick="return false;" name="Applicant_page" value="Applicant_page" class="form-check-input"
                                 {{ $hamsh->IsAcademic_reputationsDone ? 'checked="checked"' : 'disabled' }}/>
                             <label class="form-check-label" for="Applicant_page">
                                 هل أستمارة التسجيل في المواقع البحثية منجزة؟
@@ -183,6 +183,9 @@
                         </div>
 
     </form>
+<br>
+    <br>
+    <br>
 
 @endsection
 

@@ -72,19 +72,20 @@
                         <input id="Applicant_hamsh" type="text" name="Applicant_hamsh" class="form-control">
                     </div>
                 </div>
-                <div class="form-check col-sm-12 col-md-12 col-lg-12  py-2">
+       {{--         <div class="form-check col-sm-12 col-md-12 col-lg-12  py-2">
                     <label for="computerCenter_hamsh"> هامش مسؤول مركز الحاسبة </label><br>
                     <input id="computerCenter_hamsh" type="text" name="computerCenter_hamsh"
-{{--                           value="{{ $hamsh->computerCenter_hamsh }}"--}}
+--}}{{--                           value="{{ $hamsh->computerCenter_hamsh }}"--}}{{--
                            class="form-control" readonly>
                 </div>
-                <div class="form-group col-sm-12 col-md-6 col-lg-12 py-2">
-                    <input type="checkbox" onclick="return false;" name="Applicant_page"
-{{--                        {{ $hamsh->IsAcademic_reputationsDone ? 'checked="checked"' : 'disabled' }}/>--}}
+
+                <div class="form-check col-sm-12 col-md-6 col-lg-4 py-2">
+                    <input type="checkbox" onclick="return false;" name="Applicant_page" class="form-check-input">
+--}}{{--                        {{ $hamsh->IsAcademic_reputationsDone ? 'checked="checked"' : 'disabled' }}/>--}}{{--
                     <label class="form-check-label" for="Applicant_page">
                         هل أستمارة التسجيل في المواقع البحثية منجزة؟
                     </label>
-                </div>
+                </div>--}}
                 <br>
 
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">

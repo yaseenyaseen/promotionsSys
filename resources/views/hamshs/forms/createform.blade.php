@@ -52,21 +52,46 @@
                 <br>
                 @csrf
                 <input type="hidden" name="option_id" value="{{ $selectedPaper->id }}">
+
                 <div class="form-row">
-                    <div class="form-group col-sm-12 col-md-12 col-lg-4">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <label for="paper_title">عنوان البحث</label>
+                        <textarea class="form-control" style="height:80px" name="paper_title"
+                                  value="{{ $selectedPaper->paper_title}}" placeholder="paper_title"></textarea>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                        <label for="publish_date">تاريخ النشر</label><br>
+                        <input class="form-control" type="date" id="publish_date" name="publish_date"
+                               value="{{date('Y-m-d',trim(strtotime($selectedPaper->publish_date)))}}"
+                        >
+                    </div>
+                </div>
+                {{--        how to add new row,  py-2 to add vertical space between columns in the same row --}}
+                <div class="form-row">
+                    <div class="form-check col-sm-12 col-md-6 col-lg-4 py-2">
+                        <input type="checkbox" name="singleAuther" class="form-check-input" value="1"
+                            {{ $selectedPaper->singleAuther ? 'checked="checked"' : ''}}/>
+                        <label class="form-check-label" for="singleAuther">
+                            هل البحث منفرد؟
+                        </label>
+                    </div>
+
+
+                {{--<div class="form-row">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
                         <label for="paper_title">عنوان البحث</label>
                         <input type="textarea" class="form-control" name="paper_title"
                                value="{{ $selectedPaper->paper_title}}"></inputtextarea>
 
-                    </div>
-                    <div class="form-row">
+                    </div>--}}
+                   {{-- <div class="form-row">
                         <div class="form-group col-sm-12 col-md-6 col-lg-4">
                             <label for="publish_date">تاريخ النشر </label><br>
                             <input class="form-control" type="date" name="publish_date" id="publish_date"
                                    value="{{date('Y-m-d',trim(strtotime($selectedPaper->publish_date)))}}">
-                        </div>
+                        </div>--}}
 
-                        <div class="form-row">
+                     {{--   <div class="form-row">
                             <div class="form-check col-sm-12 col-md-6 col-lg-4 py-2">
                                 <input type="checkbox" name="singleAuther" value="singleAuther"
                                     {{ $selectedPaper->singleAuther ? 'checked="checked"' : ''}}>
@@ -74,24 +99,43 @@
                                     هل البحث منفرد؟
                                 </label>
                             </div>
-                        </div>
+                        </div>--}}
+                    <div class="form-check col-sm-12 col-md-6 col-lg-4  py-2">
+                        <input type="checkbox" name="Ispubished" class="form-check-input"
+                               value="1" {{ $selectedPaper->Ispubished ? 'checked="checked"' : '' }}/>
+                        <label class="form-check-label" for="Ispubished">
+                            هل البحث منشور ؟
+                        </label>
+                    </div>
 
-                        <div class="form-check col-sm-12 col-md-6 col-lg-4">
+                      {{--  <div class="form-check col-sm-12 col-md-6 col-lg-4">
+                            <div class="form-row">
+
                             <input type="checkbox" name="Ispubished"
                                    value="Ispubished" {{ $selectedPaper->Ispubished ? 'checked="checked"' : '' }}/>
                             <label class="form-check-label" for="Ispubished">
                                 هل البحث منشور ؟
                             </label>
                         </div>
-                        <div class="form-group col-sm-12 col-md-6 col-lg-6 py-2">
-                            <div class="form-check ">
-                                <input type="checkbox" name="takenFromStdut_thesis"
-                                       value="takenFromStdut_thesis" {{ $selectedPaper->takenFromStdut_thesis ? 'checked="checked"' : '' }}/>
+                        </div>
+--}}
+                    <div class="form-check col-sm-12 col-md-6 col-lg-4  py-2">
+                        <input type="checkbox" name="takenFromStdut_thesis" class="form-check-input"
+                               value="1" {{$selectedPaper->takenFromStdut_thesis ? 'checked="checked"' : '' }}/>
+                        <label class="form-check-label" for="takenFromStdut_thesis">
+                            هل البحث مستل من اطروحة؟
+                        </label>
+                    </div>
+
+                      {{-- todo: ask Hussien , why follwing lines shows the checkbox in the right while the smae line above sho thie box in the left?!
+                       <div class="form-group col-sm-12 col-md-6 col-lg-6 py-2">
+                                <input type="checkbox" name="takenFromStdut_thesis"  class="form-check-input"
+                                       value="1" {{ $selectedPaper->takenFromStdut_thesis ? 'checked="checked"' : '' }}/>
                                 <label class="form-check-label" for="takenFromStdut_thesis">
                                     هل البحث مستل من اطروحة؟
                                 </label>
-                            </div>
-                        </div>
+                            </div>--}}
+
                         {{-- todo:ask Hussien to update the select option list to use loop
                          <select class="js-states browser-default select2" name="shopping_id" required id="shopping_id">
                                <option value="option_select" disabled selected>Shoppings</option>
@@ -117,7 +161,15 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                            <div class="form-check col-sm-12 col-md-6 col-lg-4  py-2">
+                                <input type="checkbox" name="exact_specialization" class="form-check-input"
+                                       value="exact_specialization" {{$selectedPaper->exact_specialization ? 'checked="checked"' : '' }}/>
+                                <label class="form-check-label" for="exact_specialization">
+                                    هل البحث ب الاختصاص الدقيق ؟
+                                </label>
+                            </div>
+
+                          {{--  <div class="form-group col-sm-12 col-md-6 col-lg-4">
                                 <div class="form-check">
                                     <input type="checkbox" name="exact_specialization" value="exact_specialization"
                                         {{ $selectedPaper->exact_specialization ? 'checked="checked"' : '' }}/>
@@ -125,15 +177,15 @@
                                         هل البحث ب الاختصاص الدقيق ؟
                                     </label>
                                 </div>
-                            </div>
-                            <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                                <div class="form-check">
-                                    <input type="checkbox" name="general_specialization" value="general_specialization"
+                            </div>--}}
+
+                            <div class="form-check col-sm-12 col-md-6 col-lg-4  py-2">
+                                    <input type="checkbox" name="general_specialization" class="form-check-input" value="general_specialization"
                                         {{ $selectedPaper->general_specialization ? 'checked="checked"' : '' }}/>
                                     <label class="form-check-label" for="general_specialization">
                                         هل البحث ب الاختصاص العام ؟
                                     </label>
-                                </div>
+
                             </div>
                             {{--   todo: following columns should be filledout from controller.
                    $table->integer('headCommitee_ID')->nullable();
@@ -145,40 +197,34 @@
                                        value="{{ $selectedPaper->plagiarised_Details }}"></inputtextarea>
                             </div>
 
-                            <div class="form-group col-sm-12 col-md-6 col-lg-6">
-                                <div class="form-check">
-                                    <input type="checkbox" name="Is_paper_fromApplTheses"
+                            <div class="form-check col-sm-12 col-md-6 col-lg-4  py-2">
+                                    <input type="checkbox" name="Is_paper_fromApplTheses"  class="form-check-input"
                                            value="Is_paper_fromApplTheses"
                                         {{ $selectedPaper->Is_paper_fromApplTheses ? 'checked="checked"' : '' }}/>
                                     <label class="form-check-label" for="Is_paper_fromApplTheses">
                                         هل البحث مستل من رسالة أو اطروحة طالب الترقية ؟
                                     </label>
-                                </div>
                             </div>
                             <div class="form-group col-sm-12 col-md-12 col-lg-12">
                                 <label for="plagiarised_resource">مصدر الاستلال</label>
                                 <input type="textarea" class="form-control" name="plagiarised_resource"
                                        value="{{ $selectedPaper->plagiarised_resource }}"></textarea>
                             </div>
-                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-check">
-                                    <input type="checkbox" name="Is_paperRelated_CoAuther"
+                            <div class="form-check col-sm-12 col-md-12 col-lg-12">
+                                    <input type="checkbox" name="Is_paperRelated_CoAuther" class="form-check-input"
                                            value="Is_paperRelated_CoAuther"
                                         {{ $selectedPaper->Is_paperRelated_CoAuther ? 'checked="checked"' : '' }}/>
                                     <label class="form-check-label" for="Is_paperRelated_CoAuther">
                                         هل للبحث علاقة مع بحوث اخرى للباحثين المشتركين ؟
                                     </label>
-                                </div>
                             </div>
-                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-check">
-                                    <input type="checkbox" name="Is_paper_AppSuperlTheses"
+                            <div class="form-check col-sm-12 col-md-12 col-lg-12">
+                                    <input type="checkbox" name="Is_paper_AppSuperlTheses" class="form-check-input"
                                            value="Is_paper_AppSuperlTheses"
                                         {{ $selectedPaper->Is_paper_AppSuperlTheses ? 'checked="checked"' : '' }}/>
                                     <label class="form-check-label" for="Is_paper_AppSuperlTheses">
                                         هل البحث مستل من رسالة أو اطروحة اشرف عليها طالب الترقية؟
                                     </label>
-                                </div>
                             </div>
                             <div class="form-group col-sm-12 col-md-6 col-lg-12">
                                 <label for="Ratio_paper_AppSuperlTheses">النسبة المئوية البحث مستل من رسالة أو اطروحة
@@ -201,7 +247,7 @@
                             </div>
                             <div class="form-group col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-check">
-                                    <input type="checkbox" name="Is_paperRelated_CoAuther_Sup"
+                                    <input type="checkbox" name="Is_paperRelated_CoAuther_Sup" class="form-check-input"
                                            value="Is_paperRelated_CoAuther_Sup"
                                         {{ $selectedPaper->Is_paperRelated_CoAuther_Sup ? 'checked="checked"' : '' }}/>
                                     <label class="form-check-label" for="Is_paperRelated_CoAuther_Sup">
@@ -215,7 +261,7 @@
                             </div>
                             <div class="form-group col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-check">
-                                    <input type="checkbox" name="Is_paper_CoSuperTheses" value="Is_paper_CoSuperTheses"
+                                    <input type="checkbox" name="Is_paper_CoSuperTheses" class="form-check-input" value="Is_paper_CoSuperTheses"
                                         {{ $selectedPaper->Is_paper_CoSuperTheses ? 'checked="checked"' : '' }}/>
                                     <label class="form-check-label" for="Is_paper_CoSuperTheses">
                                         هل البحث مستل من رسالة أو اطروحة اشرف عليها احد الباحثين المشاركين؟
@@ -246,7 +292,7 @@
 
                             <div class="form-group col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-check">
-                                    <input type="checkbox" name="Is_paperRelated_CoSuper"
+                                    <input type="checkbox" name="Is_paperRelated_CoSuper" class="form-check-input"
                                            value="Is_paperRelated_CoSuper"
                                         {{ $selectedPaper->Is_paperRelated_CoSuper ? 'checked="checked"' : '' }}/>
                                     <label class="form-check-label" for="Is_paperRelated_CoSuper">
@@ -261,7 +307,7 @@
 
                             <div class="form-group col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-check">
-                                    <input type="checkbox" name="Is_paper_CoTheses" value="Is_paper_CoTheses"
+                                    <input type="checkbox" name="Is_paper_CoTheses" class="form-check-input" value="Is_paper_CoTheses"
                                         {{ $selectedPaper->Is_paper_CoTheses ? 'checked="checked"' : '' }}/>
                                     <label class="form-check-label" for="Is_paper_CoTheses">
                                         هل البحث مستل من رسالة أو اطروحة انجزها احد الباحثين المشاركين؟
@@ -277,8 +323,8 @@
                                        value="{{$selectedPaper->Ratio_paper_CoTheses}}" min="0">
                             </div>
 
-                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                <label for="plagiarised_resource_CoTheses">
+                            <div class=" col-sm-12 col-md-12 col-lg-12">
+                                <label for="plform-groupagiarised_resource_CoTheses">
                                     مصدر الاستلال من البحث مستل من رسالة أو اطروحة انجزها احد الباحثين المشاركين
                                 </label>
                                 <input type="textarea" class="form-control" name="plagiarised_resource_CoTheses"
@@ -287,8 +333,8 @@
                             {{--
                             begining of the last group of editable fields:
                             --}}
-                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                <input type="checkbox" name="Is_paperRelated_CoTheses" value="Is_paperRelated_CoTheses"
+                            <div class="form-check col-sm-12 col-md-12 col-lg-12">
+                                <input type="checkbox" name="Is_paperRelated_CoTheses" class="form-check-input" value="Is_paperRelated_CoTheses"
                                     {{ $selectedPaper->Is_paperRelated_CoTheses ? 'checked="checked"' : '' }}/>
                                 <label class="form-check-label" for="Is_paperRelated_CoTheses">
                                     هل للبحث علاقة مع بحوث آخرى للباحثين المشاركين للبحث مستل من رسالة أو اطروحة انجزها
@@ -298,8 +344,8 @@
                                 </label>
                             </div>
 
-                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                <input type="checkbox" name="Is_paper_OldProm" value="Is_paper_OldProm"
+                            <div class="form-check col-sm-12 col-md-12 col-lg-12">
+                                <input type="checkbox" name="Is_paper_OldProm" class="form-check-input" value="Is_paper_OldProm"
                                     {{ $selectedPaper->Is_paper_OldProm ? 'checked="checked"' : '' }}/>
                                 <label class="form-check-label" for="Is_paper_OldProm">
                                     هل البحث مستل من بحث تم استخدامه في ترقية سابقة ؟
@@ -322,8 +368,8 @@
                                        value="{{$selectedPaper->plagiarised_resource_OldProm}}"></inputtextarea>
                             </div>
 
-                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                <input type="checkbox" name="Is_paperRelated_CoAuther_OldProm"
+                            <div class="form-check col-sm-12 col-md-12 col-lg-12">
+                                <input type="checkbox" name="Is_paperRelated_CoAuther_OldProm" class="form-check-input"
                                        value="Is_paperRelated_CoAuther_OldProm"
                                     {{ $selectedPaper->Is_paperRelated_CoAuther_OldProm ? 'checked="checked"' : '' }}/>
                                 <label class="form-check-label" for="Is_paperRelated_CoAuther_OldProm">
@@ -334,8 +380,8 @@
                                 </label>
                             </div>
 
-                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                <input type="checkbox" name="Is_paper_From_Others" value="Is_paper_From_Others"
+                            <div class="form-check col-sm-12 col-md-12 col-lg-12">
+                                <input type="checkbox" name="Is_paper_From_Others" class="form-check-input" value="Is_paper_From_Others"
                                     {{ $selectedPaper->Is_paper_From_Others ? 'checked="checked"' : '' }}/>
                                 <label class="form-check-label" for="Is_paper_From_Others">
                                     هل البحث مستل من بحوث آخرى او من شبكة الانترنت؟
@@ -356,8 +402,8 @@
                                 <input type="textarea" class="form-control" name="plagiarised_resFrom_Others"
                                        value="{{$selectedPaper->plagiarised_resFrom_Others}}"></inputtextarea>
                             </div>
-                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                <input type="checkbox" name="Is_paperRelated_CoAuther_From_Others"
+                            <div class="form-check col-sm-12 col-md-12 col-lg-12">
+                                <input type="checkbox" name="Is_paperRelated_CoAuther_From_Others" class="form-check-input"
                                        value="Is_paperRelated_CoAuther_From_Others"
                                     {{ $selectedPaper->Is_paperRelated_CoAuther_From_Others ? 'checked="checked"' : '' }}/>
                                 <label class="form-check-label" for="Is_paperRelated_CoAuther_From_Others">
@@ -368,7 +414,7 @@
 
                             <div class="form-group col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-check">
-                                    <input type="checkbox" name="sabbaticalLeave" value="sabbaticalLeave"
+                                    <input type="checkbox" name="sabbaticalLeave" class="form-check-input" value="sabbaticalLeave"
                                         {{ $selectedPaper->sabbaticalLeave ? 'checked="checked"' : '' }}/>
                                     <label class="form-check-label" for="sabbaticalLeave">
                                         هل البحث ضمن التفرغ العلمي ؟
@@ -454,7 +500,7 @@
                             </div>
 
                             <div class="form-check col-sm-12 col-md-12 col-lg-12">
-                                <input type="checkbox" name="supportedPaper" value="supportedPaper"
+                                <input type="checkbox" name="supportedPaper" class="form-check-input" value="supportedPaper"
                                     {{ $selectedPaper->supportedPaper ? 'checked="checked"' : '' }}/>
                                 <label class="form-check-label" for="supportedPaper">
                                     هل يعتبر بحث التعزيزي ؟
@@ -480,7 +526,7 @@
                                </div>
    --}}
                             <div class="form-check col-sm-12 col-md-12 col-lg-12">
-                                <input type="checkbox" name="Is_suppPaper_In_SciPlan" value="Is_suppPaper_In_SciPlan"
+                                <input type="checkbox" name="Is_suppPaper_In_SciPlan" class="form-check-input" value="Is_suppPaper_In_SciPlan"
                                     {{ $selectedPaper->Is_suppPaper_In_SciPlan ? 'checked="checked"' : '' }}/>
                                 <label class="form-check-label" for="Is_suppPaper_In_SciPlan">
                                     هل البحوث المقدمة للترقية ضمن الخطة البحثية للقسم ؟
@@ -716,6 +762,7 @@
                         </div>
 
                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-check">
                             <input type="checkbox" name="Is_paperRelated_CoTheses" class="form-check-input" value="1"
                                 {{ old('Is_paperRelated_CoTheses') ? 'checked="checked"' : '' }}/>
                             <label class="form-check-label" for="Is_paperRelated_CoTheses">
@@ -724,13 +771,16 @@
                                 المشاركين؟
                             </label>
                         </div>
+                        </div>
 
                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-check">
                             <input type="checkbox" name="Is_paper_OldProm" class="form-check-input" value="1"
                                 {{ old('Is_paper_OldProm') ? 'checked="checked"' : '' }}/>
                             <label class="form-check-label" for="Is_paper_OldProm">
                                 هل البحث مستل من بحث تم استخدامه في ترقية سابقة ؟
                             </label>
+                        </div>
                         </div>
 
                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
@@ -749,6 +799,8 @@
                         </div>
 
                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-check">
+
                             <input type="checkbox" name="Is_paperRelated_CoAuther_OldProm" class="form-check-input"
                                    value="1"
                                 {{ old('Is_paperRelated_CoAuther_OldProm') ? 'checked="checked"' : '' }}/>
@@ -757,13 +809,16 @@
                                 سابقة ؟
                             </label>
                         </div>
-
+                        </div>
                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-check">
+
                             <input type="checkbox" name="Is_paper_From_Others" class="form-check-input" value="1"
                                 {{ old('Is_paper_From_Others') ? 'checked="checked"' : '' }}/>
                             <label class="form-check-label" for="Is_paper_From_Others">
                                 هل البحث مستل من بحوث آخرى او من شبكة الانترنت؟
                             </label>
+                        </div>
                         </div>
 
                         <div class="form-group col-sm-12 col-md-6 col-lg-12">
@@ -782,6 +837,8 @@
                         </div>
 
                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-check">
+
                             <input type="checkbox" name="Is_paperRelated_CoAuther_From_Others" class="form-check-input"
                                    value="1"
                                 {{ old('Is_paperRelated_CoAuther_From_Others') ? 'checked="checked"' : '' }}/>
@@ -790,7 +847,7 @@
                                 الانترنت ؟
                             </label>
                         </div>
-
+                        </div>
                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
                             <div class="form-check">
                                 <input type="checkbox" name="sabbaticalLeave" class="form-check-input" value="1"
