@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -46,7 +47,8 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-        event(new UserCreated($user));
+        $user->assignRole('Applicant');
+       // return $user;
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);

@@ -62,12 +62,12 @@ class HamshController extends Controller
 
         /* hamshs.index return view('hamshs.forms.sciplan',compact('reqs','reqsos','Hams','Forms','reqcolls'))
             ->with('i', (request()->input('page', 1) - 1) * 5); /*add 'blogs'*/
-
     }
 
-    public function sciplanindex(User $user_id)
+    public function sciplanindex( $user_id)
     {
-        $user = User::find($user_id)[1];
+        $user = User::find($user_id);
+    //    dd($user->id);
         $PromotionReqUser = PromotionReq::where('user_id', $user->id)
             ->latest('created_at')->first();
         $SciPlan = SciPlan::where('promotionReqs_id', $PromotionReqUser->id)
@@ -152,9 +152,10 @@ $promotion_reqsForCollage=null;
     }
     }
 
-    public function requestApplyingindex(User $user_id)
+    public function requestApplyingindex( $user_id)
     {
-        $user = User::find($user_id)[1];
+        $user = User::find($user_id);
+
         $PromotionReqUser = PromotionReq::where('user_id', $user->id)
             ->latest('created_at')->first();
         $request_applying = RequestApplying::where('promotionReqs_id', $PromotionReqUser->id)->get()->first();
@@ -164,9 +165,9 @@ $promotion_reqsForCollage=null;
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-    public function AcademicReputationindex(User $user_id)
+    public function AcademicReputationindex( $user_id)
     {
-        $user = User::find($user_id)[1];
+        $user = User::find($user_id);
         $PromotionReqUser = PromotionReq::where('user_id', $user->id)
             ->latest('created_at')->first();
         $AcademicReputation = AcademicReputation::where('promotionReqs_id', $PromotionReqUser->id)
@@ -1109,7 +1110,7 @@ if($isDegree==1){
         $PromotionReq = PromotionReq::where('id', $AcademicReputation->promotionReqs_id)->latest('created_at')->first();
         $user_id = $PromotionReq->user_id;
         return redirect()->route('AcademicReputationindex', compact('user_id'))
-            ->with('success', 'The  specific user AcademicReputation updated successfully');
+            ->with('success', 'تم تعديل استمارة التسجيل بالمواقع البحثية بنجاح.');
     }
     public function updateProApplicationSummary(Request $request, ProApplicationSummary $hamsh_id)
     {

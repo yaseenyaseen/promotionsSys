@@ -8,6 +8,7 @@
         المتعقلة</h3>
     <br>
     <br>
+
     @if(is_null($AcademicReputation))
         @role('Applicant|admin')
         <div class="pull-right">
@@ -29,9 +30,14 @@
         </div>
         @endrole
         <div>
-            The user name is: <br>
-            {{Auth::user()->name}} <br> <br>
-            <h6>معلومات عن استمارة استمارة السمعة الاكاديمية للترقية العلمية بالرقم <br></h6>
+            <h6> استمارة السمعة الاكاديمية لمقدم الطلب : <br></h6> {{Auth::user()->name}}
+
+         {{--   The user name is: <br>
+            {{Auth::user()->name}} <br> <br>--}}
+            <h6>معلومات عن استمارة السمعة الاكاديمية للترقية العلمية بالرقم <br></h6>
+            {{$AcademicReputation->id}}
+            <br>
+
             {{-- <h6> استمارة تقديم الطلب للترقية العلمية ID : <br></h6> {{$AcademicReputation->id}}
              <h6> استمارة السمعة الاكاديمية الطلب للترقية العلمية لمقدم الطلب ID : <br>
              </h6> {{$AcademicReputation->Applicant_Id}}--}}
@@ -46,11 +52,34 @@
                     الاطلاع و تعديل استمارة التسجيل بالمواقع البحثية و الهوامش المتعقلة</a>
             </td>
         </tr>
-        <table class="center">
+       {{-- <br> <table class="table table-dark">
             <thead>
             <tr>
-                <th>(الرابط الشخصي)</th>
-                <th> عنوان الموقع البحثي</th>
+                <th scope="col">عنوان البحث</th>
+                <th scope="col">التاريخ</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($papers as $paper)
+                <tr>
+                    <td>{{ $paper['paper_title'] }}</td>
+                    <td>{{date('Y-m-d',strtotime( $paper['publish_date'])) }}</td>
+
+                </tr>
+            @endforeach
+            </tbody>
+
+        </table>
+--}}
+        <br><br> <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">(الرابط الشخصي)</th>
+                <th scope="col">عنوان الموقع البحثي</th>
+
+             {{--   <th>(الرابط الشخصي)</th>
+                <th> عنوان الموقع البحثي</th>--}}
             </tr>
             </thead>
             <tbody>
@@ -88,5 +117,8 @@
             </tbody>
         </table>
     @endif
+<br>
+    <br>
+    <br>
 
 @endsection
