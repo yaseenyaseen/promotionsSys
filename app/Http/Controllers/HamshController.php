@@ -176,9 +176,9 @@ $promotion_reqsForCollage=null;
             compact('AcademicReputation'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
-    public function ProApplicationSummaryindex(User $user_id)
+    public function ProApplicationSummaryindex( $user_id)
     {
-        $user = User::find($user_id)[1];
+        $user = User::find($user_id);
         $PromotionReqUser = PromotionReq::where('user_id', $user->id)
             ->latest('created_at')->first();
         $ProApplicationSummary = ProApplicationSummary::where('promotionReqs_id', $PromotionReqUser->id)

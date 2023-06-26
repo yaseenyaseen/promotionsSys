@@ -2,14 +2,14 @@
 
 @section('content')
 
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div>
+                <h2>متطلبات الترقية-استمارة التسجيل بالمواقع البحثية و الهوامش المتعقلة </h2>
+                <br>
+                <br>
 
-    <h3 style="text-align: center; margin-top: 15px">متطلبات الترقية</h3>
-    <h3 style="text-align: center; margin-top: 15px">استمارة التسجيل بالمواقع البحثية و الهوامش
-        المتعقلة</h3>
-    <br>
-    <br>
-
-    @if(is_null($AcademicReputation))
+            @if(is_null($AcademicReputation))
         @role('Applicant|admin')
         <div class="pull-right">
             <a class="btn btn-success" href="{{ route('createAcademicReputationHamsh') }}">
