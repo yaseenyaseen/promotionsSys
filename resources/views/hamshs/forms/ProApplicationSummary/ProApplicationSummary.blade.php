@@ -48,7 +48,7 @@
                            href="{{ route('editProApplicationSummary',$ProApplicationSummary) }}">
                             الاطلاع و تعديل استمارة ملخص معاملة الترقية و الهوامش المتعقلة</a>
                         <a class="btn btn-info"
-                           href="{{ route('showProApplicationSummary',$ProApplicationSummary) }}">طباعةأستمار</a>
+                           href="{{ route('showProApplicationSummary',$ProApplicationSummary) }}">طباعة</a>
                         <br>
                         <div class="row">
                             <div class="form-group col-sm-12 col-md-6 col-lg-6">
@@ -98,7 +98,6 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-12 col-md-6 col-lg-4 py-3">
-                                <div>
                                     <input class="form-check-input" type="checkbox" onclick="return false;"
                                            name="Is_papers_CP_published"
                                            id="Is_papers_CP_published"
@@ -109,24 +108,26 @@
                                            style="font-weight: bold">
                                         هل بحوث الترقية السابقة منشورة
                                     </label>
-                                </div>
+
                             </div>
-                            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
-                                <input class="form-check-input" type="checkbox" onclick="return false;"
-                                       name="Is_papers_In_SciPlan" id="Is_papers_In_SciPlan"
-                                    {{ $PromotionReqUser->Is_papers_In_SciPlan ? 'checked="checked"' : ''}}>
-                                <strong class="form-check-label" for="Is_papers_In_SciPlan">
-                                    هل البحوث ضمن الخطة البحثية
-                                </strong>
+                            <div class="form-group col-sm-12 col-md-6 col-lg-4 py-3">
+
+                                    <input class="form-check-input" type="checkbox" onclick="return false;"
+                                             name="Is_papers_In_SciPlan" id="Is_papers_In_SciPlan"
+                                             value="Is_papers_In_SciPlan"
+                                             style=""
+                                        {{ $PromotionReqUser->Is_papers_In_SciPlan ? 'checked="checked"' : ''}}>
+                                    <strong class="form-check-label" for="Is_papers_In_SciPlan">
+                                        هل البحوث ضمن الخطة البحثية
+                                    </strong>
                             </div>
                             <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
                                 <strong for="performance_assessment">درجة تقويم الأداء</strong>
                                 {{$PromotionReqUser->performance_assessment}}
                             </div>
                         </div>
-
                         <div class="row">
-                            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                            <div class="form-group col-sm-12 col-md-6 col-lg-4 py-3">
                                 <input class="form-check-input" type="checkbox" onclick="return false;"
                                        name="Is_pass_Educational_Qualification"
                                        value="Is_pass_Educational_Qualification"
@@ -137,7 +138,7 @@
                                 {{Auth::user()->Is_pass_Educational_Qualification}}
                             </div>
 
-                            <div class="form-check col-sm-12 col-md-6 col-lg-6 py-3">
+                            <div class="form-group col-sm-12 col-md-6 col-lg-6 py-3">
                                 <strong for="Date_Educational_Qualification">تاريخ انتهاء دورة التاهيل
                                     التربوي </strong>
                                 {{date('Y-m-d',strtotime(Auth::user()->Date_Educational_Qualification))}}
@@ -146,7 +147,7 @@
 
                         <div class="row">
 
-                            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                            <div class="form-group col-sm-12 col-md-6 col-lg-4 py-3">
 
                                 <input class="form-check-input" type="checkbox" onclick="return false;"
                                        name="Is_pass_Educational_Qualification"
@@ -164,7 +165,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                            <div class="form-group col-sm-12 col-md-6 col-lg-4 py-3">
                                 <input class="form-check-input" type="checkbox" onclick="return false;"
                                        name="IsApplicant_PG" value="IsApplicant_PG"
                                     {{ $PromotionReqUser->IsApplicant_PG ? 'checked="checked"' : ''}}>
@@ -178,51 +179,51 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                            <div class="form-group col-sm-12 col-md-6 col-lg-4 py-3">
                                 <input class="form-check-input" type="checkbox" onclick="return false;"
                                        name="IsDeserve_dues" value="IsDeserve_dues"
                                     {{ $PromotionReqUser->IsDeserve_dues ? 'checked="checked"' : ''}}>
                                 <strong class="form-check-label" for="IsDeserve_dues">
-                                    هل المتقدم يستحق قدم وظيفي
+                                      هل المتقدم يستحق قدم وظيفي
                                 </strong>
                             </div>
 
 
                             <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
-                                <strong for="dues_period"> فترة القدم</strong>
+                                <strong for="dues_period">    فترة القدم(شهر)</strong>
                                 {{$PromotionReqUser->dues_period}}
                             </div>
                         </div>
-
-
-                        <table>
+                        <table class="table table-dark">
                             <thead>
                             <tr>
-                                <th>عنوان البحث</th>
-                                <th>التاريخ</th>
-                                <th>هل البحث منفرد؟</th>
-                                <th>هل البحث منشور؟</th>
-                                <th>تصنيف جهة النشر</th>
-                                <th>مستل ام غير مستل من رسالة او اطروحة</th>
-
-
+                                <th scope="col">عنوان البحث</th>
+                                <th scope="col">التاريخ</th>
+                                <th scope="col">هل البحث منفرد؟</th>
+                                <th scope="col">هل البحث منشور؟</th>
+                                <th scope="col">تصنيف جهة النشر</th>
+                                <th scope="col">مستل ام غير مستل من رسالة او اطروحة</th>
                             </tr>
                             </thead>
+
                             <tbody>
                             @foreach($papers as $paper)
                                 <tr>
                                     <td>{{ $paper['paper_title'] }}</td>
-                                    <td>{{ $paper['publish_date'] }}</td>
+
+                                    <td>{{date('Y-m-d',strtotime($paper->publish_date))}}</td>
+
+
                                     <td>
                                         @if($paper->singleAuther)
-                                            <input type="checkbox" onclick="return false;" name="singleAuther"
+                                            <input class="form-check-input" type="checkbox" onclick="return false;" name="singleAuther"
                                                    value="singleAuther"
                                                 {{ $paper->singleAuther ? 'checked="checked"' : ''}}>
                                         @endif
                                     </td>
                                     <td>
                                         @if($paper->Ispubished)
-                                            <input type="checkbox" onclick="return false;" name="Ispubished"
+                                            <input class="form-check-input" type="checkbox" onclick="return false;" name="Ispubished"
                                                    value="Ispubished"
                                                 {{ $paper->Ispubished ? 'checked="checked"' : ''}}>
                                         @endif
@@ -239,7 +240,7 @@
                                         @endif
                                     </td>
                                     <td> @if($paper->takenFromStdut_thesis)
-                                            <input type="checkbox" onclick="return false;" name="takenFromStdut_thesis"
+                                            <input class="form-check-input" type="checkbox" onclick="return false;" name="takenFromStdut_thesis"
                                                    value="takenFromStdut_thesis"
                                                 {{ $paper->takenFromStdut_thesis ? 'checked="checked"' : ''}}>
                                         @endif
