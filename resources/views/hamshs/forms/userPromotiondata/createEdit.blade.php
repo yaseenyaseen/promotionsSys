@@ -28,7 +28,7 @@
         @csrf
 
         <input type="hidden" name="PromotionReqId" value="{{ $PromotionReqUser->id }}">
-        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 
         <div class="form-group col-sm-12 col-md-6 col-lg-4">
             <label for="mobileNumber">رقم الهاتف النقال</label>
@@ -42,9 +42,11 @@
             <select class="form-control" name="college_id" id="college_id" {{--backend name, in the same page use id , {{--college_id is the variable name in the database--}}
             --}}
                     required onchange="UpdateSelections(this)">{{--"this" is the value of id, which is id="college_id" --}}
-                <option value="---">---</option>
+                <option value="---" selected>---</option>
                 @foreach($colleges as $college )
-                    <option value="{{$college->college_id}}">{{--output value of this selection, which already comes from controller as "$colleges"--}}
+                    <option value="{{$college->college_id}}" {{ Auth::user()->college_id == $college->college_id ? 'selected' : ''}}>
+
+                        {{--output value of this selection, which already comes from controller as "$colleges"--}}
                         {{$college->name}}{{--name in frontend--}}
                     </option>
                 @endforeach
@@ -59,7 +61,7 @@
             <select class="form-control" name="department_id" id="department_id" required>
                 <option value="---"  data-tag="">---</option>
                 @foreach($depList as $dep )
-                    <option value="{{$dep->id}}" {{--backend--}}
+                    <option value="{{$dep->id}}" {{ Auth::user()->department_id == $dep->id ? 'selected' : ''}}{{--backend--}}
                             data-tag="{{$dep->college_id}}">
                         {{$dep->department_name}}
                     </option>

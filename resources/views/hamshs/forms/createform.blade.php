@@ -62,7 +62,7 @@
                     <div class="form-group col-sm-12 col-md-6 col-lg-4">
                         <label for="publish_date">تاريخ النشر</label><br>
                         <input class="form-control" type="date" id="publish_date" name="publish_date"
-                               value="{{date('Y-m-d',trim(strtotime($selectedPaper->publish_date)))}}"
+                               value="{{date('Y-m-d',strtotime($selectedPaper->publish_date))}}"
                         >
                     </div>
                 </div>
@@ -509,7 +509,7 @@
                             <div class="form-group col-sm-12 col-md-12 col-lg-12">
                                 <label for="suppPaper_dateof_application">تأريخ السابق تقديم البحث التعزيزي</label>
                                 <input type="date" name="publish_date" id="publish_date"
-                                       value="{{date('Y-m-d',trim(strtotime($selectedPaper->publish_date)))}}">
+                                       value="{{date('Y-m-d',strtotime($selectedPaper->publish_date))}}">
 
                             </div>
                             {{--

@@ -208,7 +208,7 @@ $promotion_reqsForCollage=null;
         $papersOfallproms = DB::table('Papers as s')
             ->select('s.*', 'a.*')
             ->join('promotion_reqs as a',
-                's.promotionReqs_id', '=', 'a.id')->get();
+                's.promotionReqs_id', '=', 'a.id')->Where('s.promotionReqs_id','<>',$PromotionReqUser->id)->get();
 
         return view('hamshs.forms.promotionData.index',
             compact('ProApplicationSummary','PromotionReqUser','papers','Degrees','theses','PositionsHeldBy','papersOfallproms'))
@@ -992,7 +992,7 @@ $isDegree=true;
 
         $PromotionReqUser = PromotionReq::where('user_id', $user->id)
             ->latest('created_at')->first();
-
+/*dd($request);*/
         $user->update($request->all());
         $user->Is_pass_Educational_Qualification = $request->has('Is_pass_Educational_Qualification');
         $user->Is_pass_Computing = $request->has('Is_pass_Computing');
