@@ -190,6 +190,31 @@ $promotion_reqsForCollage=null;
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
+    public function promotionDataindex( $user_id)
+    {
+        $user = User::find($user_id);
+        $PromotionReqUser = PromotionReq::where('user_id', $user->id)
+            ->latest('created_at')->first();
+        $ProApplicationSummary = ProApplicationSummary::where('promotionReqs_id', $PromotionReqUser->id)
+            ->get()->first();
+        $papers = Paper::where('promotionReqs_id', $PromotionReqUser->id)->get();
+        $Degrees = Degree::where('user_id', $user->id)->get();
+        $theses = These::where('promotionReqs_id', $PromotionReqUser->id)
+            ->get();
+        $PositionsHeldBy = PositionsHeldBy::where('user_id',  Auth::user()->id)->get();
+        $PromotionUserall = PromotionReq::where('user_id', $user->id)->get();
+      /*  dd($PromotionUserall);*/
+
+        $papersOfallproms = DB::table('Papers as s')
+            ->select('s.*', 'a.*')
+            ->join('promotion_reqs as a',
+                's.promotionReqs_id', '=', 'a.id')->get();
+
+        return view('hamshs.forms.promotionData.index',
+            compact('ProApplicationSummary','PromotionReqUser','papers','Degrees','theses','PositionsHeldBy','papersOfallproms'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
     public function attachmentsindex(User $user_id)
     {
         $user = User::find($user_id)[1];
@@ -978,6 +1003,8 @@ $isDegree=true;
         $PromotionReqUser->Is_papers_CP_published = $request->has('Is_papers_CP_published');
         $PromotionReqUser->Is_papers_In_SciPlan = $request->has('Is_papers_In_SciPlan');
         $PromotionReqUser->IsApplicant_PG = $request->has('IsApplicant_PG');
+        $PromotionReqUser->IsThesisUsed = $request->has('IsThesisUsed');
+
         $PromotionReqUser->IsDeserve_dues = $request->has('IsDeserve_dues');
 
         $PromotionReqUser->save();

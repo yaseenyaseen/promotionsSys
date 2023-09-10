@@ -164,6 +164,10 @@ Route::post('/hamshs/forms/ProApplicationSummary/store', [HamshController::class
 Route::get('/hamshs/forms/ProApplicationSummary/editHamsh/{Ham_id}', [HamshController::class, 'editProApplicationSummary'])->name('editProApplicationSummary');
 Route::put('/hamshs/forms/ProApplicationSummary/update/{hamsh_id}', [HamshController::class, 'updateProApplicationSummary'])->name('updateProApplicationSummary');
 Route::get('/hamshs/forms/ProApplicationSummary/show/{Ham_id}', [HamshController::class, 'showProApplicationSummary'])->name('showProApplicationSummary');
+/**
+ * بيانات الترقية
+ */
+Route::get('/hamshs/forms/promotionData/index/{user_id}', [HamshController::class, 'promotionDataindex'])->name('promotionDataindex');
 
 /*admins*/
 Route::view('/administrators/AcademicReputationindex', 'hamshs.forms.administrators.AcademicReputationindex')->name('adminAcademicReputationindex');// صفحة مسؤلين انجاز 'السمعة الاكاديمية'

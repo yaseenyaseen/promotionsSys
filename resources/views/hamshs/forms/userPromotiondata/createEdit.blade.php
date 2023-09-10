@@ -30,6 +30,11 @@
         <input type="hidden" name="PromotionReqId" value="{{ $PromotionReqUser->id }}">
         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 
+        <div class="form-group col-sm-12 col-md-6 col-lg-4">
+            <label for="mobileNumber">رقم الهاتف النقال</label>
+            <input class="form-control" type="number" name="mobileNumber" id="mobileNumber"
+                   value="{{ Auth::user()->mobileNumber}}" min="0">
+        </div>
         <div class="col-md-8 col-sm-10 col-lg-6 py-2">
             <label for="college"
                    class="col-form-label text-md-end"
@@ -61,7 +66,24 @@
                 @endforeach
             </select>
         </div>
+       {{-- <div class="form-group col-sm-12 col-md-6 col-lg-6">
 
+
+            <strong for="Date_placingOrder">تأريخ أول تعيين في الجامعة  </strong>
+            --}}{{-- {{$PromotionReqUser->Date_placingOrder}}--}}{{--
+            {{date('Y-m-d',strtotime(Auth::user()->Date_hire))}}
+        </div>--}}
+        <div class="form-group col-sm-12 col-md-6 col-lg-4">
+            <label for="Date_hire"> تأريخ أول تعيين في الجامعة</label><br>
+            <input class="form-control" type="date" id="Date_hire" name="Date_hire"
+                   value="{{date('Y-m-d',strtotime(Auth::user()->Date_hire))}}">
+        </div>
+
+        <div class="form-group col-sm-12 col-md-6 col-lg-4">
+            <label for="College_SD_hire"> تاريخ المباشرة في الكلية:</label><br>
+            <input class="form-control" type="date" id="College_SD_hire" name="College_SD_hire"
+                   value="{{date('Y-m-d',strtotime(Auth::user()->College_SD_hire))}}">
+        </div>
         <div class="row">
             <div class="form-group col-sm-12 col-md-6 col-lg-4">
                 <label for="currentPromotion">المرتبة العلمية الحالية </label>
@@ -131,7 +153,7 @@
         </div>
 
         <div class="row">
-            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-5">
+            <div class="form-group col-sm-12 col-md-6 col-lg-4">
                 <input class="form-check-input" type="checkbox" name="Is_pass_Educational_Qualification"
                        id="Is_pass_Educational_Qualification"
                     {{ Auth::user()->Is_pass_Educational_Qualification ? 'checked="checked"' : ''}}>
@@ -139,7 +161,12 @@
                     هل اجتاز دورة التاهيل التربوي
                 </label>
             </div>
-            <div class="form-group col-sm-12 col-md-6 col-lg-4 py-3">
+            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                <label for="Order_No_Educational_Qualification">الأمر الإداري المرقم</label>
+                <input class="form-control" type="number" name="Order_No_Educational_Qualification" id="Order_No_Educational_Qualification"
+                       value="{{Auth::user()->Order_No_Educational_Qualification}}" min="0">
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-4">
                 <label for="Date_Educational_Qualification">تاريخ انتهاء دورة التاهيل التربوي </label><br>
                 <input class="form-control" type="date" name="Date_Educational_Qualification"
                        id="Date_Educational_Qualification"
@@ -147,7 +174,7 @@
             </div>
         </div>
         <div class="row">
-            <div class=" col-sm-12 col-md-6 col-lg-4 py-5">
+            <div class="form-group col-sm-12 col-md-6 col-lg-4">
                 <input class="form-check-input" type="checkbox" name="Is_pass_Computing" id="Is_pass_Computing"
                     {{ Auth::user()->Is_pass_Computing ? 'checked="checked"' : ''}}>
                 <label class="form-check-label" for="Is_pass_Computing">
@@ -155,10 +182,16 @@
                 </label>
             </div>
             <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                <label for="Order_No_Computing">الأمر الإداري المرقم</label>
+                <input class="form-control" type="number" name="Order_No_Computing" id="Order_No_Computing"
+                       value="{{Auth::user()->Order_No_Computing}}" min="0">
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-4">
                 <label for="Date_Computing">تاريخ اجتياز دورة الحاسوب </label>
                 <input class="form-control" type="date" name="Date_Computing" id="Date_Computing"
                        value="{{date('Y-m-d',strtotime(Auth::user()->Date_Computing))}}">
             </div>
+
         </div>
         <div class="row">
             <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
@@ -168,6 +201,16 @@
                     هل المتقدم طالب دراسات عليا
                 </label>
             </div>
+
+            <div class="form-check col-sm-12 col-md-6 col-lg-4 py-3">
+                <input class="form-check-input" type="checkbox" name="IsThesisUsed" id="IsThesisUsed"
+                    {{ $PromotionReqUser->IsThesisUsed ? 'checked="checked"' : ''}}>
+                <label class="form-check-label" for="IsThesisUsed">
+                    هل المتقدم مستفاد من اطروحة الدكتوراه التي قدمها</label>
+            </div>
+
+        </div>
+        <div class="row">
             <div class="form-group col-sm-12 col-md-6 col-lg-4">
                 <label for="Date_PG_start">تاريخ استحقاقه للترقية </label><br>
                 <input class="form-control" type="date" name="Date_PG_start" id="Date_PG_start"
@@ -181,14 +224,30 @@
                 </label>
                 <input class="form-check-input" type="checkbox" name="IsDeserve_dues"  value="IsDeserve_dues"
                     {{ $PromotionReqUser->IsDeserve_dues ? 'checked="checked"' : ''}}>
-
             </div>
+
             <div class="form-group col-sm-12 col-md-6 col-lg-4 py-3">
-                <label for="dues_period"> فترة القدم</label>
+                <label for="dues_period">فترة القدم(شهر)</label>
                 <input class="form-control" type="number" name="dues_period" id="dues_period"
                        value="{{$PromotionReqUser->dues_period}}" min="0">
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                <label for="DueDate">تأريخ استحقاق الترقية على المدة الاصغرية </label><br>
+                <input class="form-control" type="date" name="DueDate" id="DueDate"
+                       value="{{date('Y-m-d',strtotime($PromotionReqUser->DueDate_lowest))}}">
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                <label for="DueDate">تاريخ الاستحقاق على المدة الاكبرية </label><br>
+                <input class="form-control" type="date" name="DueDate" id="DueDate"
+                       value="{{date('Y-m-d',strtotime($PromotionReqUser->DueDate_largest))}}">
+            </div>
+        </div>
+
+
+        <br>
+
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary"> تعديل و حفظ</button>
         </div>

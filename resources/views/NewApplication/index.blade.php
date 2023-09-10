@@ -53,6 +53,11 @@
                 <a class="btn btn-secondary"
                    href="{{ route('ProApplicationSummaryindex',Auth::user()->id) }}"> ملخص معاملة الترقية </a>
             </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 py-3">
+                <a class="btn btn-secondary"
+                   href="{{ route('promotionDataindex',Auth::user()->id) }}"> بيانات الترقية </a>
+            </div>
+
 
         </div>
         <br>
