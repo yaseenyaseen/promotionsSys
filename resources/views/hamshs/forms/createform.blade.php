@@ -56,9 +56,13 @@
                 <div class="form-row">
                     <div class="form-group col-sm-12 col-md-12 col-lg-12">
                         <label for="paper_title">عنوان البحث</label>
-                        <textarea class="form-control" style="height:80px" name="paper_title"
-                                  value="{{ $selectedPaper->paper_title}}" placeholder="paper_title"></textarea>
+                        {{--<input class="form-control" style="height:80px" name="paper_title"
+                                  value="{{ $selectedPaper->paper_title}}" ></input>--}}
+                    <input type="textarea" class="form-control" name="paper_title"
+                           value="{{ $selectedPaper->paper_title }}"></textarea>
                     </div>
+
+
                     <div class="form-group col-sm-12 col-md-6 col-lg-4">
                         <label for="publish_date">تاريخ النشر</label><br>
                         <input class="form-control" type="date" id="publish_date" name="publish_date"
