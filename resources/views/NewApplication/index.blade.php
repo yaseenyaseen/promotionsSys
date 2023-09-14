@@ -84,6 +84,13 @@
                    href="{{ route('adminAcademicReputationindex') }}"> السمعة الاكاديمية </a>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4 py-3">
+                <a class="btn btn-secondary"
+                   href="{{ route('Scientific_Committee_minutesindex') }}"> محضر اللجنة العلمية </a>
+            </div>
+        </div>
+
         @endrole
         <br>
         <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">

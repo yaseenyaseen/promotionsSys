@@ -129,6 +129,14 @@ Route::put('/hamshs/AcademicReputation/updateHamsh/{hamsh_id}', [HamshController
 Route::view('/administrators/AcademicReputationindex', 'hamshs.forms.administrators.AcademicReputationindex')->name('adminAcademicReputationindex');// صفحة مسؤلين انجاز 'السمعة الاكاديمية'
 Route::view('/administrators/AcademicReputationlistindex', 'hamshs.forms.administrators.AcademicReputationlistindex')->name('AcademicReputationlistindex');// صفحة مسؤول مركز الحاسبة  'السمعة الاكاديمية'
 Route::get('/hamshs/forms/AcademicReputationlistindex', [HamshController::class, 'AcademicReputationindex'])->name('RequestApplyinglistindex');
+/**
+ *Scientific_Committee_minutes
+ */
+Route::view('/administrators/Scientific_Committee_minutesindex', 'hamshs.forms.administrators.Scientific_Committee_minutesindex')->name('Scientific_Committee_minutesindex');// صفحة مسؤلين انجاز 'طلب الترقية'
+Route::view('/administrators/Scientific_Committee_minutesListForAdmins', 'hamshs.forms.administrators.ScientificCommitteeListForAdmins')->name('ScientificCommitteeListForAdmins');// صفحة رئيس قسم انجاز 'طلب الترقية'
+Route::get('/hamshs/forms/RequestApplyinglistindex', [HamshController::class, 'RequestApplyinglistindex'])->name('hamshs.forms.RequestApplyinglistindex');
+
+
 
 /*positionsDegrees*/
 Route::get('/hamshs/forms/positionsDegrees/index/{user_id}', [HamshController::class, 'positionsDegreesindex'])->name('positionsDegreesindex');
