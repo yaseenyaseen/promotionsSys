@@ -87,7 +87,7 @@
         <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-4 py-3">
                 <a class="btn btn-secondary"
-                   href="{{ route('Scientific_Committee_minutesindex') }}"> محضر اللجنة العلمية </a>
+                   href="{{ route('AdminScientific_Committee_minutesindex') }}"> محضر اللجنة العلمية </a>
             </div>
         </div>
 

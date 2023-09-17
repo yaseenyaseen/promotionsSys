@@ -3,7 +3,7 @@
     <h3>مسؤلين انجاز محضر اللجنة العلمية للترقية العلمية </h3>
     <br>
 
-    @role('admin')
+    @role('admin') {{--add role of رئيس اللجنة العلمية--}}
     <div class="pull-right">
         <a class="btn btn-secondary" href="{{ route('ScientificCommitteeListForAdmins')}}"> رئيس اللجنة العلمية </a>
        {{-- the above line call a function named "sciplanlistindex" in the controller without need to send $user as a parameter.

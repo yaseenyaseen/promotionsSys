@@ -99,18 +99,17 @@ Route::get('/hamshs/showUser/{user_id}', [HamshController::class, 'showUser'])->
 /*resources/views/hamshs/forms/PromReq_submissionForm/index.blade.php*/
 /*Route::get('/hamshs/forms/sciplan/{user_id}', [HamshController::class, 'sciplanindex'])->name('hamshs.forms.sciplanindex');*/
 
-Route::get('/hamshs/forms/PromReq_submissionForm/createRequestApplyingHamsh', [HamshController::class, 'createRequestApplyingHamsh'])->name('createRequestApplyingHamsh');
-
-Route::post('/hamshs/forms/PromReq_submissionForm/store', [HamshController::class, 'storeReqApplyingHamsh'])->name('storeReqApplyingHamsh');
 
 /*Route::get('/hamshs/forms/edit/{user_id}', [HamshController::class, 'storef'])->name('fillOutPaper');*/
 Route::post('hamshs/forms/createform/edit', [HamshController::class, 'editPaper'])->name('editPaper');
 Route::post('hamshs/forms/createform/update', [HamshController::class, 'updatePaper'])->name('updatePaper');
 
 /*requestapplying*/
+Route::get('/hamshs/forms/PromReq_submissionFormdd/index/{user_id}', [HamshController::class, 'requestApplyingindex'])->name('requestApplyingindex');
+Route::get('/hamshs/forms/PromReq_submissionForm/createRequestApplyingHamsh', [HamshController::class, 'createRequestApplyingHamsh'])->name('createRequestApplyingHamsh');
+Route::post('/hamshs/forms/PromReq_submissionForm/store', [HamshController::class, 'storeReqApplyingHamsh'])->name('storeReqApplyingHamsh');
 Route::get('/hamshs/PromReq_submissionForm/editHamshsciplan/{Ham_id}', [HamshController::class, 'editHamshProReq'])->name('hamshs.PromReq_submissionForm.forms.editHamsh');
 Route::put('/hamshs/PromReq_submissionForm/updateHamshsrequest_applying/{hamsh_id}', [HamshController::class, 'updateHamshsrequest_applying'])->name('hamshs.forms.updateHamshsrequest_applying');
-Route::get('/hamshs/forms/PromReq_submissionFormdd/index/{user_id}', [HamshController::class, 'requestApplyingindex'])->name('requestApplyingindex');
 Route::get('/hamshs/forms/PromReq_submissionForm/showHamsh/{Ham_id}', [HamshController::class, 'showHamshrequest_applying'])->name('hamshs.forms.showHamshrequest_applying');
 
 /*admins*/
@@ -132,9 +131,17 @@ Route::get('/hamshs/forms/AcademicReputationlistindex', [HamshController::class,
 /**
  *Scientific_Committee_minutes
  */
-Route::view('/administrators/Scientific_Committee_minutesindex', 'hamshs.forms.administrators.Scientific_Committee_minutesindex')->name('Scientific_Committee_minutesindex');// صفحة مسؤلين انجاز 'طلب الترقية'
+Route::get('/hamshs/forms/Scientific_Committee_minutes/index/{user_id}', [HamshController::class, 'Scientific_Committee_minutesindex'])->name('Scientific_Committeeindex');
+Route::get('/hamshs/forms/Scientific_Committee_minutes/createRequestApplyingHamsh', [HamshController::class, 'createRequestApplyingHamsh'])->name('createRequestApplyingHamsh');
+Route::post('/hamshs/forms/Scientific_Committee_minutes/store', [HamshController::class, 'storeReqApplyingHamsh'])->name('storeReqApplyingHamsh');
+Route::get('/hamshs/Scientific_Committee_minutes/editHamshsciplan/{Ham_id}', [HamshController::class, 'editHamshProReq'])->name('hamshs.PromReq_submissionForm.forms.editHamsh');
+Route::put('/hamshs/Scientific_Committee_minutes/updateHamshsrequest_applying/{hamsh_id}', [HamshController::class, 'updateHamshsrequest_applying'])->name('hamshs.forms.updateHamshsrequest_applying');
+Route::get('/hamshs/forms/Scientific_Committee_minutes/showHamsh/{Ham_id}', [HamshController::class, 'showHamshrequest_applying'])->name('hamshs.forms.showHamshrequest_applying');
+
+/*admin*/
+Route::view('/administrators/Scientific_Committee_minutesindex', 'hamshs.forms.administrators.Scientific_Committee_minutesindex')->name('AdminScientific_Committee_minutesindex');// صفحة مسؤلين انجاز 'طلب الترقية'
 Route::view('/administrators/Scientific_Committee_minutesListForAdmins', 'hamshs.forms.administrators.ScientificCommitteeListForAdmins')->name('ScientificCommitteeListForAdmins');// صفحة رئيس قسم انجاز 'طلب الترقية'
-Route::get('/hamshs/forms/RequestApplyinglistindex', [HamshController::class, 'RequestApplyinglistindex'])->name('hamshs.forms.RequestApplyinglistindex');
+Route::get('/hamshs/forms/Scientific_Committee_minuteslistindex', [HamshController::class, 'Scientific_Committee_minutesindex'])->name('Scientific_Committee_minutesindex');
 
 
 

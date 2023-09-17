@@ -6,13 +6,13 @@
             <div class="pull-left">
                 <h2>متطلبات الترقية- محضر اللجنة العلمية للترقية العلمية </h2>
 <h3>معاملات محضر اللجنة العلمية للترقية العلمية المطلوب انجازها</h3>
-            {{--    @role('HeadDepartment_Coll|admin')
-                <h3>رئيس قسم </h3>
+              @role('admin')
+                <h3>رئيس اللجنة العلمية </h3>
                 <br>
                 @foreach ($promotion_reqsForHeadDepartment_Coll as $req)
                     <br>
                     <a class="btn btn-info"
-                       href="{{ route('requestApplyingindex',$req->user_id) }}">
+                       href="{{ route('Scientific_Committeeindex',$req->user_id) }}">
                         ID
                         <br>
                         مقدم الطلب =
@@ -22,20 +22,21 @@
                     <br>
                 @endforeach
                 @endrole
-                @role('Dean')
-                <h3>العميد </h3>
-                <br>
-                @foreach ($promotion_reqsForCollage as $req)
-                    <br>
-                    <a class="btn btn-info"
-                       href="{{ route('hamshs.forms.sciplanindex',$req->user_id) }}">
-                        ID
-                        <br>
-                        مقدم الطلب =
-                        <br>
-                        {{$req->user_id}}
-                    </a>
-                @endforeach
-                <br>
-                @endrole--}}
+    {{--
+   @role('Dean')
+   <h3>العميد </h3>
+   <br>
+   @foreach ($promotion_reqsForCollage as $req)
+       <br>
+       <a class="btn btn-info"
+          href="{{ route('hamshs.forms.sciplanindex',$req->user_id) }}">
+           ID
+           <br>
+           مقدم الطلب =
+           <br>
+           {{$req->user_id}}
+       </a>
+   @endforeach
+   <br>
+   @endrole--}}
 @endsection

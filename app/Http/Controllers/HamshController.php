@@ -11,6 +11,7 @@ use App\Models\PositionsHeldBy;
 use App\Models\ProApplicationSummary;
 use App\Models\proreq;
 use App\Models\RequestApplying;
+use App\Models\ScientificCommittee_minute;
 use App\Models\SciPlan;
 use App\Models\selectData;
 use App\Models\PromotionReq;
@@ -89,7 +90,7 @@ class HamshController extends Controller
     {
         $a = Auth::user()->getRoleNames();
         if (count($a) > 0) {
-            if ($a->contains('admin')||$a->contains('رئيس قسم الكلية')) // use or with if condition
+            if ($a->contains('admin')||$a->contains('رئيس قسم الكلية')) // use or with if condition, modify if line by adding |$a->contains('رئيس اللجنة العلمية') وبعدها قيد الوصول الى محضر اللجنة العلمية ب المخولين فقط حتى لا يسمح ل رئيس القسم بالدخول الى محضر اللجنة العلمية
             {
                 $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
                     ->select('s.*', 'a.*')
@@ -164,6 +165,19 @@ $promotion_reqsForCollage=null;
             compact('request_applying', 'papers'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    public function Scientific_Committee_minutesindex( $user_id)
+    {
+        $user = User::find($user_id);
+
+        $PromotionReqUser = PromotionReq::where('user_id', $user->id)
+            ->latest('created_at')->first();
+        $ScientificCommittee = ScientificCommittee_minute::where('promotionReqs_id', $PromotionReqUser->id)->get()->first();
+
+        return view('hamshs.forms.Scientific_Comittee_minutes.index',
+            compact('PromotionReqUser','ScientificCommittee'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
 
     public function AcademicReputationindex( $user_id)
     {
