@@ -14,7 +14,7 @@
 
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>أضافة الهامش على استمارة تقديم الطلب</h2>
+            <h2>أضافة الهامش على محضر اللجنة العلمية للترقية العلمية</h2>
             {{--
                         <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
         --}}
@@ -22,11 +22,9 @@
             <br>
 
             <label>
-                نظراً لاستحقاقي الترقية العلمية الى مرتبة ( ) يرجى التفضل بالموافقة على ترويج معاملة ترقيتي وذلك
-                لاكمالي المدة القانونية اللازمة او قبل سنة من تاريخ استحقاق الترقية وفقا للفقرة (اولا – 1) من
-                القرار 315 لسنة 1988 ، علما انه تم أدارج بحوثي المقدمة للترقية العلمية :
-
+             sdsdsdsd
             </label>
+{{--
 
             <form action="{{ route('storeReqApplyingHamsh') }}" method="POST">
                 @csrf
@@ -41,7 +39,8 @@
                     </div>
                 </div>
                 @endrole
-                {{--
+                --}}
+{{--
                     @role('HeadDepartment_Coll|admin')
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
@@ -63,7 +62,8 @@
                         </div>
                         @endrole
 
---}}
+--}}{{--
+
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                     <button type="submit" class="btn btn-primary">حفظ</button>
                 </div>
@@ -74,6 +74,7 @@
 
 
     </div>
+--}}
 
     <br>
     <br>

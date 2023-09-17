@@ -105,6 +105,7 @@ Route::post('hamshs/forms/createform/edit', [HamshController::class, 'editPaper'
 Route::post('hamshs/forms/createform/update', [HamshController::class, 'updatePaper'])->name('updatePaper');
 
 /*requestapplying*/
+
 Route::get('/hamshs/forms/PromReq_submissionFormdd/index/{user_id}', [HamshController::class, 'requestApplyingindex'])->name('requestApplyingindex');
 Route::get('/hamshs/forms/PromReq_submissionForm/createRequestApplyingHamsh', [HamshController::class, 'createRequestApplyingHamsh'])->name('createRequestApplyingHamsh');
 Route::post('/hamshs/forms/PromReq_submissionForm/store', [HamshController::class, 'storeReqApplyingHamsh'])->name('storeReqApplyingHamsh');
@@ -114,7 +115,7 @@ Route::get('/hamshs/forms/PromReq_submissionForm/showHamsh/{Ham_id}', [HamshCont
 
 /*admins*/
 Route::view('/administrators/indexrequestApplying', 'hamshs.forms.administrators.indexrequestApplying')->name('hamshs.forms.administrators.indexrequestApplying');// صفحة مسؤلين انجاز 'طلب الترقية'
-Route::view('/administrators/requestApplyingListForAdmins', 'hamshs.forms.administrators.RequestApplyingListForAdmins')->name('hamshs.forms.administrators.RequestApplyingListForAdmins');// صفحة رئيس قسم انجاز 'طلب الترقية'
+Route::view('/administrators/requestApplyingListForAdmins', 'hamshs.forms.administrators.RequestApplyingListForAdmins')->name('hamshs.forms.administrators.RequestApplyingListForAdmins');// صفحة رئيس قسم انجاز 'طلب الترقية'اعتقد غير شغال
 Route::get('/hamshs/forms/RequestApplyinglistindex', [HamshController::class, 'RequestApplyinglistindex'])->name('hamshs.forms.RequestApplyinglistindex');
 
 /*AcademicReputation*/
@@ -132,7 +133,7 @@ Route::get('/hamshs/forms/AcademicReputationlistindex', [HamshController::class,
  *Scientific_Committee_minutes
  */
 Route::get('/hamshs/forms/Scientific_Committee_minutes/index/{user_id}', [HamshController::class, 'Scientific_Committee_minutesindex'])->name('Scientific_Committeeindex');
-Route::get('/hamshs/forms/Scientific_Committee_minutes/createRequestApplyingHamsh', [HamshController::class, 'createRequestApplyingHamsh'])->name('createRequestApplyingHamsh');
+Route::get('/hamshs/forms/Scientific_Committee_minutes/createScientific_Committee', [HamshController::class, 'createRequestApplyingHamsh'])->name('createScientific_Committee');
 Route::post('/hamshs/forms/Scientific_Committee_minutes/store', [HamshController::class, 'storeReqApplyingHamsh'])->name('storeReqApplyingHamsh');
 Route::get('/hamshs/Scientific_Committee_minutes/editHamshsciplan/{Ham_id}', [HamshController::class, 'editHamshProReq'])->name('hamshs.PromReq_submissionForm.forms.editHamsh');
 Route::put('/hamshs/Scientific_Committee_minutes/updateHamshsrequest_applying/{hamsh_id}', [HamshController::class, 'updateHamshsrequest_applying'])->name('hamshs.forms.updateHamshsrequest_applying');
@@ -140,8 +141,7 @@ Route::get('/hamshs/forms/Scientific_Committee_minutes/showHamsh/{Ham_id}', [Ham
 
 /*admin*/
 Route::view('/administrators/Scientific_Committee_minutesindex', 'hamshs.forms.administrators.Scientific_Committee_minutesindex')->name('AdminScientific_Committee_minutesindex');// صفحة مسؤلين انجاز 'طلب الترقية'
-Route::view('/administrators/Scientific_Committee_minutesListForAdmins', 'hamshs.forms.administrators.ScientificCommitteeListForAdmins')->name('ScientificCommitteeListForAdmins');// صفحة رئيس قسم انجاز 'طلب الترقية'
-Route::get('/hamshs/forms/Scientific_Committee_minuteslistindex', [HamshController::class, 'Scientific_Committee_minutesindex'])->name('Scientific_Committee_minutesindex');
+Route::get('/hamshs/forms/Scientific_Committee_minutesListForAdmins', [HamshController::class, 'Scientific_Committeelistindex'])->name('Scientific_Committeelistindex');
 
 
 

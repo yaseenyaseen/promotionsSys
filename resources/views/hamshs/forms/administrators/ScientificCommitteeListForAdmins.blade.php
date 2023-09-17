@@ -6,7 +6,7 @@
             <div class="pull-left">
                 <h2>متطلبات الترقية- محضر اللجنة العلمية للترقية العلمية </h2>
 <h3>معاملات محضر اللجنة العلمية للترقية العلمية المطلوب انجازها</h3>
-              @role('admin')
+              @role('admin'){{--add head depaertment role, add member role --}}
                 <h3>رئيس اللجنة العلمية </h3>
                 <br>
                 @foreach ($promotion_reqsForHeadDepartment_Coll as $req)

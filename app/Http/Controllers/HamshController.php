@@ -168,7 +168,6 @@ $promotion_reqsForCollage=null;
     public function Scientific_Committee_minutesindex( $user_id)
     {
         $user = User::find($user_id);
-
         $PromotionReqUser = PromotionReq::where('user_id', $user->id)
             ->latest('created_at')->first();
         $ScientificCommittee = ScientificCommittee_minute::where('promotionReqs_id', $PromotionReqUser->id)->get()->first();
@@ -334,6 +333,36 @@ $promotion_reqsForCollage=null;
 
     }
 
+
+    public function Scientific_Committeelistindex()
+    {
+
+        /* @role('HeadDepartment_Coll')
+         *
+         *
+         * @endrole
+         */
+        $a = Auth::user()->getRoleNames();
+        if (count($a) > 0) {
+            if ($a->contains('HeadDepartment_Coll') || $a->contains('admin')) {
+                $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
+                    ->select('s.*', 'a.*')
+                    ->join('promotion_reqs as a',
+                        's.id', '=', 'a.user_id')
+                    ->leftJoin('promotion_reqs as a1', function ($join) {
+                        $join->on('a.user_id', '=', 'a1.user_id')
+                            ->whereRaw(DB::raw('a.created_at < a1.created_at'));
+                    })
+                    ->whereNull('a1.user_id')
+                    ->where('department_id', Auth::user()->department_id)
+                    ->get();
+                return view('hamshs.forms.administrators.ScientificCommitteeListForAdmins',
+                    compact('promotion_reqsForHeadDepartment_Coll'))
+                    ->with('i', (request()->input('page', 1) - 1) * 5);
+
+            }
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -360,6 +389,14 @@ $promotion_reqsForCollage=null;
         return view('hamshs.forms.PromReq_submissionForm.createRequestApplyingHamsh');
 
     }
+
+    public function createScientific_Committee()
+    {
+        //
+        return view('hamshs.forms.Scientific_Comittee_minutes.create');
+
+    }
+
 
     public function createAcademicReputationHamsh()
     {

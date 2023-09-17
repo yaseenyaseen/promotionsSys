@@ -5,7 +5,7 @@
 
     @role('admin') {{--add role of رئيس اللجنة العلمية--}}
     <div class="pull-right">
-        <a class="btn btn-secondary" href="{{ route('ScientificCommitteeListForAdmins')}}"> رئيس اللجنة العلمية </a>
+        <a class="btn btn-secondary" href="{{ route('Scientific_Committeelistindex')}}"> رئيس اللجنة العلمية </a>
        {{-- the above line call a function named "sciplanlistindex" in the controller without need to send $user as a parameter.
           and it is accecpted bcs the destination page (call) does  not need a specific variable.--}}{{--
     </div>
