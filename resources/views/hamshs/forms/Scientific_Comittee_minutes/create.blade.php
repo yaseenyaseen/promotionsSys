@@ -22,24 +22,24 @@
             <br>
 
             <label>
-             sdsdsdsd
-            </label>
-{{--
+{{$user_id
+}}            </label>
 
-            <form action="{{ route('storeReqApplyingHamsh') }}" method="POST">
+            <form action="{{ route('storeScientific_Committee_minutes') }}" method="POST">
                 @csrf
 
-                @role('Applicant|admin')
+                <input id="user_id" name="user_id" type="hidden" value="{{$user_id}}">
+
+                @role('admin')
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>هامش السيد مقدم الطلب:</strong>
-                        <input type="text" name="Applicant_hamsh" class="form-control"
+                        <input type="text" name="headCommitee_hamsh" class="form-control"
                                placeholder="هامش السيد مقدم الطلب">
                     </div>
                 </div>
                 @endrole
-                --}}
 {{--
                     @role('HeadDepartment_Coll|admin')
                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -62,19 +62,15 @@
                         </div>
                         @endrole
 
---}}{{--
+--}}
 
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                     <button type="submit" class="btn btn-primary">حفظ</button>
                 </div>
-
             </form>
-
         </div>
-
-
     </div>
---}}
+
 
     <br>
     <br>

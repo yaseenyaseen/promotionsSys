@@ -173,7 +173,7 @@ $promotion_reqsForCollage=null;
         $ScientificCommittee = ScientificCommittee_minute::where('promotionReqs_id', $PromotionReqUser->id)->get()->first();
 
         return view('hamshs.forms.Scientific_Comittee_minutes.index',
-            compact('PromotionReqUser','ScientificCommittee'))
+            compact('PromotionReqUser','ScientificCommittee','user_id'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -390,10 +390,19 @@ $promotion_reqsForCollage=null;
 
     }
 
-    public function createScientific_Committee()
+    public function createScientific_Committee($user_id)
     {
         //
-        return view('hamshs.forms.Scientific_Comittee_minutes.create');
+        $user = User::find($user_id);
+        $PromotionReqUser = PromotionReq::where('user_id', $user->id)
+            ->latest('created_at')->first();
+        $ScientificCommittee = ScientificCommittee_minute::where('promotionReqs_id', $PromotionReqUser->id)->get()->first();
+        return view('hamshs.forms.Scientific_Comittee_minutes.create',
+            compact('PromotionReqUser','ScientificCommittee','user_id'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+
+        //
+      //  return view('hamshs.forms.Scientific_Comittee_minutes.create');
 
     }
 
@@ -598,6 +607,31 @@ $promotion_reqsForCollage=null;
             ->with('success', 'تم البدء بترويج استمارة تقديم الطلب بنجاح.');
     }
 
+    public function storeScientific_Committee_minutes(Request $request)
+    {
+
+        $request->validate([]);
+        //SciPlan::create($request->all());
+        ScientificCommittee_minute::create($request->all());
+        $HForm_id = ScientificCommittee_minute::latest('created_at')->value('id');//HFrorm means the hamsh form of RequestApplying.
+        $HForm = ScientificCommittee_minute::find($HForm_id);
+/*
+ * how to select applicant user ID*/
+
+        $reqsos = PromotionReq::where('user_id',$request->user_id)->latest('created_at')->first();// Q/ last promotion request only
+        $proreq_id = $reqsos->id;
+
+        $HForm->promotionReqs_id = $proreq_id;
+        $HForm->headCommitee_createdat = Carbon::now();
+
+      /*  $HForm->Applicant_Id = Auth::user()->id;*/
+        // check below timestamp is it correct? as it seems it is not store the correct time of head department.
+       /* $HForm->Sci_Dep_createdAt = Carbon::now();*/
+
+        $HForm->save();
+        return redirect()->route('Scientific_Committeeindex', $request->user_id)
+            ->with('success', 'تم البدء بترويج محضر اللجنة العلمية للترقية العلمية.');
+    }
     public function storeAcademicReputationHamsh(Request $request)
     {
         $request->validate([]);
@@ -698,11 +732,11 @@ $promotion_reqsForCollage=null;
 
     }
 
-    public function showHamshrequest_applying(RequestApplying $Ham_id)
+    public function showScientific_Committee(ScientificCommittee_minute $Ham_id)
     {
         //
         $hamsh = $Ham_id;
-        return view('hamshs.forms.PromReq_submissionForm.showHamshsciplan', compact('hamsh'));
+        return view('hamshs.forms.Scientific_Comittee_minutes.print', compact('hamsh'));
     }
 
     public function showHamshAcademicReputation(AcademicReputation $Ham_id)
@@ -850,6 +884,12 @@ $isDegree=true;
 
         return view('hamshs.forms.PromReq_submissionForm.editHamshsciplan', compact('hamsh'));
     }
+    public function editScientific_Committee_minutes(ScientificCommittee_minute $Ham_id)
+    {
+        $hamsh = $Ham_id;
+        return view('hamshs.forms.Scientific_Comittee_minutes.edit', compact('hamsh'));
+    }
+
 
     public function editHamshAcademicReputation(AcademicReputation $Ham_id)
     {
@@ -1338,7 +1378,6 @@ if($isDegree==1){
         $request->flash();
         return view("auth.assign_role", compact("rolesList", "users_roles"));
     }
-
 // End follwoing functions without calls!
     private function getUsers_rolesById($id): object
     {
@@ -1353,6 +1392,4 @@ if($isDegree==1){
             $users_roles = [];
         return $users_roles;
     }
-
-
 }

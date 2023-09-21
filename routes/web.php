@@ -133,11 +133,11 @@ Route::get('/hamshs/forms/AcademicReputationlistindex', [HamshController::class,
  *Scientific_Committee_minutes
  */
 Route::get('/hamshs/forms/Scientific_Committee_minutes/index/{user_id}', [HamshController::class, 'Scientific_Committee_minutesindex'])->name('Scientific_Committeeindex');
-Route::get('/hamshs/forms/Scientific_Committee_minutes/createScientific_Committee', [HamshController::class, 'createRequestApplyingHamsh'])->name('createScientific_Committee');
-Route::post('/hamshs/forms/Scientific_Committee_minutes/store', [HamshController::class, 'storeReqApplyingHamsh'])->name('storeReqApplyingHamsh');
-Route::get('/hamshs/Scientific_Committee_minutes/editHamshsciplan/{Ham_id}', [HamshController::class, 'editHamshProReq'])->name('hamshs.PromReq_submissionForm.forms.editHamsh');
+Route::get('/hamshs/forms/Scientific_Committee_minutes/createScientific_Committee/{user_id}', [HamshController::class, 'createScientific_Committee'])->name('createScientific_Committee');
+Route::post('/hamshs/forms/Scientific_Committee_minutes/store', [HamshController::class, 'storeScientific_Committee_minutes'])->name('storeScientific_Committee_minutes');
+Route::get('/hamshs/Scientific_Committee_minutes/edit/{Ham_id}', [HamshController::class, 'editScientific_Committee_minutes'])->name('editScientific_Committee_minutes');
 Route::put('/hamshs/Scientific_Committee_minutes/updateHamshsrequest_applying/{hamsh_id}', [HamshController::class, 'updateHamshsrequest_applying'])->name('hamshs.forms.updateHamshsrequest_applying');
-Route::get('/hamshs/forms/Scientific_Committee_minutes/showHamsh/{Ham_id}', [HamshController::class, 'showHamshrequest_applying'])->name('hamshs.forms.showHamshrequest_applying');
+Route::get('/hamshs/forms/Scientific_Committee_minutes/show/{Ham_id}', [HamshController::class, 'showScientific_Committee'])->name('showScientific_Committee');
 
 /*admin*/
 Route::view('/administrators/Scientific_Committee_minutesindex', 'hamshs.forms.administrators.Scientific_Committee_minutesindex')->name('AdminScientific_Committee_minutesindex');// صفحة مسؤلين انجاز 'طلب الترقية'

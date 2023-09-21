@@ -22,21 +22,5 @@
                     <br>
                 @endforeach
                 @endrole
-    {{--
-   @role('Dean')
-   <h3>العميد </h3>
-   <br>
-   @foreach ($promotion_reqsForCollage as $req)
-       <br>
-       <a class="btn btn-info"
-          href="{{ route('hamshs.forms.sciplanindex',$req->user_id) }}">
-           ID
-           <br>
-           مقدم الطلب =
-           <br>
-           {{$req->user_id}}
-       </a>
-   @endforeach
-   <br>
-   @endrole--}}
+
 @endsection
