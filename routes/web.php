@@ -136,7 +136,7 @@ Route::get('/hamshs/forms/Scientific_Committee_minutes/index/{user_id}', [HamshC
 Route::get('/hamshs/forms/Scientific_Committee_minutes/createScientific_Committee/{user_id}', [HamshController::class, 'createScientific_Committee'])->name('createScientific_Committee');
 Route::post('/hamshs/forms/Scientific_Committee_minutes/store', [HamshController::class, 'storeScientific_Committee_minutes'])->name('storeScientific_Committee_minutes');
 Route::get('/hamshs/Scientific_Committee_minutes/edit/{Ham_id}', [HamshController::class, 'editScientific_Committee_minutes'])->name('editScientific_Committee_minutes');
-Route::put('/hamshs/Scientific_Committee_minutes/updateHamshsrequest_applying/{hamsh_id}', [HamshController::class, 'updateHamshsrequest_applying'])->name('hamshs.forms.updateHamshsrequest_applying');
+Route::put('/hamshs/Scientific_Committee_minutes/update/{hamsh_id}', [HamshController::class, 'updateScientific_Committee_minutes'])->name('updateScientific_Committee_minutes');
 Route::get('/hamshs/forms/Scientific_Committee_minutes/show/{Ham_id}', [HamshController::class, 'showScientific_Committee'])->name('showScientific_Committee');
 
 /*admin*/

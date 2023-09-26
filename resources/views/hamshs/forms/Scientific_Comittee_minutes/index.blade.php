@@ -28,9 +28,6 @@
                             </a>
                         </div>
                     @else
-
-
-
                         <div class="pull-right">
                             <a class="btn btn-success" href={{route('NewApplicationBoard')}}> صفحة الاستمارات المطلوبة</a>
                         </div>

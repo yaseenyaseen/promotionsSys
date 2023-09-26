@@ -1173,7 +1173,6 @@ if($isDegree==1){
 
     public function updateHamshsrequest_applying(Request $request, RequestApplying $hamsh_id)
     {
-
         // $hamsh = SciPlan::find($hamsh_id)[0];
         $hamsh = $hamsh_id;
 
@@ -1194,6 +1193,18 @@ if($isDegree==1){
         return redirect()->route('requestApplyingindex', compact('user_id'))
             ->with('success', 'تم تعديل استمارة تقديم الطلب بنجاح.');
     }
+    public function updateScientific_Committee_minutes(Request $request, ScientificCommittee_minute $hamsh_id)
+    {
+        $hamsh = $hamsh_id;
+        $hamsh->update($request->all());
+        $ScientificCommittee_minute = $hamsh;
+        $PromotionReq = PromotionReq::where('id', $ScientificCommittee_minute->promotionReqs_id)->latest('created_at')->first();
+        $user_id = $PromotionReq->user_id;
+        return redirect()->route('Scientific_Committeeindex', compact('user_id'))
+            ->with('success', 'تم تعديل محضر اللجنة العلمية للترقية العلمية بنجاح.');
+    }
+
+
 
     public function updateHamshAcademicReputation(Request $request, AcademicReputation $hamsh_id)
     {
