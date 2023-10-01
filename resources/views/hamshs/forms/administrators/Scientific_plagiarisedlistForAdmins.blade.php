@@ -4,15 +4,15 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>متطلبات الترقية- محضر اللجنة العلمية للترقية العلمية </h2>
-<h3>معاملات محضر اللجنة العلمية للترقية العلمية المطلوب انجازها</h3>
+                <h2>متطلبات الترقية- محضر  الاستلال العلمي للترقية العلمية </h2>
+<h3>معاملات محضر الاستلال العلمي للترقية العلمية المطلوب انجازها</h3>
               @role('admin'){{--add head depaertment role, add member role --}}
-                <h3>رئيس اللجنة العلمية </h3>
+                <h3>رئيس لجنة الاستلال</h3>
                 <br>
                 @foreach ($promotion_reqsForHeadDepartment_Coll as $req)
                     <br>
                     <a class="btn btn-info"
-                       href="{{ route('Scientific_Committeeindex',$req->user_id) }}">
+                       href="{{ route('Scientific_plagiarised_minutesindex',$req->user_id) }}">
                         ID
                         <br>
                         مقدم الطلب =

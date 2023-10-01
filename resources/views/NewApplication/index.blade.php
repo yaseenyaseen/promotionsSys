@@ -89,6 +89,11 @@
                 <a class="btn btn-secondary"
                    href="{{ route('AdminScientific_Committee_minutesindex') }}"> محضر اللجنة العلمية </a>
             </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 py-3">
+                <a class="btn btn-secondary"
+                   href="{{ route('AdminScientific_plagiarised_minutesindex') }}"> محضر الاستلال العلمي </a>
+            </div>
+
         </div>
 
         @endrole

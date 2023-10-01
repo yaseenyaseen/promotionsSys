@@ -104,6 +104,7 @@
                                 </label>
                             </div>
                         </div>--}}
+
                     <div class="form-check col-sm-12 col-md-6 col-lg-4  py-2">
                         <input type="checkbox" name="Ispubished" class="form-check-input"
                                value="1" {{ $selectedPaper->Ispubished ? 'checked="checked"' : '' }}/>
@@ -194,6 +195,21 @@
                             {{--   todo: following columns should be filledout from controller.
                    $table->integer('headCommitee_ID')->nullable();
                       $table->timestamp('headCommitee_createdat')->nullable();--}}
+
+
+
+                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                                <label for="autherName">اسماء الباحثين المشاركين في البحث</label>
+                                <input type="textarea" class="form-control" name="autherName"
+                                       value="{{ $co_auther->autherName }}"></inputtextarea>
+                            </div>
+
+                            <div class="form-group col-sm-12 col-md-6 col-lg-12">
+                                <label for="order">التسلسل</label>
+                                <input type="number" name="order" id="order"
+                                       value="{{ $co_auther->order}}"
+                                       min="0">
+                            </div>
 
                             <div class="form-group col-sm-12 col-md-12 col-lg-12">
                                 <label for="plagiarised_Details">تفاصيل الاستلال</label>
@@ -629,7 +645,18 @@
                             </select>
                         </div>
                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="plagiarised_Details">تفاصيل الاستلال</label>
+                            <label for="autherName">اسماء الباحثين المشاركين في البحث</label>
+                            <textarea class="form-control" style="height:80px" name="autherName"
+                                      placeholder="autherName"></textarea>
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-6 col-lg-12 py-2">
+                            <label for="order"> التسلسل:</label>
+                            <input type="number" name="order" id="order" min="0">
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <label for="plagiarised_Details"> تفاصيل الاستلال</label>
                             <textarea class="form-control" style="height:80px" name="plagiarised_Details"
                                       placeholder="plagiarised_Details"></textarea>
                         </div>

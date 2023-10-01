@@ -133,7 +133,7 @@ Route::get('/hamshs/forms/AcademicReputationlistindex', [HamshController::class,
  *Scientific_Committee_minutes
  */
 Route::get('/hamshs/forms/Scientific_Committee_minutes/index/{user_id}', [HamshController::class, 'Scientific_Committee_minutesindex'])->name('Scientific_Committeeindex');
-Route::get('/hamshs/forms/Scientific_Committee_minutes/createScientific_Committee/{user_id}', [HamshController::class, 'createScientific_Committee'])->name('createScientific_Committee');
+Route::get('/hamshs/forms/Scientific_Committee_minutes/createScientific_Committee/{user_id}', [HamshController::class, 'createScientific_plagiarised_minutes'])->name('createScientific_Committee');
 Route::post('/hamshs/forms/Scientific_Committee_minutes/store', [HamshController::class, 'storeScientific_Committee_minutes'])->name('storeScientific_Committee_minutes');
 Route::get('/hamshs/Scientific_Committee_minutes/edit/{Ham_id}', [HamshController::class, 'editScientific_Committee_minutes'])->name('editScientific_Committee_minutes');
 Route::put('/hamshs/Scientific_Committee_minutes/update/{hamsh_id}', [HamshController::class, 'updateScientific_Committee_minutes'])->name('updateScientific_Committee_minutes');
@@ -143,6 +143,19 @@ Route::get('/hamshs/forms/Scientific_Committee_minutes/show/{Ham_id}', [HamshCon
 Route::view('/administrators/Scientific_Committee_minutesindex', 'hamshs.forms.administrators.Scientific_Committee_minutesindex')->name('AdminScientific_Committee_minutesindex');// صفحة مسؤلين انجاز 'طلب الترقية'
 Route::get('/hamshs/forms/Scientific_Committee_minutesListForAdmins', [HamshController::class, 'Scientific_Committeelistindex'])->name('Scientific_Committeelistindex');
 
+/**
+ *Scientific_plagiarised_minutes
+ */
+Route::get('/hamshs/forms/Scientific_plagiarised_minutes/index/{user_id}', [HamshController::class, 'Scientific_plagiarised_minutesindex'])->name('Scientific_plagiarised_minutesindex');
+Route::get('/hamshs/forms/Scientific_plagiarised_minutes/create/{user_id}', [HamshController::class, 'createScientific_plagiarised_minutes'])->name('createScientific_plagiarised_minutes');
+Route::post('/hamshs/forms/Scientific_plagiarised_minutes/store', [HamshController::class, 'storeScientific_plagiarised_minutes'])->name('storeScientific_plagiarised_minutes');
+Route::get('/hamshs/Scientific_plagiarised_minutes/edit/{Ham_id}', [HamshController::class, 'editScientific_plagiarised_minutes'])->name('editScientific_plagiarised_minutes');
+Route::put('/hamshs/Scientific_plagiarised_minutes/update/{hamsh_id}', [HamshController::class, 'updateScientific_plagiarised_minutes'])->name('updateScientific_plagiarised_minutes');
+Route::get('/hamshs/forms/Scientific_plagiarised_minutes/show/{Ham_id}', [HamshController::class, 'showScientific_plagiarised_minutes'])->name('showScientific_plagiarised_minutes');
+
+/*admin*/
+Route::view('/administrators/Scientific_plagiarised_minutesindex', 'hamshs.forms.administrators.Scientific_plagiarised_minutesindex')->name('AdminScientific_plagiarised_minutesindex');// صفحة مسؤلين انجاز 'طلب الترقية'
+Route::get('/hamshs/forms/Scientific_plagiarised_minutesListForAdmins', [HamshController::class, 'Scientific_plagiarised_minuteslistindex'])->name('Scientific_plagiarised_minuteslistindex');
 
 
 /*positionsDegrees*/

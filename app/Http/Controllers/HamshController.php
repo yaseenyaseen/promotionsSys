@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AcademicReputation;
+use App\Models\CoAuther;
 use App\Models\Degree;
 use App\Models\Form;
 use App\Models\Hamsh;
@@ -12,6 +13,7 @@ use App\Models\ProApplicationSummary;
 use App\Models\proreq;
 use App\Models\RequestApplying;
 use App\Models\ScientificCommittee_minute;
+use App\Models\ScientificPlagiarisedMinute;
 use App\Models\SciPlan;
 use App\Models\selectData;
 use App\Models\PromotionReq;
@@ -174,6 +176,18 @@ $promotion_reqsForCollage=null;
 
         return view('hamshs.forms.Scientific_Comittee_minutes.index',
             compact('PromotionReqUser','ScientificCommittee','user_id'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function Scientific_plagiarised_minutesindex( $user_id)
+    {
+        $user = User::find($user_id);
+        $PromotionReqUser = PromotionReq::where('user_id', $user->id)
+            ->latest('created_at')->first();
+        $ScientificPlagiarisedMinute = ScientificPlagiarisedMinute::where('promotionReqs_id', $PromotionReqUser->id)->get()->first();
+
+        return view('hamshs.forms.Scientific_plagiarised_minutes.index',
+            compact('PromotionReqUser','ScientificPlagiarisedMinute','user_id'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -344,7 +358,7 @@ $promotion_reqsForCollage=null;
          */
         $a = Auth::user()->getRoleNames();
         if (count($a) > 0) {
-            if ($a->contains('HeadDepartment_Coll') || $a->contains('admin')) {
+            if ($a->contains('admin')) {
                 $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
                     ->select('s.*', 'a.*')
                     ->join('promotion_reqs as a',
@@ -363,6 +377,36 @@ $promotion_reqsForCollage=null;
             }
         }
     }
+    public function Scientific_plagiarised_minuteslistindex()
+    {
+
+        /* @role('HeadDepartment_Coll')
+         *
+         *
+         * @endrole
+         */
+        $a = Auth::user()->getRoleNames();
+        if (count($a) > 0) {
+            if ($a->contains('HeadDepartment_Coll') || $a->contains('admin')) {
+                $promotion_reqsForHeadDepartment_Coll = DB::table('users as s')
+                    ->select('s.*', 'a.*')
+                    ->join('promotion_reqs as a',
+                        's.id', '=', 'a.user_id')
+                    ->leftJoin('promotion_reqs as a1', function ($join) {
+                        $join->on('a.user_id', '=', 'a1.user_id')
+                            ->whereRaw(DB::raw('a.created_at < a1.created_at'));
+                    })
+                    ->whereNull('a1.user_id')
+                    ->where('department_id', Auth::user()->department_id)
+                    ->get();
+                return view('hamshs.forms.administrators.Scientific_plagiarisedlistForAdmins',
+                    compact('promotion_reqsForHeadDepartment_Coll'))
+                    ->with('i', (request()->input('page', 1) - 1) * 5);
+
+            }
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -406,7 +450,17 @@ $promotion_reqsForCollage=null;
 
     }
 
-
+    public function createScientific_plagiarised_minutes($user_id)
+    {
+        //
+        $user = User::find($user_id);
+        $PromotionReqUser = PromotionReq::where('user_id', $user->id)
+            ->latest('created_at')->first();
+        $ScientificPlagiarisedMinute = ScientificPlagiarisedMinute::where('promotionReqs_id', $PromotionReqUser->id)->get()->first();
+        return view('hamshs.forms.Scientific_plagiarised_minutes.create',
+            compact('user_id'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
     public function createAcademicReputationHamsh()
     {
         //
@@ -424,7 +478,7 @@ $promotion_reqsForCollage=null;
         $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
             ->latest('created_at')->first();
         //$papers = Paper::where('promotionReqs_id', $PromotionReqUser->id)->get();
-        return $this->returnViewCreateForm($PromotionReqUser->id, null);
+        return $this->returnViewCreateForm($PromotionReqUser->id, null,null);
         /*        return view('hamshs.forms.createform');*/
 
     }
@@ -544,6 +598,12 @@ $promotion_reqsForCollage=null;
         $HForm->promotionReqs_id = $proreq_id;
 
         $HForm->save();
+        CoAuther::create($request->all());
+        $HForm_id2 = CoAuther::latest('created_at')->value('id');//HFrorm means the hamsh form.
+        $HForm2 = CoAuther::find($HForm_id2);
+        $HForm2->papers_id = $HForm_id;
+        $HForm2->save();
+
         return redirect()->route('createpapersdata')
             ->with('success', 'Hamsh created successfully.');
         //todo: consider the below code of edit form: //
@@ -632,6 +692,33 @@ $promotion_reqsForCollage=null;
         return redirect()->route('Scientific_Committeeindex', $request->user_id)
             ->with('success', 'تم البدء بترويج محضر اللجنة العلمية للترقية العلمية.');
     }
+
+    public function storeScientific_plagiarised_minutes(Request $request)
+    {
+        $request->validate([]);
+        ScientificPlagiarisedMinute::create($request->all());
+        $ScientificPlagiarisedMinute_id = ScientificPlagiarisedMinute::latest('created_at')->value('id');//HFrorm means the hamsh form of RequestApplying.
+        $ScientificPlagiarisedMinute = ScientificPlagiarisedMinute::find($ScientificPlagiarisedMinute_id);
+        /*
+         * how to select applicant user ID*/
+
+        $reqsos = PromotionReq::where('user_id',$request->user_id)->latest('created_at')->first();// Q/ last promotion request only
+        $proreq_id = $reqsos->id;
+
+        $ScientificPlagiarisedMinute->promotionReqs_id = $proreq_id;
+        $ScientificPlagiarisedMinute->headCommitee_createdat = Carbon::now();
+
+        $ScientificPlagiarisedMinute->headCommitee_ID = Auth::user()->id;
+        // check below timestamp is it correct? as it seems it is not store the correct time of head department.
+        /* $HForm->Sci_Dep_createdAt = Carbon::now();*/
+
+        $ScientificPlagiarisedMinute->save();
+        return redirect()->route('Scientific_plagiarised_minutesindex', $request->user_id)
+            ->with('success', 'تم البدء بترويج محضر الاستلال العلمي للترقية العلمية.');
+    }
+
+
+
     public function storeAcademicReputationHamsh(Request $request)
     {
         $request->validate([]);
@@ -737,6 +824,13 @@ $promotion_reqsForCollage=null;
         //
         $hamsh = $Ham_id;
         return view('hamshs.forms.Scientific_Comittee_minutes.print', compact('hamsh'));
+    }
+
+    public function showScientific_plagiarised_minutes(ScientificPlagiarisedMinute $Ham_id)
+    {
+        //
+        $hamsh = $Ham_id;
+        return view('hamshs.forms.Scientific_plagiarised_minutes.print', compact('hamsh'));
     }
 
     public function showHamshAcademicReputation(AcademicReputation $Ham_id)
@@ -859,7 +953,10 @@ $isDegree=true;
         $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
             ->latest('created_at')->first();
         //$papers = Paper::where('promotionReqs_id', $PromotionReqUser->id)->get();
-        return $this->returnViewCreateForm($PromotionReqUser->id, $selectedPaper);
+        $selectedco_authers = CoAuther::where('papers_id', $selectedOptionId)->first();
+
+
+        return $this->returnViewCreateForm($PromotionReqUser->id, $selectedPaper,$selectedco_authers);
 //        return view('hamshs.forms.createform', ['option' => $selectedOption],
 //        compact('papers'));
     }
@@ -888,6 +985,12 @@ $isDegree=true;
     {
         $hamsh = $Ham_id;
         return view('hamshs.forms.Scientific_Comittee_minutes.edit', compact('hamsh'));
+    }
+
+    public function editScientific_plagiarised_minutes(ScientificPlagiarisedMinute $Ham_id)
+    {
+        $hamsh = $Ham_id;
+        return view('hamshs.forms.Scientific_plagiarised_minutes.edit', compact('hamsh'));
     }
 
 
@@ -1204,6 +1307,16 @@ if($isDegree==1){
             ->with('success', 'تم تعديل محضر اللجنة العلمية للترقية العلمية بنجاح.');
     }
 
+    public function updateScientific_plagiarised_minutes(Request $request, ScientificPlagiarisedMinute $hamsh_id)
+    {
+        $hamsh = $hamsh_id;
+        $hamsh->update($request->all());
+        $ScientificPlagiarisedMinute = $hamsh;
+        $PromotionReq = PromotionReq::where('id', $ScientificPlagiarisedMinute->promotionReqs_id)->latest('created_at')->first();
+        $user_id = $PromotionReq->user_id;
+        return redirect()->route('Scientific_plagiarised_minutesindex', compact('user_id'))
+            ->with('success', 'تم تعديل محضر الاستلال العلمي للترقية العلمية بنجاح.');
+    }
 
 
     public function updateHamshAcademicReputation(Request $request, AcademicReputation $hamsh_id)
@@ -1305,11 +1418,12 @@ if($isDegree==1){
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function returnViewCreateForm($id, $selectedPaper = null)
+    public function returnViewCreateForm($id, $selectedPaper = null, $selectedco_authers)
     {
         $papers = Paper::where('promotionReqs_id', $id)->get();
+        $co_auther=$selectedco_authers;
         return view('hamshs.forms.createform',
-            compact('papers', 'selectedPaper')) // how the option hold a selected paper? as in method definition = null
+            compact('papers', 'selectedPaper','co_auther')) // how the option hold a selected paper? as in method definition = null
         ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
