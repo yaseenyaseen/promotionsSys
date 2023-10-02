@@ -644,18 +644,7 @@
                                 <option value="3">مجلات عربية وعراقية</option>
                             </select>
                         </div>
-
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <label for="autherName">اسماء الباحثين المشاركين في البحث</label>
-                            <textarea class="form-control" style="height:80px" name="autherName"
-                                      placeholder="autherName"></textarea>
-                        </div>
-
-                        <div class="form-group col-sm-12 col-md-6 col-lg-12 py-2">
-                            <label for="order"> التسلسل:</label>
-                            <input type="number" name="order" id="order" min="0">
-                        </div>
-
+                        <label >اسماء الباحثين المشاركين في البحث</label>
                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
                             <label for="autherName">الباحث المشارك</label>
                             <textarea class="form-control" style="height:80px" name="autherName"
@@ -667,6 +656,16 @@
                             <input type="number" name="order" id="order" min="0">
                         </div>
 
+                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <label for="autherName1">الباحث المشارك</label>
+                            <textarea class="form-control" style="height:80px" name="autherName1"
+                                      placeholder="autherName1"></textarea>
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-6 col-lg-12 py-2">
+                            <label for="order1"> التسلسل:</label>
+                            <input type="number" name="order1" id="order1" min="0">
+                        </div>
 
                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
                             <label for="plagiarised_Details"> تفاصيل الاستلال</label>

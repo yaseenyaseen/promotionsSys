@@ -589,20 +589,46 @@ $promotion_reqsForCollage=null;
         $request->validate([]);
         Paper::create($request->all());
         $HForm_id = Paper::latest('created_at')->value('id');//HFrorm means the hamsh form.
-
         $HForm = Paper::find($HForm_id);
-
         $reqsos = PromotionReq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
         $proreq_id = $reqsos->id;
-
         $HForm->promotionReqs_id = $proreq_id;
-
         $HForm->save();
+/*
         CoAuther::create($request->all());
         $HForm_id2 = CoAuther::latest('created_at')->value('id');//HFrorm means the hamsh form.
         $HForm2 = CoAuther::find($HForm_id2);
         $HForm2->papers_id = $HForm_id;
-        $HForm2->save();
+
+
+        $HForm2->save();*/
+
+        if ($request->autherName != null)
+        {
+            $HForm_id = Paper::latest('created_at')->value('id');
+            CoAuther::create($request->all());
+            $HForm_id2 = CoAuther::latest('created_at')->value('id');//HFrorm means the hamsh form.
+            $HForm2 = CoAuther::find($HForm_id2);
+            $HForm2->papers_id =  $HForm_id;
+            //  dd($HForm3->papers_id);
+            $HForm2->autherName = $request->autherName;
+            $HForm2->order = $request->order;
+            $HForm2->save();
+        }
+
+        if ($request->autherName1 != null)
+        {
+            $HForm_idt = Paper::latest('created_at')->value('id');
+            CoAuther::create($request->all());
+            $HForm_id3 = CoAuther::latest('created_at')->value('id');//HFrorm means the hamsh form.
+            $HForm3 = CoAuther::find($HForm_id3);
+            $HForm3->papers_id =  $HForm_idt;
+          //  dd($HForm3->papers_id);
+            $HForm3->autherName = $request->autherName1;
+            $HForm3->order = $request->order1;
+            $HForm3->save();
+        }
+
 
         return redirect()->route('createpapersdata')
             ->with('success', 'Hamsh created successfully.');
