@@ -1170,8 +1170,16 @@ $isDegree=true;
         $option->supportedPaper = $request->has('supportedPaper');
         $option->Is_suppPaper_In_SciPlan = $request->has('Is_suppPaper_In_SciPlan');
         $option->save();
-        $selectedco_authers = $request->input('selectedco_authers');
-        dd($selectedco_authers);
+
+
+
+        $selectedco_autherA = CoAuther::find($request->selectedco_auther_id);
+        $selectedco_autherA->autherName = $request->selectedco_auther_name;
+        $selectedco_autherA->order = $request->selectedco_auther_order;
+        $selectedco_autherA->save();
+/*add second auther info*/
+
+
 /*
         foreach($selectedco_authers as $selectedco_auther){
             $selectedco_autherA = CoAuther::find($selectedco_auther['id']);

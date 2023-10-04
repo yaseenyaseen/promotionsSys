@@ -217,14 +217,28 @@
                             <br>
                         @endforeach
                         {{ $selectedco_authers }}
-                        <input type="hidden" name="$selectedco_authers" value="{{ $selectedco_authers }}">
-                        @foreach($selectedco_authers as $selectedco_auther)
-                            <tr>
-                                <td>{{$selectedco_auther->id}} <input type="hidden" name="selectedco_auther[{{$loop->index}}][id]" value="{{$selectedco_auther->id}}"></td>
-                                <td><input type="text" name="selectedco_auther[{{$loop->index}}][autherName]" value="{{$selectedco_auther->autherName}}"></td>
-                                <td><input type="number" name="selectedco_auther[{{$loop->index}}][order]" value="{{$selectedco_auther->order}}"></td>
-                            </tr>
-                        @endforeach
+                        <br>
+
+                        <td>{{$selectedco_authers[0]->id}} <input type="hidden" name="selectedco_auther_id" value="{{$selectedco_authers[0]->id}}"></td>
+                        <td><input type="text" name="selectedco_auther_name" value="{{$selectedco_authers[0]->autherName}}"></td>
+                        <td><input type="number" name="selectedco_auther_order" value="{{$selectedco_authers[0]->order}}"></td>
+
+                        <td>{{$selectedco_authers[1]->id}} <input type="hidden" name="selectedco_auther1-id" value="{{$selectedco_authers[1]->id}}"></td>
+                        <td><input type="text" name="selectedco_auther1-name" value="{{$selectedco_authers[1]->autherName}}"></td>
+                        <td><input type="number" name="selectedco_auther1-order" value="{{$selectedco_authers[1]->order}}"></td>
+
+
+
+
+                        {{--
+                                                <input type="hidden" name="$selectedco_authers" value="{{ $selectedco_authers }}">
+                                                @foreach($selectedco_authers as $selectedco_auther)
+                                                    <tr>
+                                                        <td>{{$selectedco_auther->id}} <input type="hidden" name="selectedco_auther[{{$loop->index}}][id]" value="{{$selectedco_auther->id}}"></td>
+                                                        <td><input type="text" name="selectedco_auther[{{$loop->index}}][autherName]" value="{{$selectedco_auther->autherName}}"></td>
+                                                        <td><input type="number" name="selectedco_auther[{{$loop->index}}][order]" value="{{$selectedco_auther->order}}"></td>
+                                                    </tr>
+                                                @endforeach--}}
 
                         {{--
 
