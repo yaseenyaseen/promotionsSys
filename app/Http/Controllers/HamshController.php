@@ -588,48 +588,29 @@ $promotion_reqsForCollage=null;
         //below code is the new coding for the storf method.
         $request->validate([]);
         Paper::create($request->all());
-        $HForm_id = Paper::latest('created_at')->value('id');//HFrorm means the hamsh form.
-        $HForm = Paper::find($HForm_id);
+        $paperID = Paper::latest('created_at')->value('id');//HFrorm means the hamsh form.
+        $HForm = Paper::find($paperID);
         $reqsos = PromotionReq::where('user_id', Auth::user()->id)->latest('created_at')->first();// Q/ last promotion request only
         $proreq_id = $reqsos->id;
         $HForm->promotionReqs_id = $proreq_id;
         $HForm->save();
-/*
-        CoAuther::create($request->all());
-        $HForm_id2 = CoAuther::latest('created_at')->value('id');//HFrorm means the hamsh form.
-        $HForm2 = CoAuther::find($HForm_id2);
-        $HForm2->papers_id = $HForm_id;
-
-
-        $HForm2->save();*/
 
         if ($request->autherName != null)
         {
-            $HForm_id = Paper::latest('created_at')->value('id');
-            CoAuther::create($request->all());
-            $HForm_id2 = CoAuther::latest('created_at')->value('id');//HFrorm means the hamsh form.
-            $HForm2 = CoAuther::find($HForm_id2);
-            $HForm2->papers_id =  $HForm_id;
-            //  dd($HForm3->papers_id);
+            $HForm2= CoAuther::create();
+            $HForm2->papers_id =  $paperID;
             $HForm2->autherName = $request->autherName;
             $HForm2->order = $request->order;
             $HForm2->save();
         }
-
         if ($request->autherName1 != null)
         {
-            $HForm_idt = Paper::latest('created_at')->value('id');
-            CoAuther::create($request->all());
-            $HForm_id3 = CoAuther::latest('created_at')->value('id');//HFrorm means the hamsh form.
-            $HForm3 = CoAuther::find($HForm_id3);
-            $HForm3->papers_id =  $HForm_idt;
-          //  dd($HForm3->papers_id);
+            $HForm3= CoAuther::create();
+            $HForm3->papers_id =  $paperID;
             $HForm3->autherName = $request->autherName1;
             $HForm3->order = $request->order1;
             $HForm3->save();
         }
-
-
         return redirect()->route('createpapersdata')
             ->with('success', 'Hamsh created successfully.');
         //todo: consider the below code of edit form: //
@@ -979,7 +960,7 @@ $isDegree=true;
         $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
             ->latest('created_at')->first();
         //$papers = Paper::where('promotionReqs_id', $PromotionReqUser->id)->get();
-        $selectedco_authers = CoAuther::where('papers_id', $selectedOptionId)->first();
+        $selectedco_authers = CoAuther::where('papers_id', $selectedOptionId)->get();
 
 
         return $this->returnViewCreateForm($PromotionReqUser->id, $selectedPaper,$selectedco_authers);
@@ -1188,9 +1169,16 @@ $isDegree=true;
         $option->sabbaticalLeave = $request->has('sabbaticalLeave');
         $option->supportedPaper = $request->has('supportedPaper');
         $option->Is_suppPaper_In_SciPlan = $request->has('Is_suppPaper_In_SciPlan');
-
-
         $option->save();
+        $selectedco_authers = $request->input('selectedco_authers');
+        dd($selectedco_authers);
+/*
+        foreach($selectedco_authers as $selectedco_auther){
+            $selectedco_autherA = CoAuther::find($selectedco_auther['id']);
+            $selectedco_autherA->autherName = $selectedco_auther['autherName'];
+            $selectedco_autherA->order = $selectedco_auther['order'];
+            $selectedco_autherA->save();
+        }*/
 
         return redirect()->route('NewApplicationBoard')
             ->with('success', 'The Scientific plan Form is updated successfully');
@@ -1447,9 +1435,8 @@ if($isDegree==1){
     public function returnViewCreateForm($id, $selectedPaper = null, $selectedco_authers)
     {
         $papers = Paper::where('promotionReqs_id', $id)->get();
-        $co_auther=$selectedco_authers;
         return view('hamshs.forms.createform',
-            compact('papers', 'selectedPaper','co_auther')) // how the option hold a selected paper? as in method definition = null
+            compact('papers', 'selectedPaper','selectedco_authers')) // how the option hold a selected paper? as in method definition = null
         ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
