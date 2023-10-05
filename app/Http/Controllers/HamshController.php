@@ -186,8 +186,15 @@ $promotion_reqsForCollage=null;
             ->latest('created_at')->first();
         $ScientificPlagiarisedMinute = ScientificPlagiarisedMinute::where('promotionReqs_id', $PromotionReqUser->id)->get()->first();
 
+        $papers = Paper::where('promotionReqs_id', $PromotionReqUser->id)->get();
+      /*  $selectedco_authers
+                    $selectedco_authers = CoAuther::where('papers_id', $selectedOptionId)->get();*/
+
+/*        dd($PromotionReqUser);*/
+        $theses = These::where('promotionReqs_id', $PromotionReqUser->id)->get();
+
         return view('hamshs.forms.Scientific_plagiarised_minutes.index',
-            compact('PromotionReqUser','ScientificPlagiarisedMinute','user_id'))
+            compact('PromotionReqUser','ScientificPlagiarisedMinute','user_id','papers','theses'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
