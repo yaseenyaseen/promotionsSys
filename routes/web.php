@@ -211,6 +211,14 @@ Route::post('hamshs/forms/userPromotiondata/update', [HamshController::class, 'u
  * add attachments
  */
 Route::get('/hamshs/attachments/index/{user_id}', [HamshController::class, 'attachmentsindex'])->name('attachmentsindex');
+Route::post('hamshs/attachments/upload', [HamshController::class, 'postPatent'])->name('postPatent');
+
+/*
+Route::post('/reg_patent', [
+    'uses' => 'HomeController@postPatent',
+    'as' => 'reg_patent',
+])->middleware('auth');*/
+
 /* assign role
 */
 Route::get('/users_list', [\App\Http\Controllers\HamshController::class, 'getUsers'])->name('users_list');

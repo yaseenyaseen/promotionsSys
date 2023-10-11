@@ -18,6 +18,7 @@ use App\Models\SciPlan;
 use App\Models\selectData;
 use App\Models\PromotionReq;
 use App\Models\College;
+use Illuminate\Support\Facades\Storage;
 
 //use http\Client\Curl\User;
 use App\Models\These;
@@ -254,11 +255,51 @@ $promotion_reqsForCollage=null;
         $user = User::find($user_id)[1];
         $PromotionReqUser = PromotionReq::where('user_id', $user->id)
             ->latest('created_at')->first();
-
+$msg = "null";
         return view('hamshs.attachments.index',
-            compact('PromotionReqUser'))
+            compact('PromotionReqUser', 'msg'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    public function postPatent(Request $req)
+    {
+        $file_research = $req->file('research');
+        if ($file_research) {
+            $path = "public/pdf";
+            $fileExtension_research = $req->research->extension();
+            $filePath_research = "app/public/pdf/" . "research" . $rnd . $insertedId . "." . $fileExtension_research;
+            $fileName_research = "research" . $insertedId . $rnd . "." . $fileExtension_research;
+          /*
+            $newPatent = Patents::find($insertedId);
+            $newPatent->doc_path = $filePath_research;
+            $newPatent->update();
+          */
+            Storage::putFileAs($path, $file_research, $fileName_research);
+        }
+        $path = Storage::putFile('avatars', $req->file('research'));
+
+
+        dd($path);
+
+
+        if ($file_research) {
+            dd($file_research);
+
+            $fileExtension = $req->research->extension();
+            if ($fileExtension != "pdf" && $fileExtension != "DPF") {
+                $msg = "!!لم تتم عملية الاضافة!! الرجاء التأكد من نوع الملف pdf";
+                return redirect()->back()->with(['msg' => $msg]);
+            }
+        }
+
+        $msg = "تم اضافة البيانات بنجاح";
+        return redirect()->back()->with(['msg' => $msg]);
+        /*
+        return redirect()->route('ProApplicationSummaryindex', Auth::user()->id)
+            ->with('success', 'أضافة بيانات على استمارة ملخص معاملة الترقية تمت بنجاح');
+        */
+    }
+
+
 
     public function positionsDegreesindex(User $user_id)
     {

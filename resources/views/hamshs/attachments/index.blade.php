@@ -1,7 +1,10 @@
 @extends('blogs.layout')
 
 @section('content')
+@if($msg != null)
 
+    {{$msg}}
+@endif
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -15,7 +18,28 @@
                  <br>
                  دورة حاسوب
                  <br>
+                 <form action="{{ route('postPatent') }}" method="POST" enctype="multipart/form-data">
+                     @csrf
+
+{{--
+                 <form action="{{route('postPatent'}}" method="post">
+--}}
+
                  نتائج الاستلال الالكتروني
+                 <div id="insert" class="w3-container tab w3-animate-bottom ">
+                    {{-- <label for="research">{{__('naming.patent_doc')}}</label>--}}
+                     <div class="form-group row">
+                         <div class="col col-sm-12 col-md-6  col-lg-6">
+                             <input type="file" name="research" class="form-control" id="research">
+                         </div>
+                     </div>
+                 </div>
+                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                         <button type="submit" class="btn btn-primary">حفظ</button>
+                     </div>
+                 </form>
+
+
                  <br>
                  كتاب حلقة دراسية
                  <br>
