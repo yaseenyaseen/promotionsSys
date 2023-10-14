@@ -40,6 +40,9 @@ class CreatePromotionReqsTable extends Migration
             $table->boolean('status')->nullable();// done or not
             $table->integer('Pro_OrderNo')->nullable();
             $table->timestamp('Pro_OrderDate')->nullable();
+            $table->string('doc_path')->nullable();
+
+
             $table->timestamps();
         });
     }

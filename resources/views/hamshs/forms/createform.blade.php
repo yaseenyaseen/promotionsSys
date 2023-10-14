@@ -198,11 +198,11 @@
                   $table->timestamp('headCommitee_createdat')->nullable();--}}
                         <input type="hidden" name="$selectedco_authers" value="{{ $selectedco_authers }}">
                         <label >اسماء الباحثين المشاركين في البحث</label>
-                        @foreach($selectedco_authers as $selectedco_auther)
-                           {{--
+                    {{--    @foreach($selectedco_authers as $selectedco_auther)
+                           --}}{{--
                             {{$selectedco_auther['autherName']}}
                             {{$selectedco_auther['order']}}
-                           --}}
+                           --}}{{--
                             <div class="form-group col-sm-12 col-md-12 col-lg-12">
                                 <label for="autherName">الباحث المشارك</label>
                                 <input type="textarea" class="form-control" name="autherName"
@@ -215,63 +215,35 @@
                                        min="0">
                             </div>
                             <br>
-                        @endforeach
-                        {{ $selectedco_authers }}
+                        @endforeach--}}
+                        {{--{{ $selectedco_authers }}--}}
                         <br>
+                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <label for="autherName">الاسم</label>
+                           <input type="hidden" name="selectedco_auther_id" value="{{$selectedco_authers[0]->id}}">
+                           <input type="text" name="selectedco_auther_name" value="{{$selectedco_authers[0]->autherName}}">
+                            <label for="order">التسلسل</label>
 
-                        <td>{{$selectedco_authers[0]->id}} <input type="hidden" name="selectedco_auther_id" value="{{$selectedco_authers[0]->id}}"></td>
+                            <input type="number" name="selectedco_auther_order" value="{{$selectedco_authers[0]->order}}">
+                        </div>
+                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <label for="selectedco_auther1_name">الاسم</label>
+                            <input type="hidden" name="selectedco_auther1id" value="{{$selectedco_authers[1]->id}}">
+                            <input type="text" name="selectedco_auther1_name" value="{{$selectedco_authers[1]->autherName}}">
+                            <label for="order">التسلسل</label>
+                            <input type="number" name="selectedco_auther1_order" value="{{$selectedco_authers[1]->order}}">
+                        </div>
+
+                      {{--  <td>{{$selectedco_authers[0]->id}} <input type="hidden" name="selectedco_auther_id" value="{{$selectedco_authers[0]->id}}"></td>
                         <td><input type="text" name="selectedco_auther_name" value="{{$selectedco_authers[0]->autherName}}"></td>
                         <td><input type="number" name="selectedco_auther_order" value="{{$selectedco_authers[0]->order}}"></td>
+--}}
+                       {{-- <td>{{$selectedco_authers[1]->id}} <input type="hidden" name="selectedco_auther1id" value="{{$selectedco_authers[1]->id}}"></td>
+                        <td><input type="text" name="selectedco_auther1_name" value="{{$selectedco_authers[1]->autherName}}"></td>
+                        <td><input type="number" name="selectedco_auther1_order" value="{{$selectedco_authers[1]->order}}"></td>
 
-                        <td>{{$selectedco_authers[1]->id}} <input type="hidden" name="selectedco_auther1-id" value="{{$selectedco_authers[1]->id}}"></td>
-                        <td><input type="text" name="selectedco_auther1-name" value="{{$selectedco_authers[1]->autherName}}"></td>
-                        <td><input type="number" name="selectedco_auther1-order" value="{{$selectedco_authers[1]->order}}"></td>
+--}}
 
-
-
-
-                        {{--
-                                                <input type="hidden" name="$selectedco_authers" value="{{ $selectedco_authers }}">
-                                                @foreach($selectedco_authers as $selectedco_auther)
-                                                    <tr>
-                                                        <td>{{$selectedco_auther->id}} <input type="hidden" name="selectedco_auther[{{$loop->index}}][id]" value="{{$selectedco_auther->id}}"></td>
-                                                        <td><input type="text" name="selectedco_auther[{{$loop->index}}][autherName]" value="{{$selectedco_auther->autherName}}"></td>
-                                                        <td><input type="number" name="selectedco_auther[{{$loop->index}}][order]" value="{{$selectedco_auther->order}}"></td>
-                                                    </tr>
-                                                @endforeach--}}
-
-                        {{--
-
-                                                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                                        <label >اسماء الباحثين المشاركين في البحث</label>
-                                                        <label for="autherName">الباحث المشارك</label>
-                                                        <input type="textarea" class="form-control" name="autherName"
-                                                               value="{{ $co_auther->autherName }}"></inputtextarea>
-                                                    </div>
-                                                    <div class="form-group col-sm-12 col-md-6 col-lg-12">
-                                                        <label for="order">التسلسل</label>
-                                                        <input type="number" name="order" id="order"
-                                                               value="{{ $co_auther->order}}"
-                                                               min="0">
-                                                    </div>
-
-
-
-
-                                                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
-
-                                                        <label for="autherName1">الباحث المشارك</label>
-                                                        <input type="textarea" class="form-control" name="autherName1"
-                                                               value="{{ $co_auther->autherName1 }}"></inputtextarea>
-                                                    </div>
-                                                    <div class="form-group col-sm-12 col-md-6 col-lg-12">
-                                                        <label for="order1">التسلسل</label>
-                                                        <input type="number" name="order1" id="order1"
-                                                               value="{{ $co_auther->order1}}"
-                                                               min="0">
-                                                    </div>
-
-                        --}}
                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
                             <label for="plagiarised_Details">تفاصيل الاستلال</label>
                             <input type="textarea" class="form-control" name="plagiarised_Details"

@@ -34,6 +34,7 @@ class PromotionReq extends Model
         'status', // done or not
         'Pro_OrderNo',
         'Pro_OrderDate',
+        'doc_path',
 'created_at'
 
         //end of add table columns

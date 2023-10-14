@@ -263,27 +263,28 @@ $msg = "null";
     public function postPatent(Request $req)
     {
         $file_research = $req->file('research');
+        $rnd = rand(1000, 9999);
+
         if ($file_research) {
             $path = "public/pdf";
             $fileExtension_research = $req->research->extension();
-            $filePath_research = "app/public/pdf/" . "research" . $rnd . $insertedId . "." . $fileExtension_research;
-            $fileName_research = "research" . $insertedId . $rnd . "." . $fileExtension_research;
+            $filePath_research = "app/public/pdf/" . "research" . $rnd . "." . $fileExtension_research;
+            $fileName_research = "research" . $rnd . "." . $fileExtension_research;
+            $PromotionReqUser = PromotionReq::where('user_id', Auth::user()->id)
+                ->latest('created_at')->first();
+            $PromotionReqUser->doc_path = $filePath_research;
+            $PromotionReqUser->update();
           /*
             $newPatent = Patents::find($insertedId);
             $newPatent->doc_path = $filePath_research;
             $newPatent->update();
           */
+
             Storage::putFileAs($path, $file_research, $fileName_research);
         }
-        $path = Storage::putFile('avatars', $req->file('research'));
-
-
-        dd($path);
-
+/*        $path = Storage::putFile('avatars', $req->file('research'));*/
 
         if ($file_research) {
-            dd($file_research);
-
             $fileExtension = $req->research->extension();
             if ($fileExtension != "pdf" && $fileExtension != "DPF") {
                 $msg = "!!لم تتم عملية الاضافة!! الرجاء التأكد من نوع الملف pdf";
@@ -1220,12 +1221,16 @@ $isDegree=true;
         $option->save();
 
 
-
         $selectedco_autherA = CoAuther::find($request->selectedco_auther_id);
         $selectedco_autherA->autherName = $request->selectedco_auther_name;
         $selectedco_autherA->order = $request->selectedco_auther_order;
         $selectedco_autherA->save();
 /*add second auther info*/
+
+        $selectedco_autherb = CoAuther::find($request->selectedco_auther1id);
+        $selectedco_autherb->autherName = $request->selectedco_auther1_name;
+        $selectedco_autherb->order = $request->selectedco_auther1_order;
+        $selectedco_autherb->save();
 
 
 /*
