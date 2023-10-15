@@ -42,14 +42,18 @@
                         {{$ProApplicationSummary->id}}
                         <br>
                     </div>
-                    <tr>
+
                         <br>
+                    @role('admin')
                         <a class="btn btn-primary"
                            href="{{ route('editProApplicationSummary',$ProApplicationSummary) }}">
                             الاطلاع و تعديل استمارة ملخص معاملة الترقية و الهوامش المتعقلة</a>
-                        <a class="btn btn-info"
+                    @endrole
+
+                    <a class="btn btn-info"
                            href="{{ route('showProApplicationSummary',$ProApplicationSummary) }}">طباعة</a>
                         <br>
+
                         <div class="row">
                             <div class="form-group col-sm-12 col-md-6 col-lg-6">
                                 <strong>المرتبة العلمية الحالية :</strong>

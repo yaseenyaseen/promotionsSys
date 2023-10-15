@@ -111,7 +111,7 @@ Route::get('/hamshs/forms/PromReq_submissionForm/createRequestApplyingHamsh', [H
 Route::post('/hamshs/forms/PromReq_submissionForm/store', [HamshController::class, 'storeReqApplyingHamsh'])->name('storeReqApplyingHamsh');
 Route::get('/hamshs/PromReq_submissionForm/editHamshsciplan/{Ham_id}', [HamshController::class, 'editHamshProReq'])->name('hamshs.PromReq_submissionForm.forms.editHamsh');
 Route::put('/hamshs/PromReq_submissionForm/updateHamshsrequest_applying/{hamsh_id}', [HamshController::class, 'updateHamshsrequest_applying'])->name('hamshs.forms.updateHamshsrequest_applying');
-Route::get('/hamshs/forms/PromReq_submissionForm/showHamsh/{Ham_id}', [HamshController::class, 'showHamshrequest_applying'])->name('hamshs.forms.showHamshrequest_applying');
+Route::get('/hamshs/forms/PromReq_submissionForm/showHamsh/{Ham_id}', [HamshController::class, 'showHamshrequest_applying'])->name('hamshs.forms.showHamshrequest_applying'); // error
 
 /*admins*/
 Route::view('/administrators/indexrequestApplying', 'hamshs.forms.administrators.indexrequestApplying')->name('hamshs.forms.administrators.indexrequestApplying');// صفحة مسؤلين انجاز 'طلب الترقية'

@@ -7,12 +7,9 @@
                 <br>
                 <br>
                 <br>
-
                 {{--   <div class="pull-right">
                        <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
                    </div>--}}
-
-
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <label>
@@ -21,10 +18,8 @@
                             لاكمالي المدة القانونية اللازمة او قبل سنة من تاريخ استحقاق الترقية وفقا للفقرة (اولا –
                             1) من
                             القرار 315 لسنة 1988 ، علما انه تم أدارج بحوثي المقدمة للترقية العلمية :
-
                         </label>
                         <strong>مقدم الطلب :</strong>
-
                         {{ $hamsh->Applicant_hamsh }}
                     </div>
                 </div>
@@ -40,8 +35,6 @@
                         {{ $hamsh->Dean_hamsh }}
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>

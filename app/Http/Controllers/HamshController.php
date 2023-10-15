@@ -874,6 +874,15 @@ $msg = "null";
         return view('hamshs.forms.showHamshsciplan', compact('hamsh'));
 
     }
+    public function showHamshrequest_applying(RequestApplying $Ham_id)
+    {
+        //
+        $hamsh = $Ham_id;
+        return view('hamshs.forms.PromReq_submissionForm.showrequest_applying', compact('hamsh'));
+
+    }
+
+
 
     public function showScientific_Committee(ScientificCommittee_minute $Ham_id)
     {

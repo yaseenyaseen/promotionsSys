@@ -94,31 +94,7 @@
                         </div>
                     </div>
                     @endrole
-                    {{--
 
-                                        @role('Coll_Sci_Affairs|admin')
-
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>شؤون علمية كلية:</strong>
-                                                <input type="text" name="Sci_plan_Coll_Sci_Affairs"
-                                                       value="{{ $hamsh->Sci_plan_Coll_Sci_Affairs }}"
-                                                       class="form-control"
-                                                       placeholder="لا مانع ...">
-                                            </div>
-                                        </div>
-                                        @else
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>شؤون علمية كلية:</strong>
-                                                    <input type="text" name="Sci_plan_Coll_Sci_Affairs"
-                                                           value="{{ $hamsh->Sci_plan_Coll_Sci_Affairs }}"
-                                                           class="form-control"
-                                                           placeholder="لا مانع ..." readonly>
-                                                </div>
-                                            </div>
-                                            @endrole
-                    --}}
 
                     @role('معاون العميد للشؤون العلمية (كلية)')
                     @csrf

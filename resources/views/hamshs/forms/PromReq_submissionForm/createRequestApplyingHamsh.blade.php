@@ -41,8 +41,8 @@
                     </div>
                 </div>
                 @endrole
-                {{--
-                    @role('HeadDepartment_Coll|admin')
+
+     @role('HeadDepartment_Coll|admin')
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong> هامش السيد رئيس القسم :</strong><br>
@@ -63,7 +63,7 @@
                         </div>
                         @endrole
 
---}}
+
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                     <button type="submit" class="btn btn-primary">حفظ</button>
                 </div>

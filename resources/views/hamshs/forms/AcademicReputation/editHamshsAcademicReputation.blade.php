@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>تعديل هامش ومعلومات-استمارة معلومات الوظائف التي مارسها و الشهادة مقدم الترقية</h2>
+                <h2>تعديل هامش ومعلومات-استمارة التسجيل بالمواقع البحثية و الهوامش المتعقلة</h2>
             </div>
             {{-- <div class="pull-right">
                  <a class="btn btn-primary" href="{{ route('hamshs.forms.sciplanindex') }}"> Back</a>
@@ -159,7 +159,7 @@
                         </label>
                     </div>
 
-
+{{--add دور مسؤل مركز الحاسبة --}}
                     @else
                         <div class="form-check col-sm-12 col-md-12 col-lg-12 ">
                             <strong> هامش مسؤول مركز الحاسبة :</strong><br>
